@@ -1,0 +1,339 @@
+<style>
+	.page_content {padding:0;}
+</style>
+
+<div class="program_navi">
+	<div class="item ftv_link"  md_url="/q_program/create/question_id/<{$question.id}>">
+		<div class="id"><span>1</span></div>
+		<div class="content">基本信息</div>
+	</div>
+	<div class="item active">
+		<div class="id"><span>2</span></div>
+		<div class="content">测试数据</div>
+	</div>
+
+</div>
+
+<div class="program_content">
+
+<div>
+	一个测试点包含输入数据和输出数据，请不要包含多余空格。<br>
+	每个测试点通过后的真实得分为：当前测试点分值 / 所有测试点分值和 * 题目分值。<br>
+	您也可以通过上传文件的方式上传新测试点。<br>
+	注：测试数据请尽量不要太大，总大小超过20KB的数据无法在线编辑。<br>
+</div>
+
+
+<div style="margin-top:20px;">
+	<span class="btn btn-primary" data-toggle="modal" data-target=".new_testcase"><i class="fa fa-plus"></i> 添加新测试点</span>　&nbsp;or　
+	<span class="btn btn-primary" data-toggle="modal" data-target=".upload_testcase"><i class="fa fa-upload"></i> 上传新测试点</span>
+</div>
+
+<table class="mytable form_div" style="margin-top:20px;width:100%;">
+	<tr class="tt">
+		<td width="70px">
+			<label>选择</td>
+		<td>编号</td>
+		<td>分值</td>
+		<td>输入大小</td>
+		<td>输出大小</td>
+		<td width="45%">操作</td>
+	</tr>
+	<?php 
+		$cnt = 0;
+		foreach($program['testcases'] as $case) {
+			$cnt++;
+	?>
+	<tr class="testcase_<{$cnt}>">
+		<td>
+			<label>
+				<input type="checkbox">
+				<span class="icon"></span>
+			</label>
+		</td>
+		<td class="testcase_id"><{$cnt}></td>
+		<td class="score"><{$case.score}></td>
+		<td><{$case.inputSize2}></td>
+		<td><{$case.outputSize2}></td>
+		<td onselectstart="return false">
+			<span class="btn btn-white edit_testcase_t <?php if ($case['inputSize'] + $case['outputSize'] > 20 * 1024) echo 'disabled'; ?>"><i class="fa fa-edit"></i> 编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class="btn btn-white download_testcase"><i class="fa fa-download"></i> 下载</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class="btn btn-white delete_testcase_t"><i class="fa fa-times"></i> 删除</span>
+			<span class="delete_testcase_content" style="display:none">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span class="ftv_link" md_url="/q_program/deleteT/question_id/<{$question.id}>/testcase_id_list/<{$cnt}>|" style="cursor:pointer;color:red;font-size:16px;">确定</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;<span style="cursor:pointer;color:black;font-size:16px;" onclick="$(this).parent().hide()">取消</span>
+			</span>
+		</td>
+	</tr>
+	<?php } ?>
+	<?php if ($cnt == 0) { ?>
+	<tr>
+		<td colspan="6">尚未添加测试点</td>
+	</tr>
+	<?php } else { ?>
+	<tr class="toolbar">
+		<td>
+			<label>
+				<input class="select_all" type="checkbox">
+				<span class="icon"></span>
+			</label>
+		</td>
+		<td colspan="5" style="text-align:left;padding-left:20px;">
+			<span type="button" class="btn btn-white change_score_t" data-toggle="modal" data-target=".change_score"><i class="fa fa-pencil"></i> 修改分值</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			<span type="button" class="btn btn-white download_select_testcase"><i class="fa fa-download"></i> 下载</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			<span type="button" class="btn btn-white delete_select_testcase_t"><i class="fa fa-times"></i> 删除</span>
+			<span class="delete_select_testcase" style="display:none">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span style="cursor:pointer;color:red;font-size:16px;">确定</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;<span style="cursor:pointer;color:black;font-size:16px;" onclick="$(this).parent().hide()">取消</span>
+			</span>
+		</td>
+	</tr>
+	<?php } ?>
+</table>
+
+<span class="btn btn-primary ftv_link" style="display:block;margin-top:20px;width:80px;" md_url="/question/index">完成</span>
+
+</div>
+
+<div class="clear"></div>
+
+<!-- 添加数据 -->
+<div class="modal new_testcase fade form_div">
+<div class="modal-dialog">
+<div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title">添加新测试点</h4>
+	</div>
+	<div class="modal-body">
+	<form name="new" action="/q_program/createT" method="post" class="myform">
+		<div class="content" style="margin:0;">
+			<div class="item">
+				<div class="tt">分值<span class="tip"></span></div>
+				<div class="ct"><input name="score" type="text" class="form-control" value="10"></div>
+			</div>
+			<div class="item textarea">
+				<div class="tt">输入数据<span class="tip"></span></div>
+				<div class="ct"><textarea name="input" type="text" class="form-control" style="height:100px;"></textarea></div>
+			</div>
+			<div class="item textarea">
+				<div class="tt">输出数据<span class="tip"></span></div>
+				<div class="ct"><textarea name="output" type="text" class="form-control" style="height:100px;"></textarea></div>
+			</div>
+		</div>
+		<div class="modal-footer">			
+			<span type="button" class="btn btn-default" data-dismiss="modal">关闭</span>
+			<input type="submit" value="添加" class="form-control btn btn-primary">
+			<span class="submitTip hidden">添加</span>
+			<span class="submittingTip hidden">添加中</span>
+			<span class="successTip hidden">成功</span>
+			<span class="failTip hidden">失败</span>
+			<input class="hidden" name="question_id" value="<{$question.id}>">
+		</div>
+	</form>
+	</div>
+</div>
+</div>
+</div>
+
+<!-- 编辑数据 -->
+<div class="modal edit_testcase fade">
+<div class="modal-dialog">
+<div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title">编辑测试点</h4>
+	</div>
+	<div class="modal-body form_div">
+	<form name="edit" action="/q_program/editT" method="post" class="myform">
+		<div class="content" style="margin:0;">
+			<div class="item">
+				<div class="tt">分值<span class="tip"></span></div>
+				<div class="ct"><input name="score" type="text" class="form-control" value="10"></div>
+			</div>
+			<div class="item textarea">
+				<div class="tt">输入数据<span class="tip"></span></div>
+				<div class="ct"><textarea name="input" type="text" class="form-control" style="height:100px;"></textarea></div>
+			</div>
+			<div class="item textarea">
+				<div class="tt">输出数据<span class="tip"></span></div>
+				<div class="ct"><textarea name="output" type="text" class="form-control" style="height:100px;"></textarea></div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<span type="button" class="btn btn-default" data-dismiss="modal">关闭</span>
+			<input type="submit" value="编辑" class="form-control btn btn-primary">
+			<span class="submitTip hidden">编辑</span>
+			<span class="submittingTip hidden">编辑中</span>
+			<span class="successTip hidden">成功</span>
+			<span class="failTip hidden">失败</span>
+			<input class="hidden" name="question_id" value="<{$question.id}>">
+			<input class="hidden" name="testcase_id" value="">
+		</div>
+	</form>
+	</div>
+</div>
+</div>
+</div>
+
+<!-- 上传数据 -->
+<div class="modal upload_testcase fade form_div">
+<div class="modal-dialog">
+<div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title">上传新测试点</h4>
+	</div>
+	<div class="modal-body">
+	<form name="change" action="/q_program/uploadT" method="post" class="myform" enctype="multipart/form-data">
+		<div class="content" style="margin:0;">
+			<div class="item">
+				<div class="tt">说明<span class="tip"></span></div>
+				<div class="ct">
+					仅可上传zip文件，单个文件大小不得大于20M，zip内不能有文件夹。<br>
+					测试点输入文件的后缀应为.in，输出文件的后缀应为.out。<br>
+					单个测试点的输入和输出文件名应该一致，比如"xx.in"和"xx.out"。<br>
+					上传的测试点将会自动追加到原有测试点后面，不会覆盖。<br>
+					上传的测试点将会统一被设定为10分分值。<br>
+					<input name="error" class="hidden">
+				</div>
+			</div>
+			<div class="item">
+				<div class="tt"><span class="tip"></span></div>
+				<div class="ct"><input name="tesecase" type="button" class="form-control btn btn-success file" value="点击上传" md_default_value="点击上传"></div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<span type="button" class="btn btn-default" data-dismiss="modal">关闭</span>
+			<input type="submit" value="上传" class="form-control btn btn-primary">
+			<span class="submitTip hidden">上传</span>
+			<span class="submittingTip hidden">上传中</span>
+			<span class="successTip hidden">成功</span>
+			<span class="failTip hidden">失败</span>
+			<input class="hidden" name="question_id" value="<{$question.id}>">
+		</div>
+	</form>
+	</div>
+</div>
+</div>
+</div>
+
+
+<!-- 修改分值 -->
+<div class="modal change_score fade form_div">
+<div class="modal-dialog">
+<div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title">修改分值</h4>
+	</div>
+	<div class="modal-body">
+	<form name="upload" action="/q_program/changeTScore" method="get" class="myform">
+		<div class="content" style="margin:0;">
+			<div class="item">
+				<div class="tt">分值<span class="tip"></span></div>
+				<div class="ct"><input name="score" class="form-control" value="10"></div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<span type="button" class="btn btn-default" data-dismiss="modal">关闭</span>
+			<input type="submit" value="修改" class="form-control btn btn-primary">
+			<span class="submitTip hidden">修改</span>
+			<span class="submittingTip hidden">修改中</span>
+			<span class="successTip hidden">成功</span>
+			<span class="failTip hidden">失败</span>
+			<input class="hidden" name="question_id" value="<{$question.id}>">
+			<input class="hidden" name="testcase_id_list" value="">
+		</div>
+	</form>
+	</div>
+</div>
+</div>
+</div>
+
+<script>
+	// 编辑
+	$('.edit_testcase_t').click(function() {
+		var obj = $(this).parent().parent();
+		$.post('/q_program/getT', {question_id:<{$question.id}>, testcase_id:$(this).parent().parent().find('.testcase_id').html()},
+			function(ret) {
+				$('.edit_testcase input[name="testcase_id"]').val(obj.find('.testcase_id').html());
+				$('.edit_testcase input[name="score"]').val(obj.find('.score').html());
+				$('.edit_testcase textarea[name="input"]').val(ret.input);
+				$('.edit_testcase textarea[name="output"]').val(ret.output);
+				$('.edit_testcase').modal('show');
+			}
+		);
+	});
+	
+	// 删除
+	$('.delete_testcase_t').click(function() {
+		$(this).next('.delete_testcase_content').toggle();
+	});
+	$('.delete_select_testcase_t').click(function() {
+		$(this).next('.delete_select_testcase').toggle();
+	});
+	$('.delete_select_testcase span:first-child').click(function() {
+		location.hash = $.base64.btoa('/q_program/deleteT/question_id/<{$question.id}>/testcase_id_list/' + getIdList());
+	});
+	
+	
+	// 下载
+	$('.download_testcase').click(function() {
+		downloadTestcase($(this).parent().parent().find('.testcase_id').html() + '|');
+	});
+	$('.download_select_testcase').click(function() {
+		downloadTestcase(getIdList());
+	});
+	function downloadTestcase(idList) {
+		var iframe = $('<iframe></iframe>');
+		if ($('.download_testcase_iframe').length != 0) 
+			iframe = $('.download_testcase_iframe');
+		iframe.attr('src', '/q_program/downloadT/question_id/<{$question.id}>/testcase_id_list/' + idList);
+		iframe.attr('class', 'download_testcase_iframe');
+		iframe.addClass('hidden');
+		if ($('.download_testcase_iframe').length == 0) 
+			iframe.appendTo('.page_content');
+	}
+	
+	// 全选
+	var totChecked = 0;
+	$('input[type="checkbox"]').click(function() {
+		if ($(this).attr('class') == 'select_all') {
+			if ($(this).attr('checked') == 'checked') {
+				$('input[type="checkbox"]').attr('checked', 'checked');
+				totChecked = $('input[type="checkbox"]').length - 1;
+			}
+			else {
+				$('input[type="checkbox"]').attr('checked', null);
+				totChecked = 0;
+			}
+		} else {
+			if ($(this).attr('checked') == 'checked')
+				totChecked++;
+			else
+				totChecked--;
+			if (totChecked == $('input[type="checkbox"]').length - 1)
+				$('.select_all').attr('checked', 'checked');
+			else
+				$('.select_all').attr('checked', null);
+		}
+	});
+	
+	// 修改分数
+	$('.change_score_t').click(function() {
+		$('.change_score input[name="testcase_id_list"]').val(getIdList());
+	});
+	
+	// 获取选中的编号列表
+	function getIdList() {
+		idList = '';
+		var tot = $('tr').length - 2;
+		for (var i = 2; i < tot + 2; i++) {
+			var obj = $('tr:nth-child('+i+')');
+			if (obj.find('input[type="checkbox"]').attr('checked') == 'checked')
+				idList += obj.find('.testcase_id').html() + '|';
+		}
+		return idList;
+	}
+</script>

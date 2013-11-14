@@ -1,0 +1,31 @@
+<div class="setting">
+
+	<div class="form_div">
+		<div class="content" style="margin:0;">
+		<form name="register" action="/test/settingDo" method="post" class="myform">
+			<div class="item left">
+				<div class="tt">测试名称<span class="tip"></span></div>
+				<div class="ct"><input name="name" type="text" class="form-control" value="<{$test.name}>"></div>
+			</div>
+			<div class="item left">
+				<div class="tt">持续时间（分）<span class="tip"></span></div>
+				<div class="ct"><input name="duration" type="text" class="form-control" value="<{$test.duration}>"></div>
+			</div>
+			<div class="clear"></div>
+			<div class="item textarea">
+				<div class="tt">测试描述<span class="tip"></span></div>
+				<div class="ct"><textarea name="desc" type="text" class="form-control"><{$test.desc}></textarea></div>
+			</div>
+			<div class="item submit">
+				<div class="ct"><input type="submit" value="保存" class="form-control btn btn-primary"></div>
+			</div>
+			<input name="test_id" value="<{$_GET.test_id}>" class="hidden">
+			<span class="submitTip hidden">保存</span>
+			<span class="submittingTip hidden">正在保存</span>
+			<span class="successTip hidden">保存成功</span>
+			<span class="failTip hidden">保存失败</span>
+		</form>
+		</div>
+	</div>
+
+</div>

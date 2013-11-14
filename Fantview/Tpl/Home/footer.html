@@ -1,0 +1,87 @@
+</div>
+</div>
+
+<div class="loading hidden">
+<div class="content">
+	<img src="/image/logo.png" height="40px;"><br>
+	<img src="/image/loading.gif">
+	
+</div>
+</div>
+
+<script>
+function windowResize() {
+	var bodyHeight = parseInt($('body').css('height'));
+	var bodyWidth = parseInt($('body').css('width'));
+	
+	/* 顶部 */
+	//=====================================================================
+	// logo
+	var headerHeight = parseInt($('.header').css('height'));
+	var headerListWidth = parseInt($('.header .list').css('width'));
+	var headerTestWidth = parseInt($('.header .test').css('width'));
+	$('.header .test').css('margin-left', (bodyWidth - headerTestWidth) / 2 - headerListWidth);
+	//=====================================================================
+	
+	/* 测试列表 */
+	//=====================================================================
+	// 测试列表高度
+	$('.test_list').css('height', bodyHeight - headerHeight - 52);
+	// 报告宽度
+	var testListWidth = parseInt($('.test_list').css('width'));
+	var reportWidth = parseInt($('.test_list .item .report').css('width'));
+	$('.item .info').css('width', testListWidth - reportWidth - 25);
+	// 信息宽度
+	var infoWidth = parseInt($('.test_list .item .info').css('width'));
+	var infoItWidth = parseInt($('.test_list .item .info .it').css('width'));
+	$('.test_list .item .info .cont').css('width', infoWidth - 2 * infoItWidth - 2);
+	//=====================================================================
+
+	/* 左面板 */
+	//=====================================================================
+	$('.left_panel').css('height', bodyHeight - headerHeight);
+	var leftPanelWidth = parseInt($('.left_panel').css('width'));
+	//=====================================================================
+	
+	/* 页面内容 */
+	//=====================================================================
+	$('.page').css('width', bodyWidth - leftPanelWidth);
+	var pageHeadHeight = parseInt($('.page_head').css('height'));
+	$('.page_content').css('height', bodyHeight - headerHeight - pageHeadHeight);
+	//=====================================================================
+	
+	/* 题目列表 */
+	if (ftvPage.getAction() == 'question' && ftvPage.getFunc() == 'index') {
+		$('.question .name').css('width', parseInt($('.question').css('width')) - parseInt($('.question .id').css('width')) - parseInt($('.question .type').css('width')) - parseInt($('.question .score').css('width')) - parseInt($('.question .icon').css('width')) - 2);
+	}
+	if (ftvPage.getAction() == 'bank' && ftvPage.getFunc() == 'index') {
+		$('.question .name').css('width', parseInt($('.question').css('width')) - parseInt($('.question .bank_id').css('width')) - parseInt($('.question .type').css('width')) - parseInt($('.question .score').css('width')) - parseInt($('.question .icon').css('width')) - 2);
+	}
+	
+	/* 编辑编程题 */
+	if (ftvPage.getAction() == 'q_program' && (ftvPage.getFunc() == 'create' || ftvPage.getFunc() == 'create2')) {
+		var programContentHeight = parseInt($('.program_content').css('height'));
+		var pageContentHeight = parseInt($('.page_content').css('height'));
+		if (programContentHeight > pageContentHeight)
+			height = programContentHeight;
+		else
+			height = pageContentHeight;
+		$('.program_navi').css('height', height);
+		if (ftvPage.getFunc() == 'create2')
+			$('.program_content').css('width', parseInt($('.page_content').css('width')) - parseInt($('.program_navi').css('width')) - 20);
+	}
+	
+	/* 顶部内容 */
+	if ($('.page_head_content').length != 0) {
+		$('.page_head .content').html($('.page_head_content').html());
+	} else {
+		$('.page_head .content').html('');
+	}
+}
+
+$(window).resize(windowResize);
+//$().ready(windowResize);
+</script>
+
+</body>
+</html>

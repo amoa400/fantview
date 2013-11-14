@@ -1,0 +1,78 @@
+<style>
+	.page_content {padding:0;}
+</style>
+
+<div class="program_navi">
+	<div class="item active">
+		<div class="id"><span>1</span></div>
+		<div class="content">基本信息</div>
+	</div>
+
+	<?php if (empty($question['id'])) { ?>
+	<div class="item" onclick="$('.question_normal form').submit()">
+		<div class="id"><span>2</span></div>
+		<div class="content">测试数据</div>
+	</div>
+	<?php } else { ?>
+	<div class="item ftv_link" md_url="/q_program/create2/question_id/<{$question.id}>">
+		<div class="id"><span>2</span></div>
+		<div class="content">测试数据</div>
+	</div>
+	<?php } ?>
+
+</div>
+
+<div class="program_content question_normal form_div">
+	<div class="content" style="margin:0;">
+	<form name="register" action="/q_program/createDo" method="post" class="myform">
+		<div class="item score">
+			<div class="tt">分值<span class="tip"></span></div>
+			<div class="ct">
+				<input name="score" type="text" class="form-control" value="<{$question.score}>">
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">标题<span class="tip"></span></div>
+			<div class="ct">
+				<input name="name" type="text" class="form-control" value="<{$program.name}>">
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">题目描述<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="desc" class="form-control"><{$program.desc}></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item" style="width:250px;">
+			<div class="tt">时间限制（MS）<span class="tip"></span></div>
+			<div class="ct">
+				<input name="time_limit" type="text" class="form-control" value="<{$program.time_limit}>">
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item" style="width:250px;">
+			<div class="tt">空间限制（KB）<span class="tip"></span></div>
+			<div class="ct">
+				<input name="memory_limit" type="text" class="form-control" value="<{$program.memory_limit}>">
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="继续" class="form-control btn btn-primary"></div>
+		</div>
+		<input name="test_id" class="hidden" value="<{$_GET.test_id}>">
+		<input name="question_id" class="hidden" value="<{$question.id}>">
+		<input name="answer" class="hidden">
+		<span class="submitTip hidden">继续</span>
+		<span class="submittingTip hidden">正在保存</span>
+		<span class="successTip hidden">保存成功</span>
+		<span class="failTip hidden">保存失败</span>
+	</form>
+	</div>
+</div>
+
+<div class="clear"></div>

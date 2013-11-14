@@ -1,0 +1,94 @@
+<div class="page_head_content">
+<div class="bank_head">
+	<span class="it">|</span>
+	<span class="it <?php if (empty($_GET['fantview'])) echo 'active'; ?> ftv_link" md_url="/bank/index">我的题库</span>
+	<span class="it <?php if (!empty($_GET['fantview'])) echo 'active'; ?> ftv_link" md_url="/bank/index/fantview/1">fantview题库</span>
+	<span class="it">|</span>
+	<span class="it <?php if ($type_id == 4) echo 'active'; ?> ftv_link" md_para="/page/1/type_id/4">编程</span>
+	<span class="it <?php if ($type_id == 1) echo 'active'; ?> ftv_link" md_para="/page/1/type_id/1">单选</span>
+	<span class="it <?php if ($type_id == 2) echo 'active'; ?> ftv_link" md_para="/page/1/type_id/2">多选</span>
+	<span class="it <?php if ($type_id == 3) echo 'active'; ?> ftv_link" md_para="/page/1/type_id/3">问答</span>
+</div>
+</div>
+
+<div class="question bank">
+	<?php 
+		$cnt = 0;
+		foreach($questionList as $question) {
+			$cnt++;
+	?>
+	<div class="item">
+		<div class="it bank_id">Q<{$question.id}></div>
+		<div class="it name"><{$question.name}>...</div>
+		<div class="it type">
+			<div class="tt">类型</div>
+			<div class="ct"><{$question.type}></div>
+		</div>
+		<div class="it score">
+			<div class="tt">分值</div>
+			<div class="ct"><{$question.score}></div>
+		</div>
+		<div class="it icon">
+			<div class="icon_it add <?php if ($question['added'] == 1) echo 'added'; ?>" md_id="<{$question.id}>"><i class="fa fa-plus fa-lg"></i></div>
+			<?php if (empty($_GET['fantview'])) { ?>
+			<div class="icon_it ftv_link" md_url="/question/edit/question_id/<{$question.id}>"><i class="fa fa-edit fa-lg"></i></div>
+			<div class="icon_it question_delete"><i class="fa fa-trash-o fa-lg"></i></div>
+			<div class="icon_it question_delete_btn ftv_link" md_url='/bank/delete/question_id/<{$question.id}>' style="color:red;display:none;">确定</div>
+			<div class="icon_it question_delete question_delete_btn" style="color:black;display:none;">取消</div>
+			<?php } ?>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<?php } ?>	
+	
+	<?php if ($pager['totPage'] > 1) { ?>
+	<div class="pagination">
+		<?php if ($pager['cntPage'] != 1) { ?>
+		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] - 1; ?>"><a>&laquo;</a></li>
+		<?php } else { ?>
+		<li><a>&laquo;</a></li>
+		<?php } ?>
+		
+		<?php 
+			for ($i = $pager['cntPage'] - 3; $i < $pager['cntPage']; $i++) {
+				if ($i <= 0) continue;
+		?>
+		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
+		<?php } ?>
+		
+		<li class="active"><a><{$pager.cntPage}></a></li>
+		
+		<?php 
+			for ($i = $pager['cntPage'] + 1; $i <= $pager['cntPage'] + 3; $i++) {
+				if ($i > $pager['totPage']) break;
+		?>
+		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
+		<?php } ?>
+		
+		<?php if ($pager['cntPage'] != $pager['totPage']) { ?>
+		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] + 1; ?>"><a>&raquo;</a></li>
+		<?php } else { ?>
+		<li><a>&raquo;</a></li>
+		<?php } ?>
+	</div>
+	<?php } ?>
+</div>
+
+<script>
+	$('.question_delete').click(function() {
+		var itemObj = $(this).parent().parent();
+		itemObj.find('.question_delete_btn').toggle();
+		itemObj.find('.name').css('width', parseInt(itemObj.css('width')) - parseInt(itemObj.find('.bank_id').css('width')) - parseInt(itemObj.find('.type').css('width')) - parseInt(itemObj.find('.score').css('width')) - parseInt(itemObj.find('.icon').css('width')) - 2);
+	});
+	
+	$('.add').click(function() {
+		if ($(this).attr('class').indexOf('added') == -1) {
+			$(this).addClass('added');
+			$.get('/bank/addToTest/test_id/' + <{$_GET['test_id']}> + '/question_id/' + $(this).attr('md_id'));
+		} else {
+			$(this).removeClass('added');
+			$.get('/bank/deleteFromTest/test_id/' + <{$_GET['test_id']}> + '/question_id/' + $(this).attr('md_id'));
+		}
+	});
+</script>

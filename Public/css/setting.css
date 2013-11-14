@@ -1,0 +1,12 @@
+/*
+.basic {}
+.basic .content .left {float:left;margin-top:0;margin-left:20px;}
+.basic .content .left:first-child {margin-left:0;}
+.basic .content .textarea {margin-left:0px;width:800px;margin-top:20px;padding:0;}
+.basic .content .submit {width:70px;margin-top:20px;}
+
+.time {margin-top:25px;border-top:1px solid #d9d9d9;padding-top:20px;}
+.time .content .item {}
+.time .content .item input {display:inline-block;width:200px;}
+.time .content .submit {width:70px;margin-top:20px;}
+*/

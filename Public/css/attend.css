@@ -1,0 +1,289 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: #C0DEED;
+	font: 14px/1.5 helvetica,Arial,"Microsoft Yahei","微软雅黑","华文细黑","宋体";
+	line-height: 20px;
+	color: #333;
+
+}
+ul{
+	list-style-type: none;
+}
+.topbar{
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 1000;
+	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .25);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, .25);
+}
+.header{
+	height: 40px;
+	background-position: 0 0;
+	background-color: #252525;
+	background-image: url(../image/attend/header_bgs.png);
+	background-repeat: repeat-x;
+}
+.header .mid{
+	height: 100%;
+	margin: 0 auto;
+	color: #BBB;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, .75);
+	width: 900px;
+	line-height: 40px;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	position: relative;
+}
+.header span{
+	cursor: default;
+}
+.header .mid span:hover{
+	color: white;
+}
+.header .right{
+	position: absolute;
+	right: 10px;
+	top: 0;
+	height: 100%;
+	line-height: 40px;
+	color: #BBB;
+}
+.header .right:hover{
+	color: white;
+}
+.bg{
+	height: 300px;
+	background-image: url(../image/attend/bg.png);
+	background-repeat: no-repeat;
+	background-position: left 115px;
+	background-attachment: fixed;
+	background-color: #8EC1DA;
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	z-index: -1;
+}
+.timebar{
+	position: fixed;
+	width: 182px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	color: white;
+	top: 66px;
+	right: 20px;
+	background-color: rgba(40, 197, 46, 0.84);
+	box-shadow:1px 1px 5px green;
+	cursor: default;
+	z-index: 10000;
+}
+.timebar .pin{
+	position: absolute;
+	right: 10px;
+	top: 0;
+	
+}
+.progress_panel_fold{
+	position: fixed;
+	left: 0px;
+	top: 90px;
+}
+.progress_panel_button{
+	position: absolute;
+	left: -10px;
+	width: 45px;
+	overflow: hidden;
+	background-color: #1D8BC3;
+	border: none;
+	cursor: pointer;
+	box-shadow:1px 1px 5px #1D8BC3;
+}
+.progress_panel_button:hover{
+	left: 0px;
+}
+.progress_panel_button img{
+	width: 15px;
+	height: 75px;
+	border: none;
+	float: right;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.progress_panel_expanded{
+	float: left;
+}
+.progress_panel{
+	width: 145px;
+	border: 1px solid rgba(0, 0, 0, .1);
+	border-radius: 6px;
+	background-clip: padding-box;
+	overflow: hidden;
+}
+.progress_panel .title{
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	height: 35px;
+	line-height: 35px;
+	font-size: 15px;
+	background-color: white;
+	text-align: center;
+	border-bottom: 1px solid #E8E8E8;
+}
+.progress_panel .list{
+	height: 100%;
+	overflow: auto;
+	border-radius: 0 0 5px 5px;
+	
+}
+.progress_panel .list .question_title{
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #E8E8E8;
+	text-align: center;
+	cursor: pointer;
+	font-size: 12px;
+	position: relative;
+	background-color: white;
+}
+
+.progress_panel .list .question_title:hover{
+	background-color: #eeeeee;
+}
+.progress_panel .list .question_title.active{
+	background-image: url(../image/attend/list_bg.png);
+	color: #F9F9F9;
+}
+.progress_panel .list .question_title .sign{
+	position: absolute;
+	left: 0;
+	top: 0px;
+	width: 3px;
+	height: 29px;
+	background-image: url(../image/attend/header_bgs.png);
+	background-position: 0px -3px;
+}
+.progress_panel .list .question_title .sign.attempted{
+	background-image: url(../image/attend/list_bg.png);
+	background-position: 0 0;
+}
+.progress_close{
+	position: absolute;
+	top: 5px;
+	right: 8px;
+	cursor: pointer;
+	color: white;
+}
+.content{
+	background: url(../image/attend/wash-white-30.png);
+	padding-bottom: 0;
+	position: relative;
+	width: 900px;
+	min-height: 100%;
+	padding: 65px 20px 15px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.content .text{
+	width: 700px;
+	border: 1px solid rgba(0, 0, 0, .1);
+	background-clip: padding-box;
+	border-radius: 6px;
+	margin-left: auto;
+	margin-right: auto;
+	float: right;
+}
+.content .text .title{
+	height: 60px;
+	line-height: 60px;
+	padding: 0 15px;
+	border-radius: 5px 5px 0 0;
+	background: white;
+	color: #1D8BC3;
+	font-size: 20px;
+	text-align: center;
+}
+.content .text .question{
+	padding: 0 20px 20px;
+	background-color: white;
+}
+.content .text .answer_area{
+	padding: 0 20px 20px;
+	background-color: white;
+}
+
+.code .code_editor{
+	margin-top: 10px;
+}
+.code .code_editor .code_editor_ace{
+	height: 400px;
+}
+
+.content .text .buttons{
+	padding: 0 20px 20px;
+	background-color: white;
+	border-radius: 0 0 5px 5px;
+}
+.buttons .btn{
+	margin-right: 10px;
+}
+
+.radio{
+	margin: 0 !important;
+	padding: 0;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	min-height: 30px;
+	overflow: hidden;
+}
+.radio input{
+	display: none;
+}
+.radio .icon{
+	float: left;
+	width: 18px;
+	height: 22px;
+	background-repeat: no-repeat; 
+}
+.radio input[type="radio"] + .icon{
+	background-image: url(../image/attend/radio.png);
+	background-position: 0 2px;
+}
+.radio input[type="checkbox"] + .icon{
+	background-image: url(../image/attend/check.png);
+	background-position: 0 2px;
+}
+.radio label:hover > input[type="radio"] + .icon{
+	background-image: url(../image/attend/radio.png);
+	background-position: -18px 2px;
+}
+.radio label:hover > input[type="checkbox"] + .icon{
+	background-image: url(../image/attend/check.png);
+	background-position: -18px 2px;
+}
+.radio label:hover > input[type="radio"]:checked + .icon{
+	background-image: url(../image/attend/radio.png);
+	background-position: -36px 2px;
+}
+.radio label:hover > input[type="checkbox"]:checked + .icon{
+	background-image: url(../image/attend/check.png);
+	background-position: -36px 2px;
+}
+.radio input[type="radio"]:checked + .icon{
+	background-image: url(../image/attend/radio.png);
+	background-position: -36px 2px;
+}
+.radio input[type="checkbox"]:checked + .icon{
+	background-image: url(../image/attend/check.png);
+	background-position: -36px 2px;
+}
+.radio .choice_content{
+	float: left;
+	line-height: 22px;
+	padding-left: 10px;
+}

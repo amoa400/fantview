@@ -1,0 +1,33 @@
+/* header */
+.header {background:#1f2e30;height:85px;line-height:80px;}
+.header .logo {float:left;}
+.header .logo img {height:28px;}
+.header .navi {float:left;margin-left:5px;line-height:90px;}
+.header .navi .item {margin-left:46px;font-size:16px;cursor:pointer;color:#a5b2b9;}
+.header .navi .item:hover, .header .navi .active {color:#ffffff;}
+.header .user {float:right;width:200px;text-align:right;position:relative;}
+.header .user .item {margin-left:20px;}
+
+/* footer */
+.footer {background:#084156;margin-top:50px;text-align:center;color:#ffffff;padding-top:30px;padding-bottom:30px;}
+
+/* body */
+.body {}
+
+.banner {background:#1d8bc3;padding-top:30px;padding-bottom:30px;}
+
+.banner_index {text-align:center;}
+.banner_index .item {color:#ffffff;font-size:18px;margin-top:30px;letter-spacing:2px;}
+.banner_index .item:first-child {margin-top:0px;}
+.banner_index .title {color:#ffffff;font-size:26px;letter-spacing:3px;font-weight:bold;}
+.banner_index .item img{height:40px;}
+
+.register {margin-top:30px;}
+.register .left {float:left;width:500px;}
+.register .right {float:right;width:400px;}
+.register .right .item {margin-top:10px;}
+.register .right .item:first-child {margin-top:0px;}
+.register .right .item2 {margin-top:20px;}
+.register .right .item2 .photo {float:left;width:50px;}
+.register .right .item2 .photo img {height:50px;width:50px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+.register .right .item2 .desc {float:left;margin-left:10px;width:340px;}

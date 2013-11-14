@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="description" content="Fantview - 用最好的方式招聘程序员" />
+	<title>验证 - fantview</title>
+
+	<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="/css/global.css" rel="stylesheet" type="text/css">
+	<link href="/css/fantview.css" rel="stylesheet" type="text/css">
+	<link href="/css/login.css" rel="stylesheet" type="text/css">
+	
+	<script src="/js/jquery.min.js" type="text/javascript"></script>
+	<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/js/global.js" type="text/javascript"></script>
+	<script src="/js/fantview.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div class="left">
+<div class="cont">
+	<div class="item">the fast and efficient way to interview</div>
+	<div class="item">快捷高效的面试方式</div>
+	<div class="item2">他们也在用：</div>
+	<div class="item2">
+		<div class="photo"><img src="/image/index/baixing.png"></div>
+		<div class="desc">百姓网，每月浏览量近10亿，每月新增信息量超过300万条的超大型c2c分类信息网站</div>
+		<div class="clear"></div>
+	</div>
+	<div class="item2">
+		<div class="photo"><img src="/image/index/eleme.png"></div>
+		<div class="desc">饿了么，中国最大的餐饮O2O平台。业务主要覆盖全国12个城市，加盟餐厅数共计50000家</div>
+		<div class="clear"></div>
+	</div>
+	<div class="item2">
+		<div class="photo"><img src="/image/index/hailong.png"></div>
+		<div class="desc">
+海隆软件，上海市著名软件企业、国家规划布局内重点软件企业，软件外包的“元老级”企业</div>
+		<div class="clear"></div>
+	</div>
+</div>
+</div>
+
+<div class="right form_div">
+<div class="cont">
+	<div class="logo"><img src="/image/logo.png"></div>
+	<div class="head">立即开始面试</div>
+	<div class="content">
+		<div class="item">我们已经向您的邮箱发送了验证邮件</div>
+		<div class="item"><a href="<{$mailUrl}>" target="_blank" class="btn btn-primary">立即验证<a/></div>
+	</div>
+</div>
+</div>
+
+<div class="clear"></div>
+
+
+<script>
+$().ready(function() {
+	var bodyHeight = parseInt($('body').css('height'));
+	var leftHeight = parseInt($('.left .cont').css('height'));
+	$('.left .cont').css('margin-top', (bodyHeight - leftHeight) / 5 * 2);
+	var rightHeight = parseInt($('.right .cont').css('height'));
+	$('.right .cont').css('margin-top', (bodyHeight - rightHeight) / 5 * 2);
+});
+</script>
+
+</body>
+</html>

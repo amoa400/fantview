@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/attend.css">
+	
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/ace/ace.js"></script>
+</head>
+<body>
+	<div class="topbar">
+		<div class="header">
+			<div class="mid">
+				<span>饿了么2014校园招聘</span>
+			</div>
+			<div class="right"><span class="icon glyphicon glyphicon-user"></span><span>  jiangshilong9208@gmail.com</span></div>
+		</div>
+	</div>
+	<div class="bg"></div>
+	<div class="timebar">剩余时间:    00:20:05 
+		<span class="glyphicon glyphicon-time"></span>
+	</div>
+	<div class="progress_panel_fold" style="display: none">
+		<div class="progress_panel_button">
+			<img src="/images/progress_vertical.png" alt="">
+		</div>
+	</div>
+	
+	<div class="content">
+		<div class="page">
+			<div class="progress_panel_expanded">
+				<div class="progress_panel">
+					<div class="title">
+						<span>题目列表</span>
+					</div>
+					<div class="list">
+						<div class="question_title" id="question_1">Question 01<div class="sign"></div></div>
+						<div class="question_title active" id="question_2">Question 02<div class="sign"></div></div>
+						<div class="question_title" id="question_3">Question 03<div class="sign"></div></div>
+						<div class="question_title" id="question_4">Question 04<div class="sign"></div></div>
+						<div class="question_title" id="question_5">Question 05<div class="sign"></div></div>
+						<div class="question_title" id="question_6">Question 06<div class="sign"></div></div>
+						<div class="question_title" id="question_7">Question 07<div class="sign"></div></div>
+						<div class="question_title" id="question_8">Question 08<div class="sign"></div></div>
+						<div class="question_title" id="question_9">Question 09<div class="sign"></div></div>
+						<div class="question_title" id="question_10">Question 10<div class="sign"></div></div>
+						<div class="question_title" id="question_11">Question 11<div class="sign"></div></div>
+						<div class="question_title" id="question_12">Question 12<div class="sign"></div></div>			
+					</div>
+				</div>
+
+			</div>
+			<div>
+				<div class="text">
+					<form action="#" method="post">
+						<div class="title"><strong>Question 1 / 12 (K Difference)</strong></div>
+						<div class="question">
+							Given <strong>N</strong> numbers ,<em><strong> [N&lt;=10^5] </strong></em>we need to count the total pairs of numbers which have a difference of K.<strong> [K&gt;0 and K&lt;10^9]</strong>. 
+							<br>
+							<strong>Input Format:</strong><br>
+							1st line contains N &amp; K (integers).<br>
+							2nd line contains N numbers of the set. All the N numbers are assured to be distinct.<br>
+							<br>
+							<strong>Output Format:</strong><br>
+							One integer saying the no of pairs of numbers that have a diff K.<br>
+							<br>
+							<strong>Sample Input #00:</strong>
+							<pre>5 2
+								1 5 3 4 2</pre>
+							<strong>Sample Output #00:</strong>
+							<pre>3</pre>
+							<strong>Explanation:</strong><br>
+							The possible pairs are (5,3), (4,2) and (3,1).<br>
+							<br>
+							<strong>Sample Input #01:</strong>
+							<pre>10 1
+							363374326 364147530 61825163 1073065718 1281246024 1399469912 428047635 491595254 879792181 1069262793</pre>
+							<strong>Sample Output #01:</strong>
+							<pre>0</pre>
+							<strong>Explanation:</strong><br>
+							There are no such pairs.<br>
+							<br>
+							Note: Java/C# code should be in a class named "Solution"</br>
+							Read input from STDIN and write output to STDOUT.<br>
+						</div>
+						<div class="answer_area">
+							<div class="code">
+								<div class="btn-group" data-toggle="buttons" style="display: none">
+									<label class="btn btn-primary btn-sm active">
+										<input type="radio" name="lang" id="c"> C
+									</label>
+									<label class="btn btn-primary btn-sm">
+										<input type="radio" name="lang" id="cpp"> C++
+									</label>
+									<label class="btn btn-primary btn-sm">
+										<input type="radio" name="lang" id="java"> Java
+									</label>
+									<label class="btn btn-primary btn-sm">
+										<input type="radio" name="lang" id="csharp"> C#
+									</label>
+								</div>
+								<select class="form-control" id="lang">
+									<option value="c">C</option>
+									<option value="cpp">C++</option>
+									<option value="java">Java</option>
+									<option value="csharp">C#</option>
+								</select>
+								<div class="code_editor c active">
+									<pre class="code_editor_ace" id="editor_c">this is c</pre>
+								</div>
+								<div class="code_editor cpp">
+									<pre class="code_editor_ace" id="editor_cpp">this is cpp</pre>
+								</div>
+								<div class="code_editor java">
+									<pre class="code_editor_ace" id="editor_java">this is java</pre>
+								</div>
+								<div class="code_editor csharp">
+									<pre class="code_editor_ace" id="editor_csharp">this is csharp</pre>
+								</div>
+							</div>
+						</div>
+						<div class="buttons">
+							<button name="compileandTest" type="button" id="compileandTest" class="btn btn-success btn-sm">Compile &amp; Test</button><input type="submit" name="" value="Submit Answer" id="saveForm" class="btn btn-primary btn-sm">
+						</div>
+					</form>    
+				</div>
+			</div>
+			<div>
+				<div class="text">
+					<form action="#" method="post">
+						<div class="title"><strong>Question 1 / 12 (K Difference)</strong></div>
+						<div class="question">
+							1+1=
+						</div>
+						<div class="answer_area">
+							<div class="radio">
+								<label>
+									<input name="answer_type_id" type="radio" value="A">
+									<div class="icon"></div>
+									<div class="choice_content">2dsadsadsa<br>dsadsa</div>
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input name="answer_type_id" type="radio" value="B">
+									<div class="icon"></div>
+									<div class="choice_content">55</div>
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input name="answer_type_id" type="radio" value="C">
+									<div class="icon"></div>
+									<div class="choice_content">3</div>
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input name="answer_type_id" type="radio" value="D">
+									<div class="icon"></div>
+									<div class="choice_content">2111</div>
+								</label>
+							</div>
+						</div>
+						<div class="buttons">
+							<input type="submit" name="" value="提交答案" id="saveForm" class="btn btn-primary btn-sm">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div>
+				<div class="text">
+					<form action="#" method="post">
+						<div class="title"><strong>Question 1 / 12 (K Difference)</strong></div>
+						<div class="question">
+							1+1=
+						</div>
+						<div class="answer_area">
+							<div class="radio">
+								<label>
+									<input name="answer_type_id" type="checkbox" value="A">
+									<div class="icon"></div>
+									<div class="choice_content">2dsadsadsa</div>
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input name="answer_type_id" type="checkbox" value="B">
+									<div class="icon"></div>
+									<div class="choice_content">55</div>
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input name="answer_type_id" type="checkbox" value="C">
+									<div class="icon"></div>
+									<div class="choice_content">3</div>
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input name="answer_type_id" type="checkbox" value="D">
+									<div class="icon"></div>
+									<div class="choice_content">2111</div>
+								</label>
+							</div>
+						</div>
+						<div class="buttons">
+							<input type="submit" name="" value="提交" id="saveForm" class="btn btn-primary btn-sm">
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	var editor = new Array();
+	editor['c'] = ace.edit("editor_c");
+	editor['c'].setTheme("ace/theme/textmate");
+	editor['c'].getSession().setMode("ace/mode/c_cpp");
+	editor['c'].getSession().setUseWrapMode(true);
+	editor['c'].setShowPrintMargin(false);
+	editor['c'].setFontSize(14);
+	$(".code_editor").each(function(){
+		$(this).hide();
+	});
+	$(".code_editor.active").show();
+	$("#lang").change(function(){
+		var lang = $(this).val();
+		$(".code_editor.active").hide();
+		$(".code_editor."+lang).addClass('active').show();
+		if(editor[lang] == undefined) {
+			editor[lang] = ace.edit("editor_"+lang);
+			editor[lang].setTheme("ace/theme/textmate");
+			var mode;
+			if(lang == "c" || lang == "cpp") mode = c_cpp;
+			else mode = lang;
+			editor[lang].getSession().setMode("ace/mode/"+mode);
+			editor[lang].getSession().setUseWrapMode(true);
+			editor[lang].setShowPrintMargin(false);
+			editor[lang].setFontSize(14);
+		}
+
+	});
+	$(".list .question_title").bind('click', function(){
+		$(".list .question_title.active").removeClass("active");
+		$(this).addClass("active").find('.sign').addClass('attempted');
+	});
+
+});
+</script>

@@ -1,0 +1,72 @@
+<div class="question">
+	<?php 
+		$cnt = 0;
+		foreach($questionList as $question) {
+			$cnt++;
+	?>
+	<div class="item">
+		<div class="it id" onselectstart="return false"><i class="fa fa-th"></i>&nbsp;&nbsp;&nbsp;&nbsp;Q<?php echo ($pager['cntPage'] - 1) * 10 + $cnt; ?></div>
+		<div class="it name"><{$question.name}>...</div>
+		<div class="it type">
+			<div class="tt">类型</div>
+			<div class="ct"><{$question.type}></div>
+		</div>
+		<div class="it score">
+			<div class="tt">分值</div>
+			<div class="ct"><{$question.score}></div>
+		</div>
+		<div class="it icon">
+			<?php if ($question['user_id'] == $_SESSION['id']) { ?>
+			<div class="icon_it ftv_link" md_url="/question/edit/question_id/<{$question.id}>"><i class="fa fa-edit fa-lg"></i></div>
+			<?php } else { ?>
+			<div class="icon_it disabled"><i class="fa fa-edit fa-lg"></i></div>
+			<?php } ?>
+			<div class="icon_it question_delete"><i class="fa fa-trash-o fa-lg"></i></div>
+			<div class="icon_it question_delete_btn ftv_link" md_url='/question/delete/question_id/<{$question.id}>' style="color:red;display:none;">确定</div>
+			<div class="icon_it question_delete question_delete_btn" style="color:black;display:none;">取消</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<?php } ?>	
+	
+	<?php if ($pager['totPage'] > 1) { ?>
+	<div class="pagination">
+		<?php if ($pager['cntPage'] != 1) { ?>
+		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] - 1; ?>"><a>&laquo;</a></li>
+		<?php } else { ?>
+		<li><a>&laquo;</a></li>
+		<?php } ?>
+		
+		<?php 
+			for ($i = $pager['cntPage'] - 3; $i < $pager['cntPage']; $i++) {
+				if ($i <= 0) continue;
+		?>
+		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
+		<?php } ?>
+		
+		<li class="active"><a><{$pager.cntPage}></a></li>
+		
+		<?php 
+			for ($i = $pager['cntPage'] + 1; $i <= $pager['cntPage'] + 3; $i++) {
+				if ($i > $pager['totPage']) break;
+		?>
+		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
+		<?php } ?>
+		
+		<?php if ($pager['cntPage'] != $pager['totPage']) { ?>
+		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] + 1; ?>"><a>&raquo;</a></li>
+		<?php } else { ?>
+		<li><a>&raquo;</a></li>
+		<?php } ?>
+	</div>
+	<?php } ?>
+</div>
+
+<script>
+	$('.question_delete').click(function() {
+		var itemObj = $(this).parent().parent();
+		itemObj.find('.question_delete_btn').toggle();
+		itemObj.find('.name').css('width', parseInt(itemObj.css('width')) - parseInt(itemObj.find('.id').css('width')) - parseInt(itemObj.find('.type').css('width')) - parseInt(itemObj.find('.score').css('width')) - parseInt(itemObj.find('.icon').css('width')) - 2);
+	});
+</script>

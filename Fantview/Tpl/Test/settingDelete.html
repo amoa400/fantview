@@ -1,0 +1,18 @@
+<div class="setting form_div">
+	<div class="content" style="margin:0;">
+	<form name="register" action="/test/settingDeleteDo" method="post" class="myform">
+		<div class="item" style="color:red;">
+			您将删除本次测评，操作不可逆转，请谨慎操作！
+		</div>
+		
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="删除" class="form-control btn btn-primary"></div>
+		</div>
+		<input name="test_id" class="hidden" value="<{$_GET.test_id}>">
+		<span class="submitTip hidden">删除</span>
+		<span class="submittingTip hidden">正在删除</span>
+		<span class="successTip hidden">删除成功</span>
+		<span class="failTip hidden">删除失败</span>
+	</form>
+	</div>
+</div>

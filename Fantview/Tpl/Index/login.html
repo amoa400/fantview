@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="description" content="Fantview - 用最好的方式招聘程序员" />
+	<title>登录 - fantview</title>
+
+	<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="/css/global.css" rel="stylesheet" type="text/css">
+	<link href="/css/fantview.css" rel="stylesheet" type="text/css">
+	<link href="/css/login.css" rel="stylesheet" type="text/css">
+	
+	<script src="/js/jquery.min.js" type="text/javascript"></script>
+	<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/js/global.js" type="text/javascript"></script>
+	<script src="/js/fantview.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div class="left">
+<div class="cont">
+	<div class="item">the fast and efficient way to interview</div>
+	<div class="item">快捷高效的面试方式</div>
+	<div class="item2">他们也在用：</div>
+	<div class="item2">
+		<div class="photo"><img src="/image/index/baixing.png"></div>
+		<div class="desc">百姓网，每月浏览量近10亿，每月新增信息量超过300万条的超大型c2c分类信息网站</div>
+		<div class="clear"></div>
+	</div>
+	<div class="item2">
+		<div class="photo"><img src="/image/index/eleme.png"></div>
+		<div class="desc">饿了么，中国最大的餐饮O2O平台。业务主要覆盖全国12个城市，加盟餐厅数共计50000家</div>
+		<div class="clear"></div>
+	</div>
+	<div class="item2">
+		<div class="photo"><img src="/image/index/hailong.png"></div>
+		<div class="desc">
+海隆软件，上海市著名软件企业、国家规划布局内重点软件企业，软件外包的“元老级”企业</div>
+		<div class="clear"></div>
+	</div>
+</div>
+</div>
+
+<div class="right form_div">
+<div class="cont">
+	<div class="logo"><img src="/image/logo.png"></div>
+	<div class="head">立即开始面试</div>
+	<div class="content">
+	<form name="register" action="/index/loginDo" method="post" class="myform">
+		<div class="item">
+			<div class="tt">邮箱<span class="tip"></span></div>
+			<div class="ct"><input name="email" type="text" class="form-control"></div>
+		</div>
+		<div class="item">
+			<div class="tt">密码<span class="tip"></span></div>
+			<div class="ct"><input name="password" type="password" class="form-control"></div>
+		</div>
+		<div class="item submit">
+			<div class="tt"></div>
+			<div class="ct"><input type="submit" value="登录" class="form-control btn btn-primary"></div>
+		</div>
+		<div class="item" style="text-align:center;margin-top:30px;color:#999999;">
+			<a href="/index/register"><i class="fa fa-user"></i> 注册帐号</a>　<a href="/index/forgot"><i class="fa fa-lock"></i> 忘记密码</a>
+		</div>
+		<span class="submitTip hidden">登录</span>
+		<span class="submittingTip hidden">正在登录</span>
+		<span class="successTip hidden">登录成功</span>
+		<span class="failTip hidden">登录失败</span>
+	</form>
+	</div>
+</div>
+</div>
+
+<div class="clear"></div>
+
+
+<script>
+$().ready(function() {
+	var bodyHeight = parseInt($('body').css('height'));
+	var leftHeight = parseInt($('.left .cont').css('height'));
+	$('.left .cont').css('margin-top', (bodyHeight - leftHeight) / 5 * 2);
+	var rightHeight = parseInt($('.right .cont').css('height'));
+	$('.right .cont').css('margin-top', (bodyHeight - rightHeight) / 5 * 2);
+});
+</script>
+
+</body>
+</html>

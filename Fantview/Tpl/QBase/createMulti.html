@@ -1,0 +1,101 @@
+<div class="question_normal form_div">
+	<div class="content" style="margin:0;">
+	<form name="register" action="/q_base/createMultiDo" method="post" class="myform">
+		<div class="item score">
+			<div class="tt">分值<span class="tip"></span></div>
+			<div class="ct">
+				<input name="score" type="text" class="form-control" value="<{$question.score}>">
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">题目描述<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="desc" class="form-control"><{$multi.desc}></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item option_list">
+			<div class="tt">选项<span class="tip"></span></div>
+			<div class="ct">
+			
+				<?php for ($i = 0; $i < max(4, count($multi['options'])); $i++) { ?>
+				<div class="option">
+					<div class="select">
+						<div class="id"><?php echo chr(65 + $i) ?></div>
+						<div class="icon"><i class="fa fa-square-o"></i></div>
+					</div>
+					<div class="text"><textarea name="option_<?php echo chr(65 + $i) ?>" class="form-control"><{$multi['options'][$i]}></textarea></div>
+					<div class="clear"></div>
+				</div>
+				<?php } ?>
+				
+			</div>
+			<div class="option_new">
+				<span class="btn btn-white">增加一个新选项</span>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<?php if (empty($question['id'])) { ?>
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="添加" class="form-control btn btn-primary"></div>
+		</div>
+		<input name="test_id" class="hidden" value="<{$_GET.test_id}>">
+		<input name="answer" class="hidden">
+		<span class="submitTip hidden">添加</span>
+		<span class="submittingTip hidden">正在添加</span>
+		<span class="successTip hidden">添加成功</span>
+		<span class="failTip hidden">添加失败</span>
+		<?php } else { ?>
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="保存" class="form-control btn btn-primary"></div>
+		</div>
+		<input name="test_id" class="hidden" value="<{$_GET.test_id}>">
+		<input name="question_id" class="hidden" value="<{$question.id}>">
+		<input name="answer" class="hidden">
+		<span class="submitTip hidden">保存</span>
+		<span class="submittingTip hidden">正在保存</span>
+		<span class="successTip hidden">保存成功</span>
+		<span class="failTip hidden">保存失败</span>
+		<?php } ?>
+	</form>
+	</div>
+</div>
+
+<script>
+var totOption = <?php echo max(4, count($multi['options'])); ?>;
+function setOptionCorrect(obj) {
+	if (obj.parent().attr('class').indexOf('option_correct') == -1) {
+		obj.parent().addClass('option_correct');
+		obj.find('.icon').html('<i class="fa fa-check-square-o"></i>');
+		$('.question_normal input[name="answer"]').val($('.question_normal input[name="answer"]').val() + obj.find('.id').html());
+	} else {
+		obj.parent().removeClass('option_correct');
+		obj.find('.icon').html('<i class="fa fa-square-o"></i>');
+		var newVal = '';
+		var oldVal = $('.question_normal input[name="answer"]').val();
+		for (var i = 0; i < oldVal.length; i++)
+		if (oldVal[i] != obj.find('.id').html()) newVal += oldVal[i];
+		$('.question_normal input[name="answer"]').val(newVal);
+	}
+}
+$('.option_list .option .select').click(function() {
+	setOptionCorrect($(this));
+});
+$('.option_list .option_new .btn').click(function() {
+	if (totOption >= 26) return;
+	$('.option_list .ct').append('<div class="option"><div class="select"><div class="id">' + String.fromCharCode(65 + totOption) +'</div><div class="icon"><i class="fa fa-square-o"></i></div></div><div class="text"><textarea name="option_' + String.fromCharCode(65 + totOption) + '" class="form-control"></textarea></div><div class="clear"></div></div>');
+	totOption++;
+	//  重新绑定事件
+	$('.option_list .option .select').unbind('click');
+	$('.option_list .option .select').click(function() {
+		setOptionCorrect($(this));
+	});
+});
+$().ready(function() {
+	var ans = '<{$multi.answer}>';
+	for (var i = 0; i < ans.length; i++)
+	$('.option_list textarea[name="option_' + ans.charAt(i) + '"]').parent().parent().find('.select').click();
+});
+</script>

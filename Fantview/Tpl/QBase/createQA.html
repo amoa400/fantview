@@ -1,0 +1,43 @@
+<div class="question_normal form_div">
+	<div class="content" style="margin:0;">
+	<form name="register" action="/q_base/createQADo" method="post" class="myform">
+		<div class="item score">
+			<div class="tt">分值<span class="tip"></span></div>
+			<div class="ct">
+				<input name="score" type="text" class="form-control" value="<{$question.score}>">
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">题目描述<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="desc" class="form-control"><{$qa.desc}></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<?php if (empty($question['id'])) { ?>
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="添加" class="form-control btn btn-primary"></div>
+		</div>
+		<input name="test_id" class="hidden" value="<{$_GET.test_id}>">
+		<input name="answer" class="hidden">
+		<span class="submitTip hidden">添加</span>
+		<span class="submittingTip hidden">正在添加</span>
+		<span class="successTip hidden">添加成功</span>
+		<span class="failTip hidden">添加失败</span>
+		<?php } else { ?>
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="保存" class="form-control btn btn-primary"></div>
+		</div>
+		<input name="test_id" class="hidden" value="<{$_GET.test_id}>">
+		<input name="question_id" class="hidden" value="<{$question.id}>">
+		<input name="answer" class="hidden">
+		<span class="submitTip hidden">保存</span>
+		<span class="submittingTip hidden">正在保存</span>
+		<span class="successTip hidden">保存成功</span>
+		<span class="failTip hidden">保存失败</span>
+		<?php } ?>
+	</form>
+	</div>
+</div>

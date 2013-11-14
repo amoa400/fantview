@@ -1,0 +1,44 @@
+<div class="form_div" style="width:800px;">
+	<div class="content" style="margin:0;">
+	<form name="register" action="/report/inviteDo" method="post" class="myform">
+		<div class="item">
+			<div class="tt">电子邮箱地址（每行一个）<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="email" class="form-control" style="width:400px;height:80px;"><{$emailList}></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">标题<span class="tip"></span></div>
+			<div class="ct">
+				<input name="title" class="form-control" value="<{$test.name}>"/>
+			</div>
+			<div class="clear"></div>
+		</div>	
+		<div class="item">
+			<div class="tt">正文（选填）<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="content" class="form-control"><{$multi.desc}></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="邀请" class="form-control btn btn-primary" style="width:85px;"></div>
+		</div>
+		<input name="test_id" class="hidden" value="<{$_GET.test_id}>">
+		<span class="submitTip hidden">邀请</span>
+		<span class="submittingTip hidden">正在邀请</span>
+		<span class="successTip hidden">邀请成功</span>
+		<span class="failTip hidden">邀请失败</span>
+	</form>
+	</div>
+</div>
+
+<script>
+	$('.left_panel .count_invited').html(<{$reportCount.count_invited}>);
+	$('.left_panel .count_running').html(<{$reportCount.count_running}>);
+	$('.left_panel .count_completed').html(<{$reportCount.count_completed}>);
+	$('.left_panel .count_passed').html(<{$reportCount.count_passed}>);
+	$('.left_panel .count_failed').html(<{$reportCount.count_failed}>);
+</script>

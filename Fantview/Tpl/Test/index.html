@@ -1,0 +1,68 @@
+<div class="test_list">
+	<?php foreach($testList as $test) { ?>
+	<div class="item">
+		<div class="info">
+			<div class="cont">
+				<div class="tt ftv_link" md_url="/question/index/test_id/<{$test.id}>"><{$test.name}></div>
+				<div class="ct">
+					<i class="fa fa-list"></i> <{$test.count_question}>个题目&nbsp;&nbsp;
+					<i class="fa fa-clock-o"></i> <{$test.duration}>分钟&nbsp;&nbsp;
+				</div>
+			</div>
+			<div class="it">
+				<div class="icon"><i class="fa fa-user fa-lg"></i></div>
+				<div class="desc">邀请</div>
+			</div>
+			<div class="it">
+				<div class="icon"><i class="fa fa-edit fa-lg"></i></div>
+				<div class="desc">编辑</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="report">
+			<div class="left">
+				<i class="fa fa-bar-chart-o fa-lg"></i>
+				<span>报告</span>
+			</div>
+			<div class="right">
+				<div class="it"><span><{$test.count_invited}></span> - 已邀请</div>
+				<div class="it"><span><{$test.count_completed}></span> - 已完成</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<?php } ?>
+	
+	<?php if ($pager['totPage'] > 1) { ?>
+	<div class="pagination" style="padding-bottom:25px;">
+		<?php if ($pager['cntPage'] != 1) { ?>
+		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] - 1; ?>"><a>&laquo;</a></li>
+		<?php } else { ?>
+		<li><a>&laquo;</a></li>
+		<?php } ?>
+		
+		<?php 
+			for ($i = $pager['cntPage'] - 3; $i < $pager['cntPage']; $i++) {
+				if ($i <= 0) continue;
+		?>
+		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
+		<?php } ?>
+		
+		<li class="active"><a><{$pager.cntPage}></a></li>
+		
+		<?php 
+			for ($i = $pager['cntPage'] + 1; $i <= $pager['cntPage'] + 3; $i++) {
+				if ($i > $pager['totPage']) break;
+		?>
+		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
+		<?php } ?>
+		
+		<?php if ($pager['cntPage'] != $pager['totPage']) { ?>
+		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] + 1; ?>"><a>&raquo;</a></li>
+		<?php } else { ?>
+		<li><a>&raquo;</a></li>
+		<?php } ?>
+	</div>
+	<?php } ?>
+</div>

@@ -1,0 +1,15 @@
+html,body {height:100%;}
+
+.left {float:left;background:#1d8bc3;height:100%;width:40%;padding-right:20px;}
+.left .item {text-align:right;color:#ffffff;margin-top:10px;}
+.left .item:first-child {margin:0;}
+.left .item2 {margin-top:30px;color:#ffffff;text-align:right;}
+.left .item2 .photo {float:right;width:40px;}
+.left .item2 .desc {float:right;width:300px;margin-right:10px;}
+.left .item2 .photo img {width:40px;}
+
+.right {float:left;width:60%;padding-left:50px;height:100%;}
+.right .logo {}
+.right .logo img {height:30px;}
+.right .head {margin-top:15px;color:#999999;font-size:16px;font-weight:normal;}
+.right  .content {width:50%;}

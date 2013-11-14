@@ -1,0 +1,75 @@
+/* 表单DIV */
+.form_div {}
+.form_div .head {font-size:20px;font-weight:bold;}
+.form_div .content {margin-top:30px;}
+.form_div .content .item  {margin-top:20px;font-size:16px;}
+.form_div .content .item:first-child {margin-top:0;}
+.form_div .content .item .tt {}
+.form_div .content .item .ct {width:100%;margin-top:8px;}
+.form_div .content .item .tip {float:right;color:#d9534f;}
+.form_div .content .submit {margin-top:30px;}
+.form_div .content .item input[type="text"] {height:50px;font-size:16px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+.form_div .content .item input[type="text"]:focus {-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+.form_div .content .item input[type="password"] {height:50px;font-size:16px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+.form_div .content .item input[type="password"]:focus {-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+.form_div .content .item input[type="submit"] {height:50px;font-size:16px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;outline:none;}
+.form_div .content .item input[type="submit"]:focus {-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+.form_div .content .item select {height:40px;font-size:16px;cursor:pointer;}
+.form_div .content .item textarea {height:200px;font-size:16px;}
+.form_div .content .item textarea:hover {-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+.form_div .content .item textarea:focus {-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+.form_div .content .item label {font-weight:normal;cursor:pointer;}
+.form_div .content .item .file {height:40px;}
+
+/* 日历选择器 */
+.ftv_date_picker {position:absolute;border:1px solid #dbdbdb;border:1px solid #8cb8db;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;padding:5px;background:#ffffff;width:250px;}
+.ftv_date_picker .sel {padding:5px;border-bottom:1px solid #dbdbdb;background:#85c7fa;}
+.ftv_date_picker .sel .prev {float:left;width:10%;color:#ffffff;cursor:pointer;}
+.ftv_date_picker .sel .next {float:left;width:10%;text-align:right;color:#ffffff;cursor:pointer;}
+.ftv_date_picker .sel .prev:hover, .ftv_date_picker .sel .next:hover {color:#305776;}
+.ftv_date_picker .sel .date {float:left;width:80%;text-align:center;}
+.ftv_date_picker .sel .date select {text-align:center;}
+.ftv_date_picker .sel .date .year {width:80px;}
+.ftv_date_picker .sel .date .month {width:60px;}
+.ftv_date_picker .week {margin-top:5px;}
+.ftv_date_picker .week table {width:100%;}
+.ftv_date_picker .week td {text-align:center;}
+.ftv_date_picker .week .title {font-weight:bold;}
+.ftv_date_picker .week .content td {padding-top:5px;padding-left:2px;padding-right:2px;}
+.ftv_date_picker .week .content td span {display:block;border:1px solid #dce7ed;padding:2px;background:#e1effa;cursor:pointer;color:#37719f;font-size:12px;}
+.ftv_date_picker .week .content td .cnt {font-weight:bold;background:#85c7fa;color:#ffffff;border:1px solid #3c95da;}
+.ftv_date_picker .week .content td span:hover {font-weight:bold;background:#85c7fa;color:#ffffff;border:1px solid #3c95da;}
+.ftv_date_picker .week .content td:first-child {padding-left:0;}
+.ftv_date_picker .week .content td:last-child {padding-right:0;}
+.ftv_date_picker .time {margin-top:5px;padding:5px;padding-left:0;border-bottom:1px solid #dbdbdb;font-size:12px;text-align:center;}
+.ftv_date_picker .time input {width:40px;}
+
+/* 时间选择器 */
+.ftv_time_picker {position:absolute;border:1px solid #dbdbdb;border:1px solid #8cb8db;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;background:#ffffff;}
+.ftv_time_picker .time {text-align:center;font-size:18px;font-weight:bold;padding-top:8px;padding-bottom:8px;}
+.ftv_time_picker .time .mybtn {font-size:14px;margin-left:10px;}
+.ftv_time_picker .time span {display:inline-block;letter-spacing:2px;vertical-align:middle;background:#ffffff;cursor:pointer;}
+.ftv_time_picker .time .hour {margin-right:10px;background:}
+.ftv_time_picker .time .minute {margin-left:10px;}
+.ftv_time_picker .time .active {border-bottom:1px dashed #1f88db;padding:3px 6px 3px 6px;}
+.ftv_time_picker .content {}
+.ftv_time_picker .content table {width:100%;}
+.ftv_time_picker .content td {text-align:center;padding:5px 8px 5px 8px;border:1px solid #8cb8db;cursor:pointer;}
+.ftv_time_picker .content tr td:first-child {border-left:none;}
+.ftv_time_picker .content tr td:last-child {border-right:none;}
+.ftv_time_picker .content tr:last-child td {border-bottom:none;}
+.ftv_time_picker .content td:hover {background:#e1effa;}
+
+/* 名称选择器 */
+.ftv_name_picker {position:absolute;border:1px solid #66afe9;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;background:#ffffff;max-height:205px;overflow-y:auto;}
+.ftv_name_picker table {width:100%;}
+.ftv_name_picker td {padding-left:15px;text-align:left;border-bottom:1px solid #8cb8db;height:40px;line-height:40px;}
+.ftv_name_picker tr td:first-child {text-align:right;}
+.ftv_name_picker tr td:nth-child(2) {text-align:center;}
+.ftv_name_picker tr td:last-child {padding-right:15px;}
+.ftv_name_picker tr:last-child td {border-bottom:none;}
+.ftv_name_picker tr:hover {background:#e1effa;cursor:pointer;}
+.ftv_name_picker tr:hover .glyphicon-ok {color:#56ac56;}
+.ftv_name_picker .glyphicon {color:#a8a8a8;}
+.ftv_name_picker .active {}
+.ftv_name_picker .active .glyphicon-ok {color:#56ac56;}

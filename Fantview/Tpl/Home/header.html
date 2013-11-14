@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="description" content="fantview" />
+	<title><?php if (!empty($pageTitle)) echo $pageTitle . ' - '; ?>fantview - 用最好的方式招聘程序员</title>
+
+	<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="/css/global.css" rel="stylesheet" type="text/css">
+	<link href="/css/fantview.css" rel="stylesheet" type="text/css">
+	<link href="/css/home.css" rel="stylesheet" type="text/css">
+	
+	<script src="/js/jquery.min.js" type="text/javascript"></script>
+	<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/js/jquery.base64.js" type="text/javascript"></script>
+	<script src="/js/global.js" type="text/javascript"></script>
+	<script src="/js/fantview.js" type="text/javascript"></script>
+	<script src="/js/home.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div class="header">
+	<div class="item left link list">
+		<i class="fa fa-align-justify fa-lg"></i>
+	</div>
+	<div class="item mid test ftv_link" md_url='/'>
+		<div class="inner_item logo"><img src="/image/logo.png"></div>
+		<div class="inner_item name"></div>
+		<div class="inner_item down"><i class="fa fa-sort-down"></i></div>
+	</div>
+	<div class="item right link">
+		<div class="inner_item photo"><img src="/image/photo/5.jpg"></div>
+		<div class="inner_item name"><{$_SESSION.name}></div>
+		<div class="inner_item down"><i class="fa fa-sort-down"></i></div>
+		<div class="clear"></div>
+	</div>
+	<div class="item right link new_candidate ftv_link" md_url="/report/invite">
+		<div class="inner_item icon"><i class="fa fa-plus"></i></div>
+		<div class="inner_item name">邀请候选人</div>
+		<div class="clear"></div>
+	</div>
+	<div class="item right link new_test ftv_link" md_url="/test/create">
+		<div class="inner_item icon"><i class="fa fa-plus"></i></div>
+		<div class="inner_item name">新建测评</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="left_panel">
+	<div class="item title ftv_link" md_url="/"><i class="fa fa-angle-double-left"></i>&nbsp;&nbsp;返回</div>
+	<div class="item ftv_link item_question" md_url="/question/index">
+		<div class="icon"><i class="fa fa-pencil-square fa-3x"></i></div>
+		<div class="desc">题目设置</div>
+	</div>
+	<div class="list">
+		<div class="it it_list ftv_link" md_url="/question/index"><i class="fa fa-list"></i>&nbsp;&nbsp;题目列表</div>
+		<div class="it it_create ftv_link" md_url="/question/create"><i class="fa fa-edit"></i>&nbsp;&nbsp;添加题目</div>
+		<div class="it it_bank ftv_link" md_url="/bank/index"><i class="fa fa-folder"></i>&nbsp;&nbsp;题库列表</div>
+	</div>
+	<div class="item ftv_link item_setting" md_url="/test/setting">
+		<div class="icon"><i class="fa fa-cog fa-3x"></i></div>
+		<div class="desc">测评设置</div>
+	</div>
+	<div class="list">
+		<div class="it it_basic ftv_link" md_url="/test/setting"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;基本信息</div>
+		<div class="it it_advance ftv_link"  md_url="/test/settingAdvance"><i class="fa fa-cog"></i>&nbsp;&nbsp;高级设置</div>
+		<div class="it it_delete ftv_link" md_url="/test/settingDelete"><i class="fa fa-times-circle"></i>&nbsp;&nbsp;删除测评</div>
+	</div>
+	<div class="item ftv_link item_report" md_url="/report/invited">
+		<div class="icon"><i class="fa fa-bar-chart-o fa-3x"></i></div>
+		<div class="desc">测试报告</div>
+	</div>
+	<div class="list">
+		<div class="it it_invited ftv_link" md_url="/report/invited"><i class="fa fa-circle-o"></i>&nbsp;&nbsp;已邀请 (<span class="count_invited">0</span>)</div>
+		<div class="it it_running ftv_link" md_url="/report/running"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;测评中 (<span class="count_running">0</span>)</div>
+		<div class="it it_completed ftv_link" md_url="/report/completed"><i class="fa fa-circle"></i>&nbsp;&nbsp;已完成 (<span class="count_completed">0</span>)</div>
+		<div class="it it_passed ftv_link" md_url="/report/passed"><i class="fa fa-check-circle-o"></i>&nbsp;&nbsp;已通过 (<span class="count_passed">0</span>)</div>
+		<div class="it it_failed ftv_link" md_url="/report/failed"><i class="fa fa-ban"></i>&nbsp;&nbsp;已淘汰 (<span class="count_failed">0</span>)</div>
+	</div>
+</div>
+
+<div class="page">
+
+	<div class="page_head">
+		<div class="title"></div>
+		<div class="content"></div>
+		<div class="item ftv_refresh_t">
+			<span class="btn btn-primary"><i class="fa fa-refresh"></i> 刷新</span>
+		</div>
+	</div>
+	
+	<div class="page_content">
+

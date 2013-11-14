@@ -1,0 +1,91 @@
+<include file="header"/>
+	
+<div class="login corner5">
+	<div class="intro" style="text-align:center;">
+		在正式测评之前，请填入以下信息：
+	</div>
+	<div class="form_div">
+		<div class="content" style="margin:0;">
+		<form name="register" action="/attend/fillDo" method="post" class="myform" enctype="multipart/form-data">
+			<?php foreach($test['need_info'] as $item) { ?>
+				
+				<?php if ($item == 'name') { ?>
+				<div class="item">
+					<div class="tt">姓名<span class="tip"></span></div>
+					<div class="ct">
+						<input name="name" type="text" class="form-control" value="<{$program.name}>">
+					</div>
+					<div class="clear"></div>
+				</div>
+				<?php } ?>
+				
+				<!-- 手机号码 -->
+				<?php if ($item == 'phone') { ?>
+				<div class="item">
+					<div class="tt">手机号码<span class="tip"></span></div>
+					<div class="ct">
+						<input name="phone" class="form-control" value="">
+					</div>
+					<div class="clear"></div>
+				</div>
+				<?php } ?>
+				
+				<!-- 简历 -->
+				<?php if ($item == 'resume') { ?>
+				<div class="item">
+					<div class="tt">简历<span class="tip"></span></div>
+					<div class="ct">
+						<input name="resume" type="button" class="form-control btn btn-success file" value="点击上传" md_default_value="点击上传">
+					</div>
+					<div class="clear"></div>
+				</div>
+				<?php } ?>
+				
+				<!-- 其他 -->
+				<?php if ($item == 'other') { ?>
+				<div class="item">
+					<div class="tt">其他<span class="tip"></span></div>
+					<div class="ct">
+						<textarea name="other" class="form-control" style="height:70px;"></textarea>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<?php } ?>
+				
+			<?php } ?>
+			<div class="item">
+				<div class="tt"></div>
+				<div class="ct">
+					<label class="no_margin">
+						<input name="promise" type="checkbox" value="1">
+						<span class="icon"></span>
+						<span class="desc">我承诺我将独立完成本次测评，不求助于他人或使用其他资源。</span>
+					</label>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="item submit">
+				<div class="ct"><input type="submit" value="开始测评" class="form-control btn btn-primary"></div>
+			</div>
+			<input name="test_id" class="hidden" value="<{$_GET.id}>">
+			<span class="submitTip hidden">开始测评</span>
+			<span class="submittingTip hidden">正在登录</span>
+			<span class="successTip hidden">登录成功</span>
+			<span class="failTip hidden">登录失败</span>
+		</form>
+		</div>
+	</div>
+</div>
+
+<script>
+$().ready(function() {
+	var pageHeight = parseInt($('body').css('height'));
+	var contenteight = parseInt($('.main_content').css('height'));
+	if ((pageHeight - 45) - (contenteight - 70) > 70) {
+		$('.main_content').css('padding-top', ((pageHeight - 45) - (contenteight - 70)) * 0.3 + 40);
+	}
+	
+});
+</script>
+
+<include file="footer"/>

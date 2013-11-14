@@ -1,0 +1,117 @@
+<div class="setting form_div">
+	<div class="content" style="margin:0;">
+	<form name="register" action="/test/settingAdvanceDo" method="post" class="myform">
+		<div class="item">
+			<div class="tt">开始时间<span class="tip"></span></div>
+			<div class="ct">
+				<input name="start_date"  md_name="start_date_int" type="text" class="ftv_date_picker_t form-control left2" value="<{$test.start_date}>">
+				<input name="start_date_int" value="<{$test.start_date_int}>" class="hidden">
+				<input name="start_time"  md_name="start_time_int" type="text" class="ftv_time_picker_t form-control left2" value="<{$test.start_time}>">
+				<input name="start_time_int" value="<{$test.start_time_int}>" class="hidden">
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">结束时间<span class="tip"></span></div>
+			<div class="ct">
+				<input name="end_date" md_name="end_date_int" type="text" class="ftv_date_picker_t form-control left2" value="<{$test.end_date}>">
+				<input name="end_date_int" value="<{$test.end_date_int}>" class="hidden">
+				<input name="end_time"  md_name="end_time_int" type="text" class="ftv_time_picker_t form-control left2" value="<{$test.end_time}>">
+				<input name="end_time_int" value="<{$test.end_time_int}>" class="hidden">
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item normal">
+			<div class="tt">自动通过分数<span class="tip"></span></div>
+			<div class="ct">
+				<input name="cutoff" type="text" class="form-control" value="<{$test.cutoff}>">
+			</div>
+		</div>
+		<div class="item">
+			<div class="tt">答题方式<span class="tip"></span></div>
+			<div class="ct">
+				<label class="no_margin">
+					<input name="answer_type_id" type="radio" value="1" <?php if ($test['answer_type_id'] == 1) echo 'checked="checked"'; ?>>
+					<span class="icon"></span>
+					<span class="desc">顺序显示（可跳题）</span>
+				</label>
+				<label class="no_margin">
+					<input name="answer_type_id" type="radio" value="2" <?php if ($test['answer_type_id'] == 2) echo 'checked="checked"'; ?>>
+					<span class="icon"></span>
+					<span class="desc">顺序显示（不可跳题）</span>
+				</label>
+				<label class="no_margin">
+					<input name="answer_type_id" type="radio" value="3" <?php if ($test['answer_type_id'] == 3) echo 'checked="checked"'; ?>>
+					<span class="icon"></span>
+					<span class="desc">乱序显示（可跳题）</span>
+				</label>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">公开测评<span class="tip"></span></div>
+			<div class="ct">
+				<label class="no_margin">
+					<input name="allow_public" type="radio" value="1" <?php if ($test['allow_public'] == 1) echo 'checked="checked"'; ?>>
+					<span class="icon"></span>
+					<span class="desc">私密</span>
+				</label>
+				<label class="no_margin">
+					<input name="allow_public" type="radio" value="2" <?php if ($test['allow_public'] == 2) echo 'checked="checked"'; ?>>
+					<span class="icon"></span>
+					<span class="desc">公开</span>
+				</label>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">需要收集的信息<span class="tip"></span></div>
+			<div class="ct">
+				<?php 
+					$tot = 0;
+					foreach($needInfo as $key => $item) {
+						$tot++;
+				?>
+					<label <?php if ($tot <= 4) echo 'class="no_margin"'; ?>>
+						<input name="need_info[]" type="checkbox" value="<{$key}>" <?php if (in_array($key, $test['need_info'])) echo 'checked="checked"'; ?>>
+						<span class="icon"></span>
+						<span class="desc"><{$item}></span>
+					</label>
+				<?php
+						if ($tot % 4 == 0) echo '<div class="clear"></div>';
+					} 
+				?>
+			</div>
+		</div>
+		
+		<div class="item">
+			<div class="tt">允许使用的语言<span class="tip"></span></div>
+			<div class="ct">
+				<?php 
+					$tot = 0;
+					foreach($alloLang as $item) {
+						$tot++;
+				?>
+					<label <?php if ($tot <= 4) echo 'class="no_margin"'; ?>>
+						<input name="allow_lang[]" type="checkbox" value="<{$item}>" <?php if (strstr($test['allow_lang'], $item . '|')) echo 'checked="checked"'; ?>>
+						<span class="icon"></span>
+						<span class="desc"><{$item}></span>
+					</label>
+				<?php
+						if ($tot % 4 == 0) echo '<div class="clear"></div>';
+					} 
+				?>
+			</div>
+		</div>
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="保存" class="form-control btn btn-primary"></div>
+		</div>
+		<input name="test_id" class="hidden" value="<{$_GET.test_id}>">
+		<span class="submitTip hidden">保存</span>
+		<span class="submittingTip hidden">正在保存</span>
+		<span class="successTip hidden">保存成功</span>
+		<span class="failTip hidden">保存失败</span>
+		<span class="force1 hidden">保存失败</span>
+	</form>
+	</div>
+</div>
