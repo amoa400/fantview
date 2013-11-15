@@ -27,7 +27,7 @@ class TestModel extends Model {
 		array('answer_type_id', '1', '', 1),
 		array('allow_public', '1', '', 1),
 		array('need_info', 'name|', '', 1),
-		array('allow_lang', 'C|C++|Java|PHP|Python|C#|Javascript|Ruby|Perl|Objective C|', '', 1),
+		array('allow_lang', 'C++|C|Pascal|Java|PHP|Python|C#|Javascript|Ruby|Perl|Objective C|', '', 1),
 	);
 
 }

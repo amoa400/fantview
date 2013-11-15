@@ -184,8 +184,42 @@ class AttendAction extends Action {
 			$ret['detail'] = D('Common', 'q_program')->r($ret['base']['id']);
 			$ret['detail'] = A('QProgram')->format($ret['detail']);
 		}
-		//dump($ret['detail']);
 		$this->ajaxReturn($ret);
+	}
+	
+	// 编译运行
+	public function comRun() {
+		// 插入数据库（基本信息）
+		$data['candidate_id'] = $_SESSION['cd_id'];
+		$data['question_id'] = $_POST['question_id'];
+		$data['answer'] = $_POST['code'];
+		$ret = D('Common', 'answer')->c($data);
+		if (!$ret) D('Common', 'answer')->u($data);
+		// 插入数据库（特殊信息）
+		$data2['candidate_id'] = $_SESSION['cd_id'];
+		$data2['question_id'] = $_POST['question_id'];
+		$ques = D('Common', 'q_program')->r($_POST['question_id']);
+		$data2['time_limit'] = $ques['time_limit'];
+		$data2['memory_limit'] = $ques['memory_limit'];
+		$langArr = array(
+			'C'				=>		1,
+			'C++'			=>		2,
+			'Pascal'		=>		3,
+		);
+		$data2['lang'] = $langArr[$_POST['lang']];
+		$data2['status_id'] = 2;
+		$ret = D('Common', 'a_program')->c($data2);
+		if (!$ret) D('Common', 'a_program')->u($data2);
+		// 轮询数据库
+		set_time_limit(90);
+		while (1) {
+			$ans = D('Common', 'a_program')->rBySql(array('candidate_id' => $_SESSION['cd_id'], 'question_id' => $_POST[question_id]));
+			if ($ans['status_id'] == 1) {
+				$this->ajaxReturn($ans['result']);
+				break;
+			}
+			sleep(1);
+		}
 	}
 	
 }

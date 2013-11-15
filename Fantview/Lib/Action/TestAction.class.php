@@ -90,7 +90,7 @@ class TestAction extends Action {
 			'resume' => '简历',
 			'other' => '其它',
 		);
-		$alloLang = array('C', 'C++', 'Java', 'PHP', 'Python', 'C#', 'Javascript', 'Ruby', 'Perl', 'Objective C');
+		$alloLang = array('C++', 'C', 'Pascal', 'Java', 'PHP', 'Python', 'C#', 'Javascript', 'Ruby', 'Perl', 'Objective C');
 
 		$this->assign('needInfo', $needInfo);
 		$this->assign('alloLang', $alloLang);
