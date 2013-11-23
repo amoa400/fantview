@@ -2,7 +2,7 @@
 
 class CommonAction extends Action {
 
-	// 创建完成
+	// 创建完成 TODO DELETE
 	public function createDo($data, $para) {
 		$dataClass = D('Common', $para['action']);
 		$res = $dataClass->c($data);
@@ -25,7 +25,7 @@ class CommonAction extends Action {
 			return $ret;
 	}	
 	
-	// 编辑完成
+	// 编辑完成 TODO DELETE
 	public function editDo($data, $para) {
 		$dataClass = D('Common', $para['action']);
 		$res = $dataClass->u($data);
@@ -69,18 +69,6 @@ class CommonAction extends Action {
 		else
 			$this->ajaxReturn($res);
 	}
-
-	// 通过字段获取
-	/*
-	public function getByField($data = array()) {
-		if (empty($data)) $data = $_POST;
-		$res = D('Common', $data['action'])->getByField($data['name'], $data['value']);
-		if ($data['retType'] == 'ajax')
-			$this->ajaxReturn($res);
-		else
-			return $res;
-	}
-	*/
 	
 	// 获取邮件模板
 	public function getMail($title, $username, $cont, $link) {
@@ -91,8 +79,60 @@ class CommonAction extends Action {
 		$mailCont = str_replace('<{link}>', $link, $mailCont);
 		return $mailCont;
 	}
-	
-	// 获取邮件模板2
-	
 
+	// 数据是否正确
+	public function isCorrect($dataList, $ruleList) {
+		$error = array();
+		foreach($dataList as $key => $data) {
+			foreach($ruleList as $rule) {
+				if ($key != $rule[0]) continue;
+				$type = $rule[1];
+				$para = $rule[2];
+				if (!empty($error[$key])) continue;
+				// 空
+				if ($type == 'empty') {
+					if (empty($data))
+						$error[$key] = '不能为空';
+				}
+				// 长度
+				else
+				if ($type == 'length') {
+					$len = mb_strlen($data, 'utf-8');
+					if ($len < $para[0] || $len > $para[1])
+						$error[$key] = '长度应为' . $para[0] . '-' . $para[1] . '位';
+				}
+				// 邮箱
+				else
+				if ($type == 'email') {
+					if (!validEmail($data))
+						$error[$key] = '格式错误';
+				}
+				// 字段是否存在
+				else
+				if ($type == 'exist') {
+					$dataClass = D('Common', $this->action);
+					$id = $dataClass->getField($key, $data, 'id');
+					if ($id != $data['id'])
+						$error[$key] = '已存在';
+				}
+				else
+				// 正则
+				if ($type == 'reg') {
+					if (!preg_match($para, $data))
+						$error[$key] = '格式不正确';
+				}
+				else
+				// 整数
+				if ($type == 'int') {
+					if (!preg_match('/^[0-9]+$/u', $data))
+						$error[$key] = '格式不正确';
+				}
+				// 空
+				else {
+				}
+			}
+		}
+		return $error;
+	}
+	
 }

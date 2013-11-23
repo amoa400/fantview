@@ -1,7 +1,7 @@
 </div>
 </div>
 
-<div class="loading hidden">
+<div class="loading">
 <div class="content">
 	<img src="/image/logo.png" height="40px;"><br>
 	<img src="/image/loading.gif">
@@ -21,6 +21,8 @@ function windowResize() {
 	var headerListWidth = parseInt($('.header .list').css('width'));
 	var headerTestWidth = parseInt($('.header .test').css('width'));
 	$('.header .test').css('margin-left', (bodyWidth - headerTestWidth) / 2 - headerListWidth);
+	// 用户菜单
+	$('.user_menu').css('width', parseInt($('.header .user').css('width')) + 1);
 	//=====================================================================
 	
 	/* 测试列表 */
@@ -71,11 +73,31 @@ function windowResize() {
 			$('.program_content').css('width', parseInt($('.page_content').css('width')) - parseInt($('.program_navi').css('width')) - 20);
 	}
 	
+	/* 左部内容 */
+	if (ftvPage.getAction() == 'user') {
+		$('.left_panel .item_question').hide();
+		$('.left_panel .item_setting').hide();
+		$('.left_panel .item_report').hide();
+		$('.left_panel .item_user').show();
+	}
+	else {
+		$('.left_panel .item_question').show();
+		$('.left_panel .item_setting').show();
+		$('.left_panel .item_report').show();
+		$('.left_panel .item_user').hide();
+	}
+	
 	/* 顶部内容 */
 	if ($('.page_head_content').length != 0) {
 		$('.page_head .content').html($('.page_head_content').html());
 	} else {
 		$('.page_head .content').html('');
+	}
+	
+	/* 答题详情 */
+	if (ftvPage.getAction() == 'report' && ftvPage.getFunc() == 'detail') {
+		$('.detail .right').css('width', parseInt($('.detail').css('width')) - parseInt($('.detail .left').css('width')));
+		setHideDivHeight();
 	}
 }
 

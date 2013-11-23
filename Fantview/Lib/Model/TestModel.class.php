@@ -3,12 +3,8 @@
 class TestModel extends Model {
 	// 变量
 	public $errorInfo;
-
-	// 字段名称
-	public $fieldName = array(
-	);
 	
-	// 数据正确规则
+	// 数据正确规则 TODO DELETE
 	public $dataRule = array(
 		array('name', 'empty'),
 		array('name', 'length', array(2, 30)),

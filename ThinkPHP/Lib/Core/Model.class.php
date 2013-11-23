@@ -410,7 +410,15 @@ class Model {
             // 如果存在主键数据 则自动作为更新条件
             if(isset($data[$pk])) {
                 $where[$pk]         =   $data[$pk];
-                $options['where']   =   $where;
+				
+				// =================	将最后一个主键前面的所有值设定为主键
+				foreach	($this->fields as $item) {
+					if ($item == $pk) break;
+					$where[$item] = $data[$item];
+				}
+				// =================
+
+				$options['where']   =   $where;
                 unset($data[$pk]);
             }else{
                 // 如果没有任何更新条件则不执行

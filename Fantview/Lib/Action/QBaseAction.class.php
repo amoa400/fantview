@@ -28,7 +28,7 @@ class QBaseAction extends Action {
 	public function createSingleDo() {
 		// 问题基本信息
 		$data['user_id'] = $_SESSION['id'];
-		$data['name'] = mb_substr($_POST['desc'], 0, 20, 'utf-8');
+		$data['name'] = mb_substr(strip_tags($_POST['desc']), 0, 20, 'utf-8');
 		$data['type_id'] = 1;
 		$data['score'] = (int)$_POST['score'];
 		// 单选题信息
@@ -44,7 +44,7 @@ class QBaseAction extends Action {
 		
 		// 判断正确性
 		if (empty($_POST['desc']) || mb_strlen($_POST['desc'], 'utf-8') > 1000)
-			$ret['error']['desc'] = '长度应为1-1000位';
+			$ret['error']['desc_error'] = '长度应为1-1000位';
 		if (empty($data2['answer']))
 			$ret['error']['option_A'] = '选项信息不正确';
 			
@@ -95,7 +95,7 @@ class QBaseAction extends Action {
 	public function createMultiDo() {
 		// 问题基本信息
 		$data['user_id'] = $_SESSION['id'];
-		$data['name'] = mb_substr($_POST['desc'], 0, 20, 'utf-8');
+		$data['name'] = mb_substr(strip_tags($_POST['desc']), 0, 20, 'utf-8');
 		$data['type_id'] = 2;
 		$data['score'] = (int)$_POST['score'];
 		// 不定项选择题信息
@@ -111,7 +111,7 @@ class QBaseAction extends Action {
 		
 		// 判断正确性
 		if (empty($_POST['desc']) || mb_strlen($_POST['desc'], 'utf-8') > 1000)
-			$ret['error']['desc'] = '长度应为1-1000位';
+			$ret['error']['desc_error'] = '长度应为1-1000位';
 		if (empty($data2['answer']))
 			$ret['error']['option_A'] = '选项信息不正确';
 			
@@ -164,7 +164,7 @@ class QBaseAction extends Action {
 		// 问题基本信息
 		$data['test_id'] = $_POST['test_id'];
 		$data['user_id'] = $_SESSION['id'];
-		$data['name'] = mb_substr($_POST['desc'], 0, 20, 'utf-8');
+		$data['name'] = mb_substr(strip_tags($_POST['desc']), 0, 20, 'utf-8');
 		$data['type_id'] = 3;
 		$data['score'] = (int)$_POST['score'];
 		// 主观问答题信息
@@ -172,7 +172,7 @@ class QBaseAction extends Action {
 		
 		// 判断正确性
 		if (empty($_POST['desc']) || mb_strlen($_POST['desc'], 'utf-8') > 3000)
-			$ret['error']['desc'] = '长度应为1-3000位';
+			$ret['error']['desc_error'] = '长度应为1-3000位';
 			
 		// 处理
 		if (!empty($ret)) {

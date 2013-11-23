@@ -1,0 +1,83 @@
+<div class="cd_list form_div">
+	<div class="cd_toolbar">
+		<div class="item ftv_link report_link" md_tmp_url="/report/pass"><span class="btn btn-success">通过</span></div>
+		<div class="item ftv_link report_link" md_tmp_url="/report/fail"><span class="btn btn-white">淘汰</span></div>
+		<div class="clear"></div>
+	</div>
+	<div class="cd_table">
+		<table>
+			<tr class="tt">
+				<td width="70px">
+					<label>
+						<input class="select_all" type="checkbox">
+						<span class="icon"></span>
+					</label>
+				</td>
+				<td>姓名</td>
+				<td>邮箱地址</td>
+				<td>总分</td>
+				<td>共用时</td>
+				<td>结束时间</td>
+				<td>详细报告</td>
+			</tr>
+			<?php foreach($cdList as $cd) { ?>
+			<tr>
+				<td>
+					<label>
+						<input type="checkbox">
+						<span class="icon"></span>
+					</label>
+					<span class="id hide"><{$cd.id}></span>
+				</td>
+				<td><{$cd.name}></td>
+				<td><span  class="ftv_link href" md_url="/report/summary/cd_id/<{$cd.id}>"><{$cd.email}></span></td>
+				<td><{$cd.score}></</td>
+				<td><{$cd.tot_time}>分钟</</td>
+				<td><{$cd.end_time}></</td>
+				<td><span class="btn btn-default ftv_link" md_url="/report/summary/cd_id/<{$cd.id}>">查看</span></</td>
+			</tr>
+			<?php } ?>
+		</table>
+	</div>
+	
+	<?php if ($pager['totPage'] > 1) { ?>
+	<div class="pagination">
+		<?php if ($pager['cntPage'] != 1) { ?>
+		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] - 1; ?>"><a>&laquo;</a></li>
+		<?php } else { ?>
+		<li><a>&laquo;</a></li>
+		<?php } ?>
+		
+		<?php 
+			for ($i = $pager['cntPage'] - 3; $i < $pager['cntPage']; $i++) {
+				if ($i <= 0) continue;
+		?>
+		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
+		<?php } ?>
+		
+		<li class="active"><a><{$pager.cntPage}></a></li>
+		
+		<?php 
+			for ($i = $pager['cntPage'] + 1; $i <= $pager['cntPage'] + 3; $i++) {
+				if ($i > $pager['totPage']) break;
+		?>
+		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
+		<?php } ?>
+		
+		<?php if ($pager['cntPage'] != $pager['totPage']) { ?>
+		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] + 1; ?>"><a>&raquo;</a></li>
+		<?php } else { ?>
+		<li><a>&raquo;</a></li>
+		<?php } ?>
+	</div>
+	<?php } ?>
+</div>
+<script src="/js/report.js" type="text/javascript"></script>
+
+<script>
+	$('.left_panel .count_invited').html(<{$reportCount.count_invited}>);
+	$('.left_panel .count_running').html(<{$reportCount.count_running}>);
+	$('.left_panel .count_completed').html(<{$reportCount.count_completed}>);
+	$('.left_panel .count_passed').html(<{$reportCount.count_passed}>);
+	$('.left_panel .count_failed').html(<{$reportCount.count_failed}>);
+</script>

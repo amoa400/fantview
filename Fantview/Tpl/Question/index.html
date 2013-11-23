@@ -4,8 +4,8 @@
 		foreach($questionList as $question) {
 			$cnt++;
 	?>
-	<div class="item">
-		<div class="it id" onselectstart="return false"><i class="fa fa-th"></i>&nbsp;&nbsp;&nbsp;&nbsp;Q<?php echo ($pager['cntPage'] - 1) * 10 + $cnt; ?></div>
+	<div class="item" id="<{$cnt}>">
+		<div class="it id" onselectstart="return false"><i class="fa fa-th"></i>&nbsp;&nbsp;&nbsp;&nbsp;Q<{$cnt}></div>
 		<div class="it name"><{$question.name}>...</div>
 		<div class="it type">
 			<div class="tt">类型</div>
@@ -29,38 +29,7 @@
 		<div class="clear"></div>
 	</div>
 	<?php } ?>	
-	
-	<?php if ($pager['totPage'] > 1) { ?>
-	<div class="pagination">
-		<?php if ($pager['cntPage'] != 1) { ?>
-		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] - 1; ?>"><a>&laquo;</a></li>
-		<?php } else { ?>
-		<li><a>&laquo;</a></li>
-		<?php } ?>
-		
-		<?php 
-			for ($i = $pager['cntPage'] - 3; $i < $pager['cntPage']; $i++) {
-				if ($i <= 0) continue;
-		?>
-		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
-		<?php } ?>
-		
-		<li class="active"><a><{$pager.cntPage}></a></li>
-		
-		<?php 
-			for ($i = $pager['cntPage'] + 1; $i <= $pager['cntPage'] + 3; $i++) {
-				if ($i > $pager['totPage']) break;
-		?>
-		<li class="ftv_link" md_para="/page/<{$i}>"><a><{$i}></a></li>
-		<?php } ?>
-		
-		<?php if ($pager['cntPage'] != $pager['totPage']) { ?>
-		<li class="ftv_link" md_para="/page/<?php echo $pager['cntPage'] + 1; ?>"><a>&raquo;</a></li>
-		<?php } else { ?>
-		<li><a>&raquo;</a></li>
-		<?php } ?>
-	</div>
-	<?php } ?>
+
 </div>
 
 <script>
@@ -68,5 +37,52 @@
 		var itemObj = $(this).parent().parent();
 		itemObj.find('.question_delete_btn').toggle();
 		itemObj.find('.name').css('width', parseInt(itemObj.css('width')) - parseInt(itemObj.find('.id').css('width')) - parseInt(itemObj.find('.type').css('width')) - parseInt(itemObj.find('.score').css('width')) - parseInt(itemObj.find('.icon').css('width')) - 2);
+	});
+	
+	// 重新设定
+	function reSetId() {
+		var list = $('.question').sortable('toArray');
+		for (var i = 1; i < list.length; i++) {
+			$('.question .item:nth-child(' + (i) +  ') .id').html('<i class="fa fa-th"></i>&nbsp;&nbsp;&nbsp;&nbsp;Q' + i);
+		}
+	}
+	
+	// 拖动
+	$('.question').sortable({handle : '.id'});
+	$('.question').on('sortstop', function(event, ui) {
+		var list = $('.question').sortable('toArray');		
+		for (var i = 0; i < list.length; i++)
+			list[i] = parseInt(list[i]);
+			
+		var st;
+		var ed;
+		
+		for (var i = 0; i < list.length; i++) {
+			var last = 0;
+			var flag = true;
+			for (var j = 0; j < list.length; j++) {
+				if (j == i) continue;
+				if (list[j] < last) {
+					flag = false;
+					break;
+				}
+				last = list[j];
+			}
+			
+			if (flag) {
+				if (i == 0 && list[i] == 1) return;
+				st = list[i];
+				ed = i + 1;
+				break;
+			}
+		}
+		
+		$.get('/question/reSetId', {test_id : <{$_GET.test_id}>, st : st, ed : ed}, function() {
+			for (var i = 1; i <= list.length; i++) {
+				$('.question .item:nth-child(' + (i) +  ') .id').html('<i class="fa fa-th"></i>&nbsp;&nbsp;&nbsp;&nbsp;Q' + i);
+				$('.question .item:nth-child(' + (i) +  ')').attr('id', i)
+			}
+		});
+		
 	});
 </script>

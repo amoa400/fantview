@@ -12,9 +12,12 @@
 				<div class="ct"><input name="duration" type="text" class="form-control" value="<{$test.duration}>"></div>
 			</div>
 			<div class="clear"></div>
-			<div class="item textarea">
+			<div class="item textarea" style="height:300px;">
 				<div class="tt">测试描述<span class="tip"></span></div>
-				<div class="ct"><textarea name="desc" type="text" class="form-control"><{$test.desc}></textarea></div>
+				<div class="ct">
+					<textarea name="desc_error" style="display:none;"></textarea>
+					<script type="text/plain" id="ue_text" name="desc" style="height:250px;"><{$test.desc}></script>
+				</div>
 			</div>
 			<div class="item submit">
 				<div class="ct"><input type="submit" value="保存" class="form-control btn btn-primary"></div>
@@ -29,3 +32,14 @@
 	</div>
 
 </div>
+
+<script>
+	function setEditor() {
+		var editor = new UE.ui.Editor();
+		editor.render("ue_text");
+	}
+	
+	$().ready(function() {
+		setTimeout('setEditor()', 220);
+	});
+</script>

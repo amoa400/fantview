@@ -30,20 +30,35 @@ class QProgramAction extends Action {
 		// 问题基本信息
 		$data['test_id'] = $_POST['test_id'];
 		$data['user_id'] = $_SESSION['id'];
-		$data['name'] = mb_substr($_POST['name'], 0, 20, 'utf-8');
+		$data['name'] = mb_substr(htmlspecialchars($_POST['name']), 0, 20, 'utf-8');
 		$data['type_id'] = 4;
 		$data['score'] = (int)$_POST['score'];
 		// 主观问答题信息
 		$data2['name'] = $_POST['name'];
 		$data2['desc'] = $_POST['desc'];
+		$data2['input'] = $_POST['input'];
+		$data2['output'] = $_POST['output'];
+		$data2['s_input'] = $_POST['s_input'];
+		$data2['s_output'] = $_POST['s_output'];
+		$data2['hint'] = $_POST['hint'];
 		$data2['time_limit'] = (int)$_POST['time_limit'];
 		$data2['memory_limit'] = (int)$_POST['memory_limit'];
 		
 		// 判断正确性
 		if (empty($_POST['name']) || mb_strlen($_POST['name'], 'utf-8') > 30)
 			$ret['error']['name'] = '长度应为1-30位';
-		if (empty($_POST['desc']) || mb_strlen($_POST['desc'], 'utf-8') > 5000)
-			$ret['error']['desc'] = '长度应为1-5000位';
+		if (empty($_POST['desc']) || mb_strlen($_POST['desc'], 'utf-8') > 10000)
+			$ret['error']['desc_error'] = '长度应为1-10000位';
+		if (mb_strlen($_POST['input'], 'utf-8') > 1000)
+			$ret['error']['input'] = '长度应为0-1000位';
+		if (mb_strlen($_POST['output'], 'utf-8') > 1000)
+			$ret['error']['output'] = '长度应为0-1000位';
+		if (mb_strlen($_POST['s_input'], 'utf-8') > 1000)
+			$ret['error']['s_input'] = '长度应为0-1000位';
+		if (mb_strlen($_POST['s_output'], 'utf-8') > 1000)
+			$ret['error']['s_output'] = '长度应为0-1000位';
+		if (mb_strlen($_POST['hint'], 'utf-8') > 1000)
+			$ret['error']['hint'] = '长度应为0-1000位';
 		if ($data2['time_limit'] == 0 || $data2['time_limit'] > 10000)
 			$ret['error']['time_limit'] = '数值应为1-10000';
 		if ($data2['memory_limit'] == 0 || $data2['memory_limit'] > 524288)
@@ -196,7 +211,7 @@ class QProgramAction extends Action {
 		$upload->allowExts  = array('zip');
 		$upload->savePath =  '../Testcase/temp/' . $_POST['question_id'] . '/';
 		if(!$upload->upload())
-			$this->ajaxReturn(array('status' => 'error', 'error' => array('error' => $upload->getErrorMsg())));
+			$this->ajaxReturn(array('status' => 'fail', 'error' => array('error' => $upload->getErrorMsg())));
 		$info = $upload->getUploadFileInfo();
 		$info = $info[0];
 		// 解压压缩包
@@ -292,6 +307,11 @@ class QProgramAction extends Action {
 
 	// 格式化编程题
 	public function format($program) {
+		$program['inputStr'] = nl2br($program['input']);
+		$program['outputStr'] = nl2br($program['output']);
+		$program['s_inputStr'] = nl2br($program['s_input']);
+		$program['s_outputStr'] = nl2br($program['s_output']);
+		$program['hintStr'] = nl2br($program['hint']);
 		$testcases = split('\|', $program['testcase']);
 		foreach($testcases as $case) {
 			$detail = split(',', $case);
@@ -317,5 +337,44 @@ class QProgramAction extends Action {
 		}
 		unset($program['testcases'][count($program['testcases']) - 1]);
 		return $program;
+	}
+
+	// 格式化答案
+	public  function formatAns($ans) {
+		switch($ans['lang']) {
+			case 1:
+				$ans['langStr'] = 'C';
+				$ans['langStr2'] = 'cpp';
+				break;
+			case 2:
+				$ans['langStr'] = 'C++';
+				$ans['langStr2'] = 'cpp';
+				break;
+			case 3:
+				$ans['langStr'] = 'Pascal';
+				$ans['langStr2'] = 'delphi';
+				break;
+			default:
+				$ans['langStr'] = '未知';
+				$ans['langStr2'] = '';
+		}
+		// 运行结果
+		if ($ans['result'][0] == 'C' && $ans['result'][1] == 'E' && $ans['result'][2] == ',') {
+			$ans['error'] = nl2br(trim(substr($ans['result'], 3)));
+		} else {
+			$ans['res'] = array();
+			$res = split('\|', $ans['result']);
+			foreach($res as $item) {
+				if (empty($item)) continue;
+				$ans['res'][] = array();
+				$id = count($ans['res']) - 1;
+				$tmp = split(',', $item);
+				$ans['res'][$id]['status_id'] = $tmp[0];
+				$ans['res'][$id]['time'] = $tmp[1];
+				$ans['res'][$id]['memory'] = $tmp[2];
+				$ans['res'][$id]['status'] = $tmp[3];
+			}
+		}
+		return $ans;
 	}
 }

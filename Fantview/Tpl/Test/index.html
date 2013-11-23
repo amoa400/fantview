@@ -9,24 +9,24 @@
 					<i class="fa fa-clock-o"></i> <{$test.duration}>分钟&nbsp;&nbsp;
 				</div>
 			</div>
-			<div class="it">
+			<div class="it ftv_link" md_url="/report/invite/test_id/<{$test.id}>">
 				<div class="icon"><i class="fa fa-user fa-lg"></i></div>
 				<div class="desc">邀请</div>
 			</div>
-			<div class="it">
+			<div class="it ftv_link" md_url="/question/index/test_id/<{$test.id}>">
 				<div class="icon"><i class="fa fa-edit fa-lg"></i></div>
 				<div class="desc">编辑</div>
 			</div>
 			<div class="clear"></div>
 		</div>
 		<div class="report">
-			<div class="left">
+			<div class="left ftv_link" md_url="/report/invited/test_id/<{$test.id}>">
 				<i class="fa fa-bar-chart-o fa-lg"></i>
 				<span>报告</span>
 			</div>
 			<div class="right">
-				<div class="it"><span><{$test.count_invited}></span> - 已邀请</div>
-				<div class="it"><span><{$test.count_completed}></span> - 已完成</div>
+				<div class="it ftv_link" md_url="/report/invited/test_id/<{$test.id}>"><span><{$test.count_invited}></span> - 已邀请</div>
+				<div class="it ftv_link" md_url="/report/completed/test_id/<{$test.id}>"><span><{$test.count_completed}></span> - 已完成</div>
 			</div>
 			<div class="clear"></div>
 		</div>

@@ -1,0 +1,22 @@
+<div class="form_div" style="width:600px;">
+	<div class="content" style="margin:0;">
+	<form name="upload" action="/user/editPhotoDo" method="post" class="myform" enctype="multipart/form-data">
+		<div class="item">
+			<div class="tt">头像<span class="tip"></span></div>
+			<div class="ct upload_photo">
+				<img name="photo" src="/user/<{$_SESSION.id}>/photo.jpg" style="height:100px;width:100px;">
+			</div>
+			<div class="clear"></div>
+		</div>	
+		<div class="item">
+			<div class="tt"><span class="tip"></span></div>
+				<div class="ct"><input name="photo" type="button" class="form-control btn btn-primary file" value="点击上传" md_default_value="点击上传" style="width:101px;" md_auto_submit="1"></div>
+			<div class="clear"></div>
+		</div>
+		<span class="submitTip hidden">点击上传</span>
+		<span class="submittingTip hidden">正在上传</span>
+		<span class="successTip hidden">上传成功</span>
+		<span class="failTip hidden">上传失败</span>
+	</form>
+	</div>
+</div>

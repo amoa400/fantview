@@ -1,10 +1,10 @@
 <div class="form_div" style="width:800px;">
 	<div class="content" style="margin:0;">
 	<form name="register" action="/report/inviteDo" method="post" class="myform">
-		<div class="item">
+		<div class="item" style="width:400px;">
 			<div class="tt">电子邮箱地址（每行一个）<span class="tip"></span></div>
 			<div class="ct">
-				<textarea name="email" class="form-control" style="width:400px;height:80px;"><{$emailList}></textarea>
+				<textarea name="email" class="form-control" style="height:80px;"><{$emailList}></textarea>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -18,7 +18,7 @@
 		<div class="item">
 			<div class="tt">正文（选填）<span class="tip"></span></div>
 			<div class="ct">
-				<textarea name="content" class="form-control"><{$multi.desc}></textarea>
+				<script type="text/plain" id="ue_text" name="content" style="height:250px;"></script>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -41,4 +41,11 @@
 	$('.left_panel .count_completed').html(<{$reportCount.count_completed}>);
 	$('.left_panel .count_passed').html(<{$reportCount.count_passed}>);
 	$('.left_panel .count_failed').html(<{$reportCount.count_failed}>);
+</script>
+
+<script>
+	$().ready(function() {
+		var editor = new UE.ui.Editor();
+		editor.render("ue_text");
+	});
 </script>

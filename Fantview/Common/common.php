@@ -185,7 +185,7 @@ function sendEmail($to, $subject, $message) {
     // 设置邮件正文
     $mail->MsgHTML($message);
     // 设置邮件头的From字段。
-    $mail->From = 'admin@jzhao.cn';
+    $mail->From = 'noreply@fantview.com';
     // 设置发件人名字
     $mail->FromName = 'fantview';
     // 设置邮件标题
@@ -195,8 +195,8 @@ function sendEmail($to, $subject, $message) {
     // 设置为"需要验证"
     $mail->SMTPAuth = true;
     // 设置用户名和密码。
-    $mail->Username = 'admin@jzhao.cn';
-    $mail->Password = 'zhaoJi400';
+    $mail->Username = 'noreply@fantview.com';
+    $mail->Password = 'viewfantnoreply';
 
     // 发送邮件。
     return($mail->Send());
@@ -257,4 +257,79 @@ function deldir($dir) {
 		}
 		rmdir($dir);
 	}
+}
+
+function imagetranstowhite($trans,$nw,$nh) {
+ $w = imagesx($trans);
+ $h = imagesy($trans);
+ $white = imagecreatetruecolor($nw,$nh);
+ $bg = imagecolorallocate($white, 255, 255, 255);
+ imagefill($white, 0, 0, $bg);
+ ImageCopyResampled($white, $trans, 0, 0, 0, 0,$nw, $nh, $w, $h);
+ return $white;
+}
+
+function ImageToJPG($srcFile,$dstFile,$towidth,$toheight)
+{ 
+        $quality=100; 
+        $data = GetImageSize($srcFile); 
+        switch ($data['2'])
+        {
+                case 1:
+                        $im = imagecreatefromgif($srcFile); 
+                         break; 
+                case 2:
+                        $im = imagecreatefromjpeg($srcFile); 
+                        break; 
+                case 3: 
+                        $im = imagecreatefrompng($srcFile);
+                        break;
+        }
+
+	$srcW = $data[0];
+	$srcH = $data[1];
+      $dstX=$towidth; 
+      $dstY=$toheight;
+        $ni = imagetranstowhite($im, $towidth, $toheight);
+		ImageJpeg($ni,$dstFile,$quality); 
+        imagedestroy($im); 
+        imagedestroy($ni);       
+}
+
+// 发送socket
+function sendSocket($msg, $needRecv = false, $ip = '192.168.222.131', $port = 4001) {
+	$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+	if ($socket == false) {
+		echo '无法创建socket';
+	}
+	$result = socket_connect($socket, $ip, $port);
+	if ($result == false) {
+		echo '无法连接';
+	}
+	socket_send($socket, $msg, strlen($msg), 0);
+	$ret = '';
+	if ($needRecv)
+		socket_recv($socket, $ret, 1024, 0x2);
+	socket_close($socket);
+	return $ret;
+}
+
+function getIp() {
+	 if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown'))
+	 {
+	  $ip = getenv('HTTP_CLIENT_IP');
+	 }
+	 elseif(getenv('HTTP_X_FORWARDED_FOR') && strcasecmp(getenv('HTTP_X_FORWARDED_FOR'), 'unknown'))
+	 {
+	  $ip = getenv('HTTP_X_FORWARDED_FOR');
+	 }
+	 elseif(getenv('REMOTE_ADDR') && strcasecmp(getenv('REMOTE_ADDR'), 'unknown'))
+	 {
+	  $ip = getenv('REMOTE_ADDR');
+	 }
+	 elseif(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown'))
+	 {
+	  $ip = $_SERVER['REMOTE_ADDR'];
+	 }
+	 return preg_match("/[\d\.]{7,15}/", $ip, $matches) ? $matches[0] : 'unknown';
 }

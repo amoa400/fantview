@@ -73,6 +73,10 @@ function FTV_Page() {
 	// 链接点击
 	var linkClick = function(u) {
 		if (u == cntUrl) return;
+		// 直接跳转
+		if ($(this).attr('md_jump_url') != null) {
+			location.href = $(this).attr('md_jump_url');
+		}
 		// 重新设定参数
 		var url = u;
 		if ($(this).attr('md_url') != null)
@@ -140,6 +144,10 @@ function FTV_Page() {
 								$('.header .test .name').html(name);
 								$('.header .test .name').show();
 								$('.header .test .down').show();
+								if (action == 'user') {
+									$('.header .test .name').hide();
+									$('.header .test .down').hide();
+								}
 								windowResize();
 							}
 						);
@@ -167,6 +175,14 @@ function FTV_Page() {
 					}
 					$('.header .new_test').hide();
 					$('.header .new_candidate').show();
+					
+					// 用户页
+					if (action == 'user') {
+						$('.header .test .name').hide();
+						$('.header .test .down').hide();
+						$('.header .new_test').show();
+						$('.header .new_candidate').hide();
+					}
 				}
 				else {
 					// 列表页
@@ -253,7 +269,7 @@ function FTV_Form() {
 			var name = $(this).attr('name');
 			if (name == '') return;
 			generate(name);
-			$(this).find('.submit').click(function() {
+			$(this).find('.submit input[type="submit"]').click(function() {
 				$(this).submit();
 			});
 			$(this).find('.file').click(function() {
@@ -323,7 +339,7 @@ function FTV_Form() {
 			data[textareas[i].name] = textareas[i].value;
 			var textareaObj = document.createElement('textarea');
 			textareaObj.setAttribute('name', textareas[i].name);
-			textareaObj.innerHTML = textareas[i].value;
+			textareaObj.value = textareas[i].value;
 			formObj.appendChild(textareaObj);
 		}
 		// 获取select的值
@@ -439,6 +455,10 @@ function FTV_Form() {
 	// 更改
 	_this.changeFileText = function(formName, fileBtnName, value) {
 		$('.myform[name="' + formName + '"] input[name="' + fileBtnName + '"]').val(value.match(/[^\/\\]*$/)[0]);
+		if ($('.myform[name="' + formName + '"] input[name="' + fileBtnName + '"]').attr('md_auto_submit') == 1) {
+			$('.myform[name="' + formName + '"] input[name="' + fileBtnName + '"]').val('上传中');
+			$('.myform[name="' + formName + '"]').submit();
+		}
 	}
 	
 	init();
@@ -1078,17 +1098,6 @@ function ftv_NamePicker() {
 	init();
 }
 
-/* 弹出框 */
-function ftv_PopDiv() {
-	var _this = this;
-	
-	// 初始化函数
-	function init() {
-	}
-	
-	init();
-}
-
 /* 触发所有类 */
 $().ready(function() {
 	window.ftvCommon = new FTV_Common();
@@ -1097,5 +1106,4 @@ $().ready(function() {
 	window.ftvNamePicker = new FTV_NamePicker();
 	window.ftvDatePicker = new ftv_DatePicker();
 	window.ftvTimePicker = new ftv_TimePicker();
-	window.ftvPopDiv = new ftv_PopDiv();
 });

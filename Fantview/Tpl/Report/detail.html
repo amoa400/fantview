@@ -1,0 +1,287 @@
+<style>
+	.page_content {padding:0;}
+</style>
+
+<div class="detail_container">
+
+<div class="report_head">
+	<span class="it ftv_link" md_url="/report/summary/cd_id/<{$_GET.cd_id}>">整体概览</span>
+	<span class="it active">答题详情</span>
+</div>
+
+<div class="detail">
+	<?php
+		$cnt = 0;
+		foreach($quesList as $ques) {
+			$cnt++;
+	?>
+	<div class="item">
+		<div class="left">
+			<div class="id">第<{$cnt}>题</div>
+			<?php $scoreType = ''; ?>
+			<?php if ($ques['ans']['status_id'] == 1) { ?>
+			<div class="res"><img src="/image/icon/ques.png"></div>
+			<div class="text">等待评测</div>
+			<?php 
+					$scoreType = 'ques';
+				} 
+			?>
+			<?php if ($ques['ans']['status_id'] == 2) { ?>
+			<div class="res"><img src="/image/icon/correct.png"></div>
+			<div class="text">正确答案</div>
+			<?php 
+					$scoreType = 'correct';
+				} 
+			?>
+			<?php if ($ques['ans']['status_id'] == 3) { ?>
+			<div class="res"><img src="/image/icon/wrong.png"></div>
+			<div class="text">错误答案</div>
+			<?php 
+					$scoreType = 'wrong';
+				} 
+			?>
+			<?php if ($ques['ans']['status_id'] == 4) { ?>
+			<div class="res"><img src="/image/icon/self.png"></div>
+			<div class="text">主观评价</div>
+			<?php 
+					$scoreType = 'correct';
+				} 
+			?>
+			<div class="score <{$scoreType}>" data-toggle="tooltip" data-placement="bottom" title="修改本题得分"><span>得分：<{$ques.ans.score}></span></div>
+			<div class="change_score form_div"><div class="content" style="margin:0;"><div class="item"><input type="text" class="form-control" md_id="<{$ques.id}>" md_old_value="<{$ques.ans.score}>" value="<{$ques.ans.score}>"/></div></div></div>
+			<div class="time">用时：<{$ques.ans.tot_time}></div>
+		</div>
+		<div class="right corner5">
+			<div class="tt"><{$ques.type}></div>
+			
+			<?php if ($ques['type_id'] == 4) { ?>
+			<div class="desc2">
+				<div class="it name"><{$ques.detail.name}></div>
+				<div class="it limit">时间限制：<{$ques.detail.time_limit}> MS&nbsp;&nbsp;&nbsp;&nbsp;内存限制：<{$ques.detail.memory_limit}> KB</div>
+				<div class="it cont">
+					<div class="ttt">题目描述</div>
+					<{$ques.detail.desc}>
+				</div>
+				<?php if (!empty($ques['detail']['input'])) { ?>
+				<div class="it input">
+					<div class="ttt">输入数据</div>
+					<{$ques.detail.inputStr}>
+				</div>
+				<?php } ?>
+				<?php if (!empty($ques['detail']['output'])) { ?>
+				<div class="it output">
+					<div class="ttt">输出数据</div>
+					<{$ques.detail.outputStr}>
+				</div>
+				<?php } ?>
+				<?php if (!empty($ques['detail']['s_input'])) { ?>
+				<div class="it s_input">
+					<div class="ttt">样例输入</div>
+					<{$ques.detail.s_inputStr}>
+				</div>
+				<?php } ?>
+				<?php if (!empty($ques['detail']['s_output'])) { ?>
+				<div class="it s_output">
+					<div class="ttt">样例输出</div>
+					<{$ques.detail.s_outputStr}>
+				</div>
+				<?php } ?>
+				<?php if (!empty($ques['detail']['hint'])) { ?>
+				<div class="it hint">
+					<div class="ttt">提示</div>
+					<{$ques.detail.hintStr}>
+				</div>
+				<?php } ?>
+			</div>
+			<?php } else { ?>
+			<div class="desc2"><{$ques.detail.desc}></div>
+			<?php } ?>
+			<div class="show_more"><span>显示更多...</span></div>
+			
+			<div class="ans_text">候选人答案</div>
+			
+			<?php if ($ques['type_id'] == 1) { ?>
+			<div class="ans form_div choice">
+				<?php
+					$cnt2 = 'A';
+					foreach($ques['detail']['options'] as $item) {
+				?>
+				<label class="it no_margin">
+					<span class="cw">
+						<?php if ($ques['detail']['answer'] == $cnt2) { ?>
+						<img src="/image/icon/correct.png"/>
+						<?php } ?>
+					</span>
+					<input type="radio" <?php if ($ques['ans']['answer'] == $cnt2) echo 'checked="checked"'; ?> disabled="disabled">
+					<span class="icon"></span>
+					<span class="desc"><{$item}></span>
+				</label>
+				<?php 
+						$cnt2++;
+					} 
+				?>
+			</div>
+			<?php } ?>
+			
+			<?php if ($ques['type_id'] == 2) { ?>
+			<div class="ans form_div choice">
+				<?php
+					$cnt2 = 'A';
+					foreach($ques['detail']['options'] as $item) {
+				?>
+				<label class="it no_margin">
+					<span class="cw">
+						<?php if (strstr($ques['detail']['answer'], $cnt2)) { ?>
+						<img src="/image/icon/correct.png"/>
+						<?php } ?>
+					</span>
+					<input type="checkbox" <?php if (strstr($ques['ans']['answer'], $cnt2)) echo 'checked="checked"'; ?> disabled="disabled">
+					<span class="icon"></span>
+					<span class="desc"><{$item}></span>
+				</label>
+				<?php 
+						$cnt2++;
+					} 
+				?>
+			</div>
+			<?php } ?>
+			
+			<?php if ($ques['type_id'] == 3) { ?>
+			<div class="ans">
+				<{$ques.ans.answer}>
+			</div>
+			<?php } ?>
+			
+			<?php if ($ques['type_id'] == 4) {?>
+			<div class="ans program">
+				<div class="code">
+					<pre class="brush:<{$ques.ans.detail.langStr2}>;toolbar:false;"><?php echo htmlspecialchars($ques['ans']['answer']) ; ?></pre>
+					<div class="lang">使用语言：<{$ques.ans.detail.langStr}></div>
+				</div>
+				<?php if (empty($ques['ans']['detail']['error'])) { ?>
+				<div class="res corner5">
+					<table>
+						<tr class="ttt">
+							<td>测试点</td>
+							<td>状态</td>
+							<td>使用时间</td>
+							<td>使用内存</td>
+						</tr>
+						<?php 
+							$cnt2 = 0;
+							foreach($ques['ans']['detail']['res'] as $item) {
+								$cnt2++;
+						?>
+						<tr>
+							<td>测试点<{$cnt2}></td>
+							<td><img src="/image/icon/<?php if ($item['status_id'] != 0) echo 'wrong'; else echo 'correct'; ?>.png"/>&nbsp;&nbsp;<{$item.status}></td>
+							<td><{$item.time}> MS</td>
+							<td><{$item.memory}> KB</td>
+						</tr>
+						<?php } ?>
+					</table>
+				</div>
+				<?php } else { ?>
+				<div class="error corner5">
+					<div class="ttt">编译错误信息</div>
+					<div class="contt"><{$ques.ans.detail.error}></div>
+				</div>
+				<?php } ?>
+			</div>
+			<?php } ?>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<?php } ?>
+</div>
+
+</div>
+
+<script>
+	$('.left_panel .count_invited').html(<{$reportCount.count_invited}>);
+	$('.left_panel .count_running').html(<{$reportCount.count_running}>);
+	$('.left_panel .count_completed').html(<{$reportCount.count_completed}>);
+	$('.left_panel .count_passed').html(<{$reportCount.count_passed}>);
+	$('.left_panel .count_failed').html(<{$reportCount.count_failed}>);
+</script>
+
+
+<script>
+	$().ready(function() {
+		SyntaxHighlighter.all('manual');
+	});
+
+	function setHideDivHeight() {
+		$('.detail .desc2').each(function() {
+			if (parseInt($(this).css('height')) > 180) {
+				$(this).css('max-height', 150);
+				$(this).css('overflow-y', 'hidden');
+				$(this).parent().find('.show_more').css('display', 'block');
+			}
+		});
+	}
+	
+	$('.detail .show_more span').click(function() {
+		if ($(this).parent().parent().find('.desc2').css('max-height') != 'none') {
+			$(this).parent().parent().find('.desc2').css('max-height', 'none');
+			$(this).html('收回...');
+		} else {
+			$(this).parent().parent().find('.desc2').css('max-height', 150);
+			$(this).html('显示更多...');
+		}
+	});
+	
+	$('.detail_container').scroll(function() {
+		var tot = $('.detail .item .left');
+		for (var i = 1; i <= tot.length; i++) {
+			//if (i != 1) continue;
+			var top = $('.detail .item:nth-child(' + i + ')').position().top;
+			if (i != 1) top += 25;
+			var leftHeight = parseInt($('.detail .item:nth-child(' + i + ') .left').css('height'));
+			var rightHeight = parseInt($('.detail .item:nth-child(' + i + ') .right').css('height'));
+
+			if (top < 0) {
+				if (top < -(rightHeight - leftHeight - 15)) {
+					$('.detail .item:nth-child(' + i + ') .left').css('position', 'inherit');
+					$('.detail .item:nth-child(' + i + ') .left').css('margin-top', rightHeight - leftHeight - 15);
+				}
+				else {
+					$('.detail .item:nth-child(' + i + ') .left').css('position', 'fixed');
+					$('.detail .item:nth-child(' + i + ') .left').css('top', 102);
+					$('.detail .item:nth-child(' + i + ') .left').css('margin-top', 15);
+				}
+			} else {
+					$('.detail .item:nth-child(' + i + ') .left').css('position', 'inherit');
+					$('.detail .item:nth-child(' + i + ') .left').css('margin-top', 15);
+			}
+		}
+	});
+	
+	$('.detail .left .score').tooltip();
+	$('.detail .left .score').click(function() {
+		$(this).parent().find('.change_score').show();
+		$(this).parent().find('.change_score input').focus();
+		$(this).hide();
+	});
+	
+	$('.detail .left .change_score input').blur(function() {
+		var score = parseFloat($(this).val());
+		if (score > 32767) score = 32767;
+		if (score < -32768) score = -32768;
+		var thisObj = $(this);
+		if ($(this).attr('md_old_value') != $(this).val()) {
+			$.get('/report/changeScore', {cd_id : <{$_GET.cd_id}>, question_id : $(this).attr('md_id'), score : score},	function() {
+				thisObj.parent().parent().parent().parent().find('.score').show();
+				thisObj.parent().parent().parent().hide();
+			});
+			$(this).parent().parent().parent().parent().find('.score').html('<span>得分：' + score + '</span>');
+		} else {
+			thisObj.parent().parent().parent().parent().find('.score').show();
+			thisObj.parent().parent().parent().hide();
+		}
+	});
+	$('.detail .left .change_score input').keydown(function(e) {
+		var key = e.which;
+		if (key == 13) $(this).blur();
+	});
+</script>

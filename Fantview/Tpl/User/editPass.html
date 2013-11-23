@@ -1,0 +1,34 @@
+<div class="form_div" style="width:400px;">
+	<div class="content" style="margin:0;">
+	<form name="register" action="/user/editPassDo" method="post" class="myform">
+		<div class="item">
+			<div class="tt">旧密码<span class="tip"></span></div>
+			<div class="ct">
+				<input name="old_pass" type="password" class="form-control" value=""/>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">新密码<span class="tip"></span></div>
+			<div class="ct">
+				<input name="new_pass" type="password" class="form-control" value=""/>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">重复密码<span class="tip"></span></div>
+			<div class="ct">
+				<input name="re_pass" type="password" class="form-control" value=""/>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="修改" class="form-control btn btn-primary" style="width:85px;"></div>
+		</div>
+		<span class="submitTip hidden">修改</span>
+		<span class="submittingTip hidden">正在修改</span>
+		<span class="successTip hidden">修改成功</span>
+		<span class="failTip hidden">修改失败</span>
+	</form>
+	</div>
+</div>

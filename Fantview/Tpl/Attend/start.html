@@ -1,5 +1,5 @@
 <include file="header"/>
-
+<div class="main_content">
 <style>
 	.main_content {padding:0;}
 </style>
@@ -10,22 +10,29 @@
 		<img src="/image/loading.gif">
 	</div>
 </div>
-	
-<div class="navi corner5">
+<div class="bg"></div>
+<div class="navi">
 	<div class="tt">题目列表</div>
-	<?php foreach($quesList as $key => $item) { 
-		$cnt = $key + 1;
-	?>
-	<div class="item <?php if ($cnt == 1) echo 'active'; ?> ques_load" md_rank="<{$cnt}>" md_id="<{$item.id}>">
-		Q<{$cnt}>：<?php echo mb_substr($item['name'], 0, 10, 'utf-8'); ?>
+	<div class="item_list">
+		<?php foreach($quesList as $key => $item) { 
+			$cnt = $key + 1;
+		?>
+		<div class="item <?php if ($cnt == 1) echo 'active'; ?> ques_load" md_rank="<{$cnt}>" md_id="<{$item.id}>">
+			Q<{$cnt}>：<?php echo mb_substr($item['name'], 0, 10, 'utf-8'); ?>
+		</div>
+		<?php } ?>
 	</div>
-	<?php } ?>
+	<div class="submit_modal_btn"><span class="btn btn-block btn-success" data-toggle="modal" data-target="#myModal">提交试卷</span></div>
 </div>
 
 <div class="clear"></div>
 
 <span class="g_test_id hide"><{$test.id}></span>
 <span class="g_lang hide"><{$test.allow_lang}></span>
+<span class="g_quesCount hide"><{$quesCount}></span>
+<form action="/attend/submit/id/<{$test.id}>" method="POST">
+	<input type="hidden" value="<{$test.id}>" name="test_id">
+</form>
 
 <script src="/js/attend.js" type="text/javascript"></script>
 

@@ -1,0 +1,41 @@
+<div class="form_div" style="width:400px;">
+	<div class="content" style="margin:0;">
+	<form name="register" action="/user/editDo" method="post" class="myform">
+		<div class="item">
+			<div class="tt">邮箱<span class="tip"></span></div>
+			<div class="ct">
+				<input name="email" class="form-control" disabled="disabled" value="<{$user.email}>"/>
+			</div>
+			<div class="clear"></div>
+		</div>	
+		<div class="item">
+			<div class="tt">名字<span class="tip"></span></div>
+			<div class="ct">
+				<input name="name" class="form-control" value="<{$user.name}>"/>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">公司名称<span class="tip"></span></div>
+			<div class="ct">
+				<input name="company_name" class="form-control" value="<{$user.company_name}>"/>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">手机<span class="tip"></span></div>
+			<div class="ct">
+				<input name="phone" class="form-control" value="<{$user.phone}>"/>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item submit">
+			<div class="ct"><input type="submit" value="保存" class="form-control btn btn-primary" style="width:85px;"></div>
+		</div>
+		<span class="submitTip hidden">保存</span>
+		<span class="submittingTip hidden">正在保存</span>
+		<span class="successTip hidden">保存成功</span>
+		<span class="failTip hidden">保存失败</span>
+	</form>
+	</div>
+</div>

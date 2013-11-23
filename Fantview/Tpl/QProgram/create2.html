@@ -271,6 +271,7 @@
 		$(this).next('.delete_testcase_content').toggle();
 	});
 	$('.delete_select_testcase_t').click(function() {
+		if (getIdList() == '' && $(this).next('.delete_select_testcase').css('display') == 'none') return;
 		$(this).next('.delete_select_testcase').toggle();
 	});
 	$('.delete_select_testcase span:first-child').click(function() {
@@ -283,6 +284,7 @@
 		downloadTestcase($(this).parent().parent().find('.testcase_id').html() + '|');
 	});
 	$('.download_select_testcase').click(function() {
+		if (getIdList() == '') return;
 		downloadTestcase(getIdList());
 	});
 	function downloadTestcase(idList) {
@@ -321,7 +323,12 @@
 	});
 	
 	// 修改分数
-	$('.change_score_t').click(function() {
+	$('.change_score_t').click(function(e) {
+		if (getIdList() == '') {
+			e.cancelBubble = true;
+			e.stopPropagation();
+			return;
+		}
 		$('.change_score input[name="testcase_id_list"]').val(getIdList());
 	});
 	

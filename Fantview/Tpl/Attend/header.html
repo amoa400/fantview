@@ -10,7 +10,7 @@
 	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="/css/global.css" rel="stylesheet" type="text/css">
 	<link href="/css/fantview.css" rel="stylesheet" type="text/css">
-	<link href="/css/attend2.css" rel="stylesheet" type="text/css">
+	<link href="/css/attend.css" rel="stylesheet" type="text/css">
 	
 	<script src="/js/jquery.min.js" type="text/javascript"></script>
 	<script src="/js/bootstrap.min.js" type="text/javascript" ></script>
@@ -22,9 +22,8 @@
 
 
 <div class="header">
-	<div class="left">amoa400@163.com</div>
+	<div class="left"><{$candidate.email}></div>
 	<div class="mid"><span><{$test.name}></span></div>
-	<div class="right">剩余时间：20分钟30秒</div>
+	<div class="right"></div>
+	<div class="time" style="display: none"><{$time_left}></div>
 </div>
-
-<div class="main_content">

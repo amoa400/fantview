@@ -1,0 +1,26 @@
+<include file="header"/>
+<div class="main_content">	
+<div class="login corner5">
+	<div class="intro">欢迎参加<b><{$test.name}></b><br>您的答案已经成功提交。请注意查看邮箱，我们会尽快通知您考试结果！</div>
+</div>
+
+<style>
+	.login {
+		overflow: hidden;
+	}
+	.login .btn{
+		margin-top: 20px;
+		float: right;
+	}
+</style>
+<script>
+$().ready(function() {
+	var pageHeight = parseInt($('body').css('height'));
+	var contenteight = parseInt($('.main_content').css('height'));
+	if ((pageHeight - 45) - (contenteight - 70) > 70) {
+		$('.main_content').css('padding-top', ((pageHeight - 45) - (contenteight - 70)) * 0.3 + 40);
+	}
+});
+</script>
+
+<include file="footer"/>

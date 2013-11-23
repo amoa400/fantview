@@ -33,8 +33,17 @@ class IndexAction extends Action {
 	public function registerDo() {
 		$para['action'] = 'user';
 		$user = getArray($_POST, array('email', 'name', 'password'));
+		$user['type_id'] = 100;
+		$user['password'] = encrypt($user['password']);
 		$res = A('Common')->createDo($user, $para);
 		if ($res['status'] == 'success')  {
+			// 建立用户文件夹
+			mkdir('./user/' . $res['id']);
+			// 复制头像
+			$photoId = (rand() % 50) + 1;
+			copy('./image/photo/' . $photoId . '.jpg', './user/' . $res['id'] . '/photo.jpg');
+			
+			// 登录
 			$this->loginSucceed($res['id']);
 			$mailCont = A('Common')->getMail('激活 - 加入fantview', $_POST['name'], '欢迎注册fantview，请点击下面的链接完成验证，立即开始面试！', 'http://test.fantview.com/index/active/p/'. encrypt1('activePass', $_POST['email']));
 			sendEmail($_POST['email'], '欢迎注册fantview，马上验证邮箱', $mailCont);
@@ -42,21 +51,17 @@ class IndexAction extends Action {
 		}
 		$this->ajaxReturn($res);
 	}
-	
-	
+
 	// 登录成功
     public function loginSucceed($user_id) {
 		$user = D('Common', 'user')->r($user_id);
 		$_SESSION = array();
-		$_SESSION['login'] = 1;
 		$_SESSION['id'] = $user['id'];
 		$_SESSION['name'] = $user['name'];
 	}
 
 	// 登出
 	public function logout() {
-		//$_SESSION = array();
-		unset($_SESSION['login']);
 		unset($_SESSION['id']);
 		unset($_SESSION['name']);
 		$this->redirect('/');
@@ -71,6 +76,7 @@ class IndexAction extends Action {
 		$this->display();
 		
 	}	
+	
 	// 验证处理
 	public function active() {
 		$email = decrypt1('activePass', $_GET['p']);

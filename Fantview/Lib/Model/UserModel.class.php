@@ -15,7 +15,7 @@ class UserModel extends Model {
 	// 数据正确规则
 	public $dataRule = array(
 		array('email', 'empty'),
-		array('email', 'length', array(2, 20)),
+		array('email', 'length', array(2, 40)),
 		array('email', 'email'),
 		array('email', 'exist'),
 		array('password', 'empty'),
@@ -23,11 +23,4 @@ class UserModel extends Model {
 		array('name', 'length', array(2, 20)),
 		array('name', 'reg', '/^[\x{4e00}-\x{9fa5}A-Za-z0-9_-]+$/u'),
 	);
-	
-	//数据填充规则
-	public $fillRule = array(
-		array('type_id', '100', '', 1),
-		array('password', '', 'encrypt'),
-	);
-
 }

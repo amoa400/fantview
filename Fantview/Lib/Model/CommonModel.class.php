@@ -69,6 +69,13 @@ class CommonModel extends Model {
 		return $ret;
 	}
 	
+	// 修改（通过SQL）
+	public function uBySql($data, $sql) {
+		$ret = $this->where($sql)->save($data);
+		return $ret;
+	}
+	
+	
 	// 获取
 	public function r($id) {
 		$sql = array('id' => (int)$id);
@@ -259,7 +266,7 @@ class CommonModel extends Model {
 		return $ret;
 	}
 
-	// 验证数据是否合法
+	// 验证数据是否合法 TODO DELETE
 	public function isCorrect($data, $type = 0) {
 		$this->errorInfo = array();
 		foreach($this->om->dataRule as $item) {
@@ -312,7 +319,7 @@ class CommonModel extends Model {
 		return empty($this->errorInfo);
 	}
 	
-	// 数据填充
+	// 数据填充 TODO DELETE
 	public function fillData($data, $type = 0) {
 		foreach($this->om->fillRule as $item) {
 			$key = $item[0];

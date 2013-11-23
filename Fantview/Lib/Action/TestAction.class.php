@@ -3,6 +3,8 @@
 class TestAction extends Action {
 	// 列表
 	public function index() {
+		//A('Privilege')->isLogin();
+		
 		// 获取数据
 		$filter = array(
 			'page' => $_GET['page'],
@@ -60,8 +62,17 @@ class TestAction extends Action {
 		$data['name'] = $_POST['name'];
 		$data['duration'] = $_POST['duration'];
 		$data['desc'] = $_POST['desc'];
-		$para['action'] = 'test';
-		$ret = A('Common')->editDo($data, $para);
+		
+		$error = A('Common')->isCorrect($data, D('Test')->dataRule);
+		if (!empty($error['desc']))
+			$error['desc_error'] = $error['desc'];
+		if (!empty($error)) {
+			$ret['status'] = 'fail';
+			$ret['error'] = $error;
+		} else {
+			D('Common', 'test')->u($data);
+			$ret['status'] = 'success';
+		}
 		$ret['name'] = $_POST['name'];
 		$this->ajaxReturn($ret);
 	}
@@ -194,6 +205,7 @@ class TestAction extends Action {
 		$test['end_date_int'] = timeToInt($test['end_date']);
 		$test['end_time'] = intToTime($test['end_datetime_int'], 'H:i');
 		$test['end_time_int'] = timeToInt($test['end_time']);
+		$test['count_tot'] = $test['count_invited'] + $test['count_running'] + $test['count_completed'] + $test['count_passed'] + $test['count_failed'];
 		return $test;
 	}
 }

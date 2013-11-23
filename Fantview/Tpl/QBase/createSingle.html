@@ -11,7 +11,8 @@
 		<div class="item">
 			<div class="tt">题目描述<span class="tip"></span></div>
 			<div class="ct">
-				<textarea name="desc" class="form-control"><{$single.desc}></textarea>
+				<textarea name="desc_error" style="display:none;"></textarea>
+				<script type="text/plain" id="ue_text" name="desc" style="height:250px;"><{$single.desc}></script>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -94,4 +95,11 @@ $('.option_list .option_new .btn').click(function() {
 $().ready(function() {
 	$('.option_list textarea[name="option_<{$single.answer}>"]').parent().parent().find('.select').click();
 });
+</script>
+
+<script>
+	$().ready(function() {
+		var editor = new UE.ui.Editor();
+		editor.render("ue_text");
+	});
 </script>

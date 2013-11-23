@@ -42,7 +42,43 @@
 		<div class="item">
 			<div class="tt">题目描述<span class="tip"></span></div>
 			<div class="ct">
-				<textarea name="desc" class="form-control"><{$program.desc}></textarea>
+				<textarea name="desc_error" style="display:none;"></textarea>
+				<script type="text/plain" id="ue_text" name="desc" style="height:250px;"><{$program.desc}></script>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">输入数据<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="input" class="form-control" style="height:100px;"><{$program.input}></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">输出数据<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="output" class="form-control" style="height:100px;"><{$program.output}></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">样例输入<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="s_input" class="form-control" style="height:100px;"><{$program.s_input}></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">样例输出<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="s_output" class="form-control" style="height:100px;"><{$program.s_output}></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">提示<span class="tip"></span></div>
+			<div class="ct">
+				<textarea name="hint" class="form-control" style="height:100px;"><{$program.hint}></textarea>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -76,3 +112,10 @@
 </div>
 
 <div class="clear"></div>
+
+<script>
+	$().ready(function() {
+		var editor = new UE.ui.Editor();
+		editor.render("ue_text");
+	});
+</script>

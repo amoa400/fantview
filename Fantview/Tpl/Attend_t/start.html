@@ -1,0 +1,32 @@
+<include file="header"/>
+
+<style>
+	.main_content {padding:0;}
+</style>
+
+<div class="question">
+	<div class="load">
+		正在努力加载中，请稍后...<br>
+		<img src="/image/loading.gif">
+	</div>
+</div>
+	
+<div class="navi corner5">
+	<div class="tt">题目列表</div>
+	<?php foreach($quesList as $key => $item) { 
+		$cnt = $key + 1;
+	?>
+	<div class="item <?php if ($cnt == 1) echo 'active'; ?> ques_load" md_rank="<{$cnt}>" md_id="<{$item.id}>">
+		Q<{$cnt}>：<?php echo mb_substr($item['name'], 0, 10, 'utf-8'); ?>
+	</div>
+	<?php } ?>
+</div>
+
+<div class="clear"></div>
+
+<span class="g_test_id hide"><{$test.id}></span>
+<span class="g_lang hide"><{$test.allow_lang}></span>
+
+<script src="/js/attend.js" type="text/javascript"></script>
+
+<include file="footer"/>

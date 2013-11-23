@@ -1,0 +1,123 @@
+<div class="report_head">
+	<span class="it active">整体概览</span>
+	<span class="it ftv_link" md_url="/report/detail/cd_id/<{$_GET.cd_id}>">答题详情</span>
+</div>
+
+<div class="summary">
+	<div class="bar">
+	
+		<?php if ($cd['status_id'] >= 3 && $cd['score'] != -1) { ?>
+		<div class="item">
+			<span class="tt">总分</span>
+			<span class="ct"><{$cd.score}>分 / <{$test.tot_score}>分</span>
+		</div>
+		<div class="item progress">
+			<div class="progress-bar" style="width:<?php echo ceil($cd['score']/$test['tot_score']*100) ?>%;"></div>
+		</div>
+		
+		<div class="item">
+			<span class="tt">排名</span>
+			<span class="ct">第<{$rank}>名 / <{$test.count_tot}>人</span>
+		</div>
+		<div class="item progress">
+			<div class="progress-bar progress-bar-success" style="width:<?php echo 100 - ceil(($rank-1)/$test['count_tot']*100) ?>%;"></div>
+		</div>
+		<?php } ?>
+		
+		<?php if ($cd['status_id'] >= 3) { ?>
+		<div class="item">
+			<span class="tt">用时</span>
+			<span class="ct"><{$cd.tot_time}>分钟 / <{$test.duration}>分钟</span>
+		</div>
+		<div class="item progress">
+			<div class="progress-bar progress-bar-warning" style="width:<?php echo ceil($cd['tot_time']/$test['duration']*100) ?>%;"></div>
+		</div>
+		<?php } ?>
+	</div>
+	
+	<div class="info">
+		<div class="item">
+			<span class="tt">测评名称</span>
+			<span class="ct"><{$test.name}></span>
+		</div>
+		
+		<?php if (!empty($cd['name'])) { ?>
+		<div class="item">
+			<span class="tt">姓名</span>
+			<span class="ct"><{$cd.name}></span>
+		</div>
+		<?php } ?>
+		
+		<div class="item">
+			<span class="tt">电子邮箱</span>
+			<span class="ct"><{$cd.email}></span>
+		</div>
+		
+		<div class="item">
+			<span class="tt">状态</span>
+			<span class="ct"><{$cd.status}></span>
+		</div>
+		
+		<div class="item">
+			<span class="tt">登录密码</span>
+			<span class="ct"><{$cd.password}></span>
+		</div>
+		
+		<div class="item">
+			<span class="tt">邀请时间</span>
+			<span class="ct"><{$cd.invite_time}></span>
+		</div>
+		
+		<?php if ($cd['status_id'] >= 2) { ?>
+		<div class="item">
+			<span class="tt">开始时间</span>
+			<span class="ct"><{$cd.start_time}></span>
+		</div>
+		<?php } ?>
+		
+		<?php if ($cd['status_id'] >= 3) { ?>
+		<div class="item">
+			<span class="tt">结束时间</span>
+			<span class="ct"><{$cd.end_time}></span>
+		</div>
+		<?php } ?>
+		
+		<?php if ($cd['status_id'] >= 2) { ?>
+		<div class="item">
+			<span class="tt">IP地址</span>
+			<span class="ct"><{$cd.ip}></span>
+		</div>
+		<?php } ?>
+		
+		<?php if (!empty($cd['phone'])) { ?>
+		<div class="item">
+			<span class="tt">手机号码</span>
+			<span class="ct"><{$cd.phone}></span>
+		</div>
+		<?php } ?>
+		
+		<?php if (!empty($cd['extension'])) { ?>
+		<div class="item">
+			<span class="tt">简历</span>
+			<span class="ct">李小明简历.<{$cd.extension}></span>
+		</div>
+		<?php } ?>
+		
+		<?php if (!empty($cd['other'])) { ?>
+		<div class="item">
+			<span class="tt">其他</span>
+			<span class="ct"><{$cd.other}></span>
+		</div>
+		<?php } ?>
+	</div>
+	
+	<div class="clear"></div>
+</div>
+
+<script>
+	$('.left_panel .count_invited').html(<{$reportCount.count_invited}>);
+	$('.left_panel .count_running').html(<{$reportCount.count_running}>);
+	$('.left_panel .count_completed').html(<{$reportCount.count_completed}>);
+	$('.left_panel .count_passed').html(<{$reportCount.count_passed}>);
+	$('.left_panel .count_failed').html(<{$reportCount.count_failed}>);
+</script>
