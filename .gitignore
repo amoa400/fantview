@@ -1,6 +1,6 @@
 *.psd
 Fantview/Runtime/
 Fantview/Conf/
-Upload
-Testcase
-Public/user
+Upload/
+Testcase/
+Public/user/
