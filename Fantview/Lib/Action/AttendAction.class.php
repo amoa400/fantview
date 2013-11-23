@@ -386,6 +386,7 @@ class AttendAction extends Action {
 		}
 
 	}
+	
 	// 编译运行
 	public function comRun() {
 		// 插入数据库（基本信息）

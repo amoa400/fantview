@@ -1,10 +1,13 @@
 <?php
 
+// 已加权限
+
 class TestAction extends Action {
 	// 列表
 	public function index() {
-		//A('Privilege')->isLogin();
-		
+		// 检查权限
+		A('Privilege')->isLogin();
+	
 		// 获取数据
 		$filter = array(
 			'page' => $_GET['page'],
@@ -32,18 +35,19 @@ class TestAction extends Action {
 	
 	// 创建
 	public function create() {
+		// 检查权限
+		A('Privilege')->isLogin();
+
 		$ret = D('Common', 'test')->c();
 		$this->ajaxReturn(array('linkUrl' => '/test/setting/test_id/' . $ret));
 	}
 	
-	/* 
-		==========================================
-		设置 
-		==========================================
-	*/
-	
 	// 设置（基本信息）
 	public function setting() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+	
 		$test = D('Common', 'test')->r($_GET['test_id']);
 		$test = $this->format($test);
 		
@@ -58,6 +62,10 @@ class TestAction extends Action {
 	
 	// 设置（基本信息）处理
 	public function settingDo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_POST['test_id']);
+	
 		$data['id'] = $_POST['test_id'];
 		$data['name'] = $_POST['name'];
 		$data['duration'] = $_POST['duration'];
@@ -79,6 +87,10 @@ class TestAction extends Action {
 	
 	// 设置（高级）
 	public function settingAdvance() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
 		$test = D('Common', 'test')->r($_GET['test_id']);
 		$test = $this->format($test);
 		if (empty($test['cutoff'])) $test['cutoff'] = '';
@@ -116,6 +128,10 @@ class TestAction extends Action {
 	
 	// 设置（高级）（处理）
 	public function settingAdvanceDo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_POST['test_id']);
+
 		$data = array();
 		// 编号
 		$data['id'] = $_POST['test_id'];
@@ -155,6 +171,10 @@ class TestAction extends Action {
 	
 	// 设置（删除）
 	public function settingDelete() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+	
 		$test = D('Common', 'test')->r($_GET['test_id']);
 		$test = $this->format($test);
 		
@@ -169,25 +189,20 @@ class TestAction extends Action {
 	
 	// 设置（删除）处理	
 	public function settingDeleteDo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_POST['test_id']);
+		
 		D('Common', 'test')->d($_POST['test_id']);
 		$this->ajaxReturn(array('status' => 'success', 'linkUrl' => '/test/index'));
 	}
-	
-	/* 
-		==========================================
-	*/
 
-	// 报告
-	public function report() {
-		$this->assign('tabTitle', 'report');
-		$page['item1'] = 'report';
-		$page['item2'] = 'other';
-		$page['content'] = $this->fetch();
-		$this->ajaxReturn($page);
-	}
-	
 	// 获取标题
 	public function getName() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+
 		$test = D('Common', 'test')->r($_GET['test_id']);
 		$ret['name'] = $test['name'];
 		$this->ajaxReturn($ret);

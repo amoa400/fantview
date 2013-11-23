@@ -123,6 +123,10 @@ function FTV_Page() {
 		$.get('/' + action + '/' + func, paraArr,
 			function(ret) {
 				// 跳转
+				if (ret.jumpUrl != null) {
+					location.href = ret.jumpUrl;
+					return;
+				}
 				if (ret.linkUrl != null) {
 					location.hash = $.base64.btoa(ret.linkUrl);
 					return;

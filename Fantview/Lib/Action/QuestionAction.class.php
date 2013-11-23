@@ -1,8 +1,14 @@
 <?php
 
+// 已加权限
+
 class QuestionAction extends Action {
 	// 列表
 	public function index() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
 		// 获取有哪些题目
 		$filter = array(
 			'page' => 'all',
@@ -58,6 +64,9 @@ class QuestionAction extends Action {
 	
 	// 新建
 	public function create() {
+		// 检查权限
+		A('Privilege')->isLogin();
+
 		$page['pageTitle'] = '添加题目';
 		$page['item1'] = 'question';
 		$page['item2'] = 'create';
@@ -66,7 +75,7 @@ class QuestionAction extends Action {
 	}
 	
 	// 新建（处理）
-	public function createDo($test_id, $question_id) {
+	public function createDo($test_id, $question_id) {	
 		D('Common', 'test_question')->c(array(
 			'test_id' => $test_id, 
 			'question_id' => $question_id,
@@ -79,6 +88,10 @@ class QuestionAction extends Action {
 	
 	// 编辑
 	public function edit() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_GET['question_id']);
+
 		$question = D('Common', 'question')->r($_GET['question_id']);
 		if ($question['type_id'] == 1)
 			$ret['linkUrl'] = '/q_base/createSingle/question_id/' . $question['id'];
@@ -93,6 +106,11 @@ class QuestionAction extends Action {
 	
 	// 删除
 	public function delete() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		A('Privilege')->haveQues($_GET['question_id']);
+
 		$this->deleteDo($_GET['test_id'], $_GET['question_id']);
 		$this->ajaxReturn(array('backward' => '1'));
 	}
@@ -116,6 +134,10 @@ class QuestionAction extends Action {
 
 	// 重新排序
 	public function reSetId() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
 		$st = (int)$_GET['st'];
 		$ed = (int)$_GET['ed'];
 		$test_id = (int)$_GET['test_id'];

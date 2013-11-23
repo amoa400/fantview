@@ -25,7 +25,7 @@
 				<td><{$cd.name}></td>
 				<td><{$cd.email}></td>
 				<td><{$cd.start_time}></</td>
-				<td><?php echo max(0, min((int)(($test['duration'] * 60 - (getTime() - $cd['start_time_int'])) / 60), (int)(($test['end_datetime_int'] - getTime()) / 60))) ?>分钟</</td>
+				<td><?php echo max(0, min((int)(($test['duration'] * 60 - (getTime() - $cd['start_time_int'])) / 60), (int)(($cd['end_time_int'] - getTime()) / 60))) ?>分钟</</td>
 			</tr>
 			<?php } ?>
 		</table>

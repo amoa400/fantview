@@ -64,6 +64,7 @@ class IndexAction extends Action {
 	public function logout() {
 		unset($_SESSION['id']);
 		unset($_SESSION['name']);
+		unset($_SESSION['pri']);
 		$this->redirect('/');
 	}
 	

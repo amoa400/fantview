@@ -1,8 +1,15 @@
 <?php
 
+// 已加权限(*)
+
 class QProgramAction extends Action {
 	// 新建编程题
 	public function create() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		if (!empty($_GET['question_id']))
+			A('Privilege')->haveQues($_GET['question_id']);
+		
 		$question = D('Common', 'question')->r($_GET['question_id']);
 		$program = D('Common', 'q_program')->r($_GET['question_id']);
 		$program = $this->format($program);
@@ -27,6 +34,12 @@ class QProgramAction extends Action {
 
 	// 新建编程题（处理）
 	public function createDo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_POST['test_id']);
+		if (!empty($_POST['question_id']))
+			A('Privilege')->haveQues($_POST['question_id']);
+	
 		// 问题基本信息
 		$data['test_id'] = $_POST['test_id'];
 		$data['user_id'] = $_SESSION['id'];
