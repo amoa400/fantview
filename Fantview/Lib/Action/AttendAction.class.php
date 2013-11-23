@@ -11,7 +11,7 @@ class AttendAction extends Action {
     }
 	
 	// 登录
-    public function loginDo() {		
+    public function loginDo() {
 		// 查看邮箱和密码是否正确
 		$ret = array();
 		if (empty($_POST['email']))

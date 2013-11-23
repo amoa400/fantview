@@ -20,7 +20,7 @@ class QBaseAction extends Action {
 		
 		$page['pageTitle'] = '单项选择题';
 		$page['item1'] = 'question';
-		$page['content'] = $this->fetch();
+		$page['content'] = $this->fetch('createSingle');
 		$this->ajaxReturn($page);
 	}
 	
@@ -87,7 +87,7 @@ class QBaseAction extends Action {
 		
 		$page['pageTitle'] = '不定项选择题';
 		$page['item1'] = 'question';
-		$page['content'] = $this->fetch();
+		$page['content'] = $this->fetch('createMulti');
 		$this->ajaxReturn($page);
 	}
 	
@@ -155,7 +155,7 @@ class QBaseAction extends Action {
 		
 		$page['pageTitle'] = '主观问答题';
 		$page['item1'] = 'question';
-		$page['content'] = $this->fetch();
+		$page['content'] = $this->fetch('createQA');
 		$this->ajaxReturn($page);
 	}
 	

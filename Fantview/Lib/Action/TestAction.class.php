@@ -90,7 +90,7 @@ class TestAction extends Action {
 		// 检查权限
 		A('Privilege')->isLogin();
 		A('Privilege')->haveTest($_GET['test_id']);
-		
+
 		$test = D('Common', 'test')->r($_GET['test_id']);
 		$test = $this->format($test);
 		if (empty($test['cutoff'])) $test['cutoff'] = '';
@@ -122,7 +122,7 @@ class TestAction extends Action {
 		$page['pageTitle'] = '高级设置';
 		$page['item1'] = 'setting';
 		$page['item2'] = 'advance';
-		$page['content'] = $this->fetch();
+		$page['content'] = $this->fetch('settingAdvance');
 		$this->ajaxReturn($page);
 	}
 	
@@ -183,7 +183,7 @@ class TestAction extends Action {
 		$page['pageTitle'] = '删除测评';
 		$page['item1'] = 'setting';
 		$page['item2'] = 'delete';
-		$page['content'] = $this->fetch();
+		$page['content'] = $this->fetch('settingDelete');
 		$this->ajaxReturn($page);
 	}
 	

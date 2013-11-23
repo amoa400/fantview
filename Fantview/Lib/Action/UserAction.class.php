@@ -43,7 +43,7 @@ class UserAction extends Action {
 		$page['pageTitle'] = '修改头像';
 		$page['item1'] = 'user';
 		$page['item2'] = 'edit_photo';
-		$page['content'] = $this->fetch();
+		$page['content'] = $this->fetch('editPhoto');
 		$this->ajaxReturn($page);
 	}
 	
@@ -71,7 +71,7 @@ class UserAction extends Action {
 		$page['pageTitle'] = '修改密码';
 		$page['item1'] = 'user';
 		$page['item2'] = 'edit_pass';
-		$page['content'] = $this->fetch();
+		$page['content'] = $this->fetch('editPass');
 		$this->ajaxReturn($page);
 	}
 	
