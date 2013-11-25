@@ -127,7 +127,7 @@ class AttendAction extends Action {
 				import('ORG.Net.UploadFile');
 				$upload = new UploadFile();
 				$upload->maxSize  = 5 * 1024 * 1024;
-				$upload->allowExts  = array('doc', 'docx', 'pdf', 'txt');
+				$upload->allowExts  = array('pdf');
 				$upload->savePath =  '../Upload/' . $test['user_id'] . '/temp/';
 				if(!$upload->upload())
 					$ret['error'][$item] =  $upload->getErrorMsg();

@@ -1,6 +1,25 @@
 <?php
 
 class CandidateAction extends Action {
+	// 下载简历
+	public function downloadResume() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveCd($_GET['id']);
+
+		$cd = D('Common', 'candidate')->r($_GET['id']);
+
+		// 弹出下载
+		$file = '../Upload/' . (int)$_SESSION['id']. '/candidate/' . $cd['id'] . '.' . $cd['extension'];
+		header("Cache-Control: public"); 
+		header("Content-Description: File Transfer"); 
+		header("Content-type: application/pdf\n");
+		header("Content-disposition: attachment; filename=简历_" . $cd['name'] . ".pdf\n");
+		header("Content-transfer-encoding: binary\n");
+		header("Content-length: " . @filesize($file) . "\n");
+		readfile($file);
+	}
+
 	// 格式化
 	public function format($cd) {
 		$cd['name'] = htmlspecialchars($cd['name']);
