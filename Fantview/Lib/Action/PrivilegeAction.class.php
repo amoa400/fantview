@@ -111,4 +111,34 @@ class PrivilegeAction extends Action {
 		else
 			return $this->retRes('return', true);
 	}
+
+	// 是否拥有候选人
+	public function haveCd($cdId, $retType = 'pageLink') {
+		// 是否已经检测过
+		$flag  = -1;
+		if (!empty($this->checked['cd'][$cdId]))
+			$flag  = $this->checked['cd'][$cdId];
+		
+		// 检测权限
+		if ($flag == -1) {
+			// 从数据库中读取
+			if (!in_array($cdId, $_SESSION['pri']['cdIdList'])) {
+				$cd = D('Common', 'candidate')->r($cdId);
+				if ($cd['user_id'] == $_SESSION['id'])
+					$_SESSION['pri']['cdIdList'][] = $cd['id'];
+			}
+			// 检测权限
+			if (!in_array($cdId, $_SESSION['pri']['cdIdList']))
+				$flag = 0;
+			else
+				$flag = 1;
+		}
+		
+		// 返回结果
+		$this->checked['cd'][$cdId] = $flag;
+		if ($flag == 0)
+			return $this->retRes($retType, false);
+		else
+			return $this->retRes('return', true);
+	}
 }

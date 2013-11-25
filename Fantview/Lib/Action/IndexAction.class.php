@@ -45,7 +45,7 @@ class IndexAction extends Action {
 			
 			// 登录
 			$this->loginSucceed($res['id']);
-			$mailCont = A('Common')->getMail('激活 - 加入fantview', $_POST['name'], '欢迎注册fantview，请点击下面的链接完成验证，立即开始面试！', 'http://test.fantview.com/index/active/p/'. encrypt1('activePass', $_POST['email']));
+			$mailCont = A('Common')->getMail('激活 - 加入fantview', $_POST['name'], '欢迎注册fantview，请点击下面的链接完成验证，立即开始面试！', C('ROOT_URL') . '/index/active/p/'. encrypt1('activePass', $_POST['email']));
 			sendEmail($_POST['email'], '欢迎注册fantview，马上验证邮箱', $mailCont);
 			$res['jumpUrl'] = '/index/bind/id/' . $res['id'];
 		}

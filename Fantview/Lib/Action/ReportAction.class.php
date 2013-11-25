@@ -1,8 +1,16 @@
 <?php
 
+// 已加权限
+
 class ReportAction extends Action {
+
 	// 显示概览
 	public function summary() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		A('Privilege')->haveCd($_GET['cd_id']);
+
 		$test = D('Common', 'test')->r($_GET['test_id']);
 		$test = A('Test')->format($test);
 		$cd = D('Common', 'candidate')->r($_GET['cd_id']);
@@ -28,6 +36,10 @@ class ReportAction extends Action {
 
 	// 显示详情
 	public function detail() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveCd($_GET['cd_id']);
+		
 		$cd = D('Common', 'candidate')->r($_GET['cd_id']);
 		$cd = A('Candidate')->format($cd);
 		
@@ -156,6 +168,10 @@ class ReportAction extends Action {
 
 	// 已邀请
 	public function invited() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+	
 		// 获取数据
 		$filter = array(
 			'status_id' => 1,
@@ -176,6 +192,10 @@ class ReportAction extends Action {
 
 	// 测评中
 	public function running() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
 		// 获取数据
 		$filter = array(
 			'status_id' => 2,
@@ -197,6 +217,10 @@ class ReportAction extends Action {
 	
 	// 已完成
 	public function completed() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
 		// 获取数据
 		$filter = array(
 			'status_id' => 3,
@@ -217,6 +241,10 @@ class ReportAction extends Action {
 	
 	// 已通过
 	public function passed() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
 		// 获取数据
 		$filter = array(
 			'status_id' => 4,
@@ -237,6 +265,10 @@ class ReportAction extends Action {
 	
 	// 已淘汰
 	public function failed() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
 		// 获取数据
 		$filter = array(
 			'status_id' => 5,
@@ -257,6 +289,10 @@ class ReportAction extends Action {
 	
 	// 邀请面试
 	public function invite() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
 		$test = D('Common', 'test')->r($_GET['test_id']);
 		if (!empty($_GET['idList'])) {
 			$idList = split('\|', $_GET['idList']);
@@ -383,20 +419,28 @@ class ReportAction extends Action {
 
 	// 通过
 	public function pass() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
 		$testId = $_GET['test_id'];
 		$idList = split('\|', $_GET['idList']);
 		$this->deleteCount($testId, $idList);
-		$ret = D('Common', 'candidate')->uBySql(array('status_id' => 4), array('id' => array('in', $idList)));
+		$ret = D('Common', 'candidate')->uBySql(array('status_id' => 4), array('id' => array('in', $idList), 'test_id' => $_GET['test_id']));
 		D('Common', 'test')->incField('id', $testId, 'count_passed', (count($idList) - 1));
 		$this->ajaxReturn(array('backward' => '1'));
 	}
 	
 	// 淘汰
 	public function fail() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+
 		$testId = $_GET['test_id'];
 		$idList = split('\|', $_GET['idList']);
 		$this->deleteCount($testId, $idList);
-		$ret = D('Common', 'candidate')->uBySql(array('status_id' => 5), array('id' => array('in', $idList)));
+		$ret = D('Common', 'candidate')->uBySql(array('status_id' => 5), array('id' => array('in', $idList), 'test_id' => $_GET['test_id']));
 		D('Common', 'test')->incField('id', $testId, 'count_failed', (count($idList) - 1));
 		$this->ajaxReturn(array('backward' => '1'));
 	}
@@ -409,8 +453,13 @@ class ReportAction extends Action {
 			$idList = split('\|', $_GET['idList']);
 		else
 			$idList = $cdIdList;
+
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($testId);
+
 		$this->deleteCount($testId, $idList);
-		D('Common', 'candidate')->dList($idList);
+		D('Common', 'candidate')->dBySql(array('id' => array('in', $idList), 'test_id' => $testId));
 		if (!$noReturn) $this->ajaxReturn(array('backward' => '1'));
 	}
 	
@@ -445,6 +494,10 @@ class ReportAction extends Action {
 	
 	// 更改分数
 	public function changeScore() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveCd($_GET['cd_id']);
+		
 		$ans = D('Common', 'answer')->rBySql(array('candidate_id' => $_GET['cd_id'], 'question_id' => $_GET['question_id']));
 		$data['candidate_id'] = $_GET['cd_id'];
 		$data['question_id'] = $_GET['question_id'];
@@ -458,4 +511,5 @@ class ReportAction extends Action {
 	public function format($cd) {
 		return A('Candidate')->format($cd);
 	}
+
 }

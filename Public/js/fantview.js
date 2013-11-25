@@ -79,8 +79,11 @@ function FTV_Page() {
 		}
 		// 重新设定参数
 		var url = u;
-		if ($(this).attr('md_url') != null)
+		var notChangeHash = true;
+		if ($(this).attr('md_url') != null) {
 			url = $(this).attr('md_url');
+			notChangeHash = false;
+		}
 		if (url == 'stop') return;
 		var para = $(this).attr('md_para');
 		if (typeof(para) == 'string' && para != '') {
@@ -114,7 +117,7 @@ function FTV_Page() {
 		}
 		lastUrl = cntUrl;
 		cntUrl = newUrl;
-		location.hash = $.base64.btoa(newUrl);
+		if (!notChangeHash) location.hash = $.base64.btoa(newUrl);
 		fetch();
 	}
 	
@@ -234,6 +237,8 @@ function FTV_Page() {
 			location.hash = $.base64.btoa('/test/index');
 			return;
 		}
+		if ($.base64.atob(hash).length > 50)
+			return;
 		linkClick($.base64.atob(hash));
 	}
 	
@@ -1102,6 +1107,209 @@ function ftv_NamePicker() {
 	init();
 }
 
+/* 滚动条 */
+/*
+function FTV_Scroll() {
+	var _this = this;
+	var width;
+	
+	// 初始化
+	function init() {
+		width = 13;
+
+		$('.ftv_scroll').each(function() {
+			var obj = $(this);
+			//setStyle(obj);
+			//obj.unbind('mousewheel');
+			//obj.mousewheel(mousewheel);
+			//obj.find('.ftv_scroll_content').unbind('resize');
+			obj.find('.ftv_scroll_content').resize(resize);
+			//obj.find('.ftv_scroller').unbind('mousedown', mousedown);
+			//obj.find('.ftv_scroller').mousedown(mousedown);
+			//obj.find('.ftv_scroll_pane').unbind('mousedown', mousedownPane);
+			//obj.find('.ftv_scroll_pane').mousedown(mousedownPane);
+		});
+	}
+	
+	var resize = function() {
+		setScrollerStyle($(this).parent());
+		scroll($(this).parent());
+	}
+	
+	// 设置样式
+	var setStyle = function(obj) {
+		obj.css('overflow', 'hidden');
+		obj.css('position', 'relative');
+		obj.find('.ftv_scroll_pane').remove();
+		
+		if (obj.find('.ftv_scroll_content').attr('md_scroll_pr') == null)
+			obj.find('.ftv_scroll_content').attr('md_scroll_pr', obj.find('.ftv_scroll_content').css('padding-right'));
+		obj.find('.ftv_scroll_content').css('height', 'auto');
+		obj.find('.ftv_scroll_content').css('overflow', 'visible');
+		obj.find('.ftv_scroll_content').css('padding-right', parseInt(obj.find('.ftv_scroll_content').attr('md_scroll_pr')) + width);
+		
+		var scrollerBg = $('<div></div>');
+		scrollerBg.addClass('ftv_scroll_pane');
+		scrollerBg.appendTo(obj);
+
+		var scroller = $('<div></div>');
+		scroller.addClass('ftv_scroller');
+		scroller.appendTo(scrollerBg);
+		
+		ftvLayout.layout();
+		setScrollerStyle(obj);
+	}
+	
+	// 设置滚动条样式
+	var setScrollerStyle = function(obj) {
+		var scrollerBg = obj.find('.ftv_scroll_pane');
+		scrollerBg.css('background', '#d9d9d9');
+		scrollerBg.css('border-left', '1px solid #a6a6a6')
+		scrollerBg.css('position', 'absolute');
+		scrollerBg.css('top', 0);
+		scrollerBg.css('right', 0);
+		scrollerBg.css('width', width);
+		scrollerBg.css('height', '100%');
+		scrollerBg.css('z-index', '999');
+		scrollerBg.attr('onselectstart', 'return false');
+		scrollerBg.css('cursor', 'default');
+		
+		var scroller = obj.find('.ftv_scroller');
+		scroller.css('background', '#a6a6a6');
+		scroller.css('position', 'absolute');
+		scroller.css('top', 0);
+		scroller.css('right', 0);
+		scroller.css('width', width);
+		scroller.css('height', Math.ceil(parseInt(obj.css('height')) / parseInt(obj.find('.ftv_scroll_content').css('height')) * parseInt(obj.css('height'))));		
+		if (parseInt(obj.css('height')) / parseInt(obj.find('.ftv_scroll_content').css('height')) >= 1)
+			scroller.css('height', 0);
+		scroller.css('z-index', '1000');
+		scroller.attr('onselectstart', 'return false');
+		scroller.css('cursor', 'default');
+	}
+	
+	// 滚动
+	var scroll = function(obj, e) {
+		var scrollTop = obj.scrollTop();
+		var newTop = scrollTop;
+		if (e != null) {
+			if (e.scrollTop != null) 
+				newTop = e.scrollTop;
+			else {
+				if (e.deltaY < 0)
+					newTop  = scrollTop + e.deltaFactor;
+				else
+					newTop  = scrollTop - e.deltaFactor;
+			}
+		}
+		if (newTop < 0) newTop = 0;
+		if (newTop > parseInt(obj.find('.ftv_scroll_content').css('height')) - parseInt(obj.css('height')))
+			newTop = parseInt(obj.find('.ftv_scroll_content').css('height')) - parseInt(obj.css('height'));
+		obj.scrollTop(newTop);
+		obj.find('.ftv_scroll_pane').css('top', obj.scrollTop());
+		obj.find('.ftv_scroller').css('top', parseInt(parseInt(obj.scrollTop()) / parseInt(obj.find('.ftv_scroll_content').css('height')) * parseInt(obj.css('height'))));
+	}
+	
+	// 鼠标滚动
+	var mousewheel = function(e) {
+		scroll($(this), e);
+	}
+	
+	// 鼠标按下
+	var mousedown = function(e) {
+		e.cancelBubble = true;
+		e.stopPropagation();
+				
+		window.ftvScrollDiv = $(this).parent().parent();
+		window.ftvScrollDownY = parseInt(e.offsetY);
+		$('html').attr('onselectstart', 'return false');
+		$('html').mousemove(mousemove);
+		$('html').mouseup(mouseup);
+	}
+	
+	// 鼠标移动
+	var mousemove = function(e) {
+		var obj = window.ftvScrollDiv;
+		var top = parseInt((parseInt(e.clientY) - parseInt(obj.find('.ftv_scroll_pane').offset().top) - window.ftvScrollDownY) / parseInt(obj.css('height')) * parseInt(obj.find('.ftv_scroll_content').css('height')));
+		var pos = new Object();
+		pos.scrollTop = top;
+		scroll(obj, pos);
+	}
+	
+	// 鼠标按上
+	var mouseup = function(e) {
+		$('html').removeAttr('onselectstart', 'return false');
+		$('html').unbind('mousemove', mousemove);
+		$('html').unbind('mouseup', mouseup);
+	}
+	
+	// 鼠标按下（滚动面板）
+	var mousedownPane = function(e) {
+		var obj = $(this).parent();
+		var pos = new Object();
+		if (parseInt(e.clientY) < parseInt(obj.find('.ftv_scroller').offset().top))
+			pos.deltaY = 1;
+		else
+			pos.deltaY = -1;
+		pos.deltaFactor = 360;
+		scroll(obj, pos);
+		
+		$('html').attr('onselectstart', 'return false');
+		window.ftvScrollDownPane = true;
+		window.ftvScrollDiv = obj;
+		window.ftvScrollMouseY = parseInt(e.clientY);
+		setTimeout(autoScroll, 300);
+		$('html').mousemove(mousemovePane);
+		$('html').mouseup(mouseupPane);
+	}
+	
+	// 鼠标移动（滚动面板）
+	var mousemovePane = function(e) {
+		window.ftvScrollMouseY = parseInt(e.clientY);
+	}
+	
+	// 鼠标按上（滚动面板）
+	var mouseupPane = function() {
+		$('html').removeAttr('onselectstart', 'return false');
+		window.ftvScrollDownPane = false;
+		$('html').unbind('mousemove', mousemovePane);
+		$('html').unbind('mouseup', mouseupPane);
+	}
+	
+	// 自动滚动（滚动面板）
+	var autoScroll = function(e) {
+		var obj = window.ftvScrollDiv;
+		if (window.ftvScrollDownPane != true) return;
+		if (window.ftvScrollMouseY < parseInt(obj.find('.ftv_scroller').offset().top) || window.ftvScrollMouseY > parseInt(obj.find('.ftv_scroller').offset().top) + parseInt(obj.find('.ftv_scroller').css('height'))) {
+			var pos = new Object();
+			if (window.ftvScrollMouseY < parseInt(obj.find('.ftv_scroller').offset().top))
+				pos.deltaY = 1;
+			else
+				pos.deltaY = -1;
+			pos.deltaFactor = 360;
+			scroll(obj, pos);
+		}
+		setTimeout(autoScroll, 50);
+	}
+	
+	init();
+}
+*/
+
+/* 页面布局 TODO */
+function FTV_Layout() {
+	var _this = this;
+	
+	var init = function() {
+	}
+	
+	_this.layout = function() {
+		windowResize();
+	}
+	
+	init();
+}
+
 /* 触发所有类 */
 $().ready(function() {
 	window.ftvCommon = new FTV_Common();
@@ -1110,4 +1318,5 @@ $().ready(function() {
 	window.ftvNamePicker = new FTV_NamePicker();
 	window.ftvDatePicker = new ftv_DatePicker();
 	window.ftvTimePicker = new ftv_TimePicker();
+	window.ftvLayout = new FTV_Layout();
 });

@@ -1,7 +1,7 @@
 </div>
 </div>
 
-<div class="loading">
+<div class="loading hidden">
 <div class="content">
 	<img src="/image/logo.png" height="40px;"><br>
 	<img src="/image/loading.gif">
@@ -10,6 +10,7 @@
 </div>
 
 <script>
+
 function windowResize() {
 	var bodyHeight = parseInt($('body').css('height'));
 	var bodyWidth = parseInt($('body').css('width'));
@@ -29,6 +30,7 @@ function windowResize() {
 	//=====================================================================
 	// 测试列表高度
 	$('.test_list').css('height', bodyHeight - headerHeight - 52);
+	$('.test_list').css('width', bodyWidth - 63);
 	// 报告宽度
 	var testListWidth = parseInt($('.test_list').css('width'));
 	var reportWidth = parseInt($('.test_list .item .report').css('width'));
@@ -43,12 +45,14 @@ function windowResize() {
 	//=====================================================================
 	$('.left_panel').css('height', bodyHeight - headerHeight);
 	var leftPanelWidth = parseInt($('.left_panel').css('width'));
+	if (leftPanelWidth < 10) leftPanelWidth = 0;
 	//=====================================================================
 	
 	/* 页面内容 */
 	//=====================================================================
 	$('.page').css('width', bodyWidth - leftPanelWidth);
 	var pageHeadHeight = parseInt($('.page_head').css('height'));
+	if (pageHeadHeight < 10) pageHeadHeight = 0;
 	$('.page_content').css('height', bodyHeight - headerHeight - pageHeadHeight);
 	//=====================================================================
 	
@@ -101,8 +105,43 @@ function windowResize() {
 	}
 }
 
+$('.new_test').click(function() {
+	if ($('.test_list .item:first-child').css('visibility') == 'hidden')
+		createTest();
+	else
+		closeCreateTest();
+});
+
+// 显示新建测评
+function createTest() {
+	$('.test_list .item:first-child').css('visibility', 'visible');
+	$('.test_list .item:first-child').css('margin-bottom', 20);
+	$('.test_list .item:first-child').css('height', 1);
+	$('.test_list .item:first-child').show();
+	$('.test_list .item:first-child input').val('');
+	$('.test_list .item:first-child').animate({height:88}, 400, 'swing', function() {
+		$('.test_list .item:first-child input').focus();
+		$('.test_list .item:first-child').css('overflow', 'visible');
+	});
+}
+
+// 关闭新建测评
+function closeCreateTest() {
+	$('.test_list .item:first-child').css('height', 88);
+	$('.test_list .item:first-child').show();
+	$('.test_list .item:first-child').animate({height:1, marginBottom:0}, 400, 'swing', function() {
+		$('.test_list .item:first-child').css('visibility', 'hidden');
+	});
+}
+
+// 提交新建测评
+function submitCreateTest() {
+	$.post('/test/create', {name:$('.test_list .item:first-child input').val()}, function(res) {
+		location.hash = $.base64.btoa('/question/index/test_id/' + res);
+	});
+}
+
 $(window).resize(windowResize);
-//$().ready(windowResize);
 </script>
 
 </body>

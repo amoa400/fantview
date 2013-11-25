@@ -22,6 +22,9 @@ function dump(obj) {
 	div.css('background', 'white');
 	div.css('padding', '10px');
 	div.css('border', '1px solid black');
+	div.css('max-width', '800px');
+	div.css('max-height', '550px');
+	div.css('overflow', 'auto');
 	div.css('z-index', '9999');
 	var s = '';
 	var type = typeof obj;

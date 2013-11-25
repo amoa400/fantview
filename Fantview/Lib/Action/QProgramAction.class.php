@@ -1,8 +1,9 @@
 <?php
 
-// 已加权限(*)
+// 已加权限
 
 class QProgramAction extends Action {
+	
 	// 新建编程题
 	public function create() {
 		// 检查权限
@@ -100,6 +101,10 @@ class QProgramAction extends Action {
 	
 	// 新建编程题（测试数据）
 	public function create2() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_GET['question_id']);
+			
 		$question = D('Common', 'question')->r($_GET['question_id']);
 		$program = D('Common', 'q_program')->r($_GET['question_id']);
 		$program = $this->format($program);
@@ -124,6 +129,10 @@ class QProgramAction extends Action {
 	
 	// 新建测试数据
 	public function createT() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_POST['question_id']);
+		
 		$program = D('Common', 'q_program')->r($_POST['question_id']);
 		$testcase = split('\|', $program['testcase']);
 		
@@ -142,6 +151,10 @@ class QProgramAction extends Action {
 	
 	// 编辑测试数据
 	public function editT() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_POST['question_id']);
+		
 		$program = D('Common', 'q_program')->r($_POST['question_id']);
 		$testcase = split('\|', $program['testcase']);
 		
@@ -170,6 +183,10 @@ class QProgramAction extends Action {
 	
 	// 获取测试数据
 	public function getT() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_POST['question_id']);
+		
 		$data['input'] = file_get_contents('../Testcase/' . $_POST['question_id'] . '/' . (int)($_POST['testcase_id']) . '.in');
 		$data['output'] = file_get_contents('../Testcase/' . $_POST['question_id'] . '/' . (int)($_POST['testcase_id']) . '.out');
 		$this->ajaxReturn($data);
@@ -177,9 +194,13 @@ class QProgramAction extends Action {
 	
 	// 删除测试数据
 	public function deleteT() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_GET['question_id']);
+		
 		$program = D('Common', 'q_program')->r($_GET['question_id']);
 		$testcase = split('\|', $program['testcase']);
-		$idList = split('\|', $_GET['testcase_id_list']);
+		$idList = split('\|', $_GET['testcase_id_list']);	
 		
 		// 删除文件
 		$minId = 999999;
@@ -215,6 +236,10 @@ class QProgramAction extends Action {
 	
 	// 上传测试数据
 	public function uploadT() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_POST['question_id']);
+		
 		// 复制压缩包
 		deldir('../Testcase/temp/' . (int)($_POST['question_id']) . '/');
 		mkdir('../Testcase/temp/' . (int)($_POST['question_id']) . '/');
@@ -278,6 +303,10 @@ class QProgramAction extends Action {
 	
 	// 下载测试数据
 	public function downloadT() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_GET['question_id']);
+		
 		$idList = split('\|', $_GET['testcase_id_list']);
 		// 压缩测试数据
 		mkdir('../Testcase/temp/' . (int)($_GET['question_id']) . '/');
@@ -298,6 +327,10 @@ class QProgramAction extends Action {
 	
 	// 改变分数
 	public function changeTScore() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_GET['question_id']);
+		
 		$program = D('Common', 'q_program')->r($_GET['question_id']);
 		$testcase = split('\|', $program['testcase']);
 		

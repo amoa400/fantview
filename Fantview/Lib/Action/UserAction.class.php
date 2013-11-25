@@ -1,9 +1,14 @@
 <?php
 
+// 已加权限
+
 class UserAction extends Action {
 
 	// 编辑信息
 	public function edit() {
+		// 检查权限
+		A('Privilege')->isLogin();
+
 		$user = D('Common', 'user')->r($_SESSION['id']);
 		
 		$this->assign('user', $user);
@@ -17,6 +22,9 @@ class UserAction extends Action {
 	
 	// 编辑信息（处理）
 	public function editDo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		
 		$data['id'] = $_SESSION['id'];
 		$data['name'] = $_POST['name'];
 		$data['company_name'] = $_POST['company_name'];
@@ -36,6 +44,9 @@ class UserAction extends Action {
 	
 	// 编辑头像
 	public function editPhoto() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		
 		$user = D('Common', 'user')->r($_SESSION['id']);
 		
 		$this->assign('user', $user);
@@ -49,6 +60,9 @@ class UserAction extends Action {
 	
 	// 编辑头像
 	public function editPhotoDo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		
 		import('ORG.Net.UploadFile');
 		$upload = new UploadFile();
 		$upload->maxSize  = 2 * 1024 * 1024;
@@ -68,6 +82,9 @@ class UserAction extends Action {
 	
 	// 修改密码
 	public function editPass() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		
 		$page['pageTitle'] = '修改密码';
 		$page['item1'] = 'user';
 		$page['item2'] = 'edit_pass';
@@ -77,6 +94,9 @@ class UserAction extends Action {
 	
 	// 修改密码（处理）
 	public function editPassDo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		
 		$user = D('Common', 'user')->r($_SESSION['id']);
 		$ret = array();
 		if (encrypt($_POST['old_pass']) != $user['password'])

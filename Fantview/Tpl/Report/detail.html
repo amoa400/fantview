@@ -1,5 +1,5 @@
 <style>
-	.page_content {padding:0;}
+	.page_content {padding:0;overflow:hidden;}
 </style>
 
 <div class="detail_container">
@@ -93,6 +93,7 @@
 				</div>
 				<?php } ?>
 			</div>
+
 			<?php } else { ?>
 			<div class="desc2"><{$ques.detail.desc}></div>
 			<?php } ?>
@@ -207,10 +208,12 @@
 
 
 <script>
+	// 语法高亮
 	$().ready(function() {
 		SyntaxHighlighter.all('manual');
 	});
 
+	// 设定题目描述最大高度
 	function setHideDivHeight() {
 		$('.detail .desc2').each(function() {
 			if (parseInt($(this).css('height')) > 180) {
@@ -221,6 +224,7 @@
 		});
 	}
 	
+	// 显示题目描述
 	$('.detail .show_more span').click(function() {
 		if ($(this).parent().parent().find('.desc2').css('max-height') != 'none') {
 			$(this).parent().parent().find('.desc2').css('max-height', 'none');

@@ -1,9 +1,16 @@
 <?php
 
+// 已加权限
+
 class QBaseAction extends Action {
 
 	// 新建单项选择题
 	public function createSingle() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		if (!empty($_GET['question_id']))
+			A('Privilege')->haveQues($_GET['question_id']);
+		
 		$question = D('Common', 'question')->r($_GET['question_id']);
 		$single = D('Common', 'q_single')->r($_GET['question_id']);
 		$single = $this->formatSingle($single);
@@ -26,6 +33,12 @@ class QBaseAction extends Action {
 	
 	// 新建单项选择题（处理）
 	public function createSingleDo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_POST['test_id']);
+		if (!empty($_POST['question_id']))
+			A('Privilege')->haveQues($_POST['question_id']);
+		
 		// 问题基本信息
 		$data['user_id'] = $_SESSION['id'];
 		$data['name'] = mb_substr(strip_tags($_POST['desc']), 0, 20, 'utf-8');
@@ -71,6 +84,11 @@ class QBaseAction extends Action {
 	
 	// 新建不定项选择题
 	public function createMulti() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		if (!empty($_GET['question_id']))
+			A('Privilege')->haveQues($_GET['question_id']);
+
 		$question = D('Common', 'question')->r($_GET['question_id']);
 		$multi = D('Common', 'q_multi')->r($_GET['question_id']);
 		$multi = $this->formatMulti($multi);
@@ -92,7 +110,13 @@ class QBaseAction extends Action {
 	}
 	
 	// 新建不定项选择题（处理）
-	public function createMultiDo() {
+	public function createMultiDo() {	
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_POST['test_id']);
+		if (!empty($_POST['question_id']))
+			A('Privilege')->haveQues($_POST['question_id']);
+
 		// 问题基本信息
 		$data['user_id'] = $_SESSION['id'];
 		$data['name'] = mb_substr(strip_tags($_POST['desc']), 0, 20, 'utf-8');
@@ -139,6 +163,11 @@ class QBaseAction extends Action {
 	
 	// 新建主观问答题
 	public function createQA() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		if (!empty($_GET['question_id']))
+			A('Privilege')->haveQues($_GET['question_id']);
+			
 		$question = D('Common', 'question')->r($_GET['question_id']);
 		$qa = D('Common', 'q_qa')->r($_GET['question_id']);
 		$qa = $this->formatQA($qa);
@@ -161,6 +190,12 @@ class QBaseAction extends Action {
 	
 	// 新建主观问答题（处理）
 	public function createQADo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_POST['test_id']);
+		if (!empty($_POST['question_id']))
+			A('Privilege')->haveQues($_POST['question_id']);
+
 		// 问题基本信息
 		$data['test_id'] = $_POST['test_id'];
 		$data['user_id'] = $_SESSION['id'];

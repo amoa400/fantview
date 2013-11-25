@@ -38,8 +38,11 @@ class TestAction extends Action {
 		// 检查权限
 		A('Privilege')->isLogin();
 
-		$ret = D('Common', 'test')->c();
-		$this->ajaxReturn(array('linkUrl' => '/test/setting/test_id/' . $ret));
+		$data['name'] = $_POST['name'];
+		if (empty($data['name']))
+			$data['name'] = '一场新的测评';
+		$ret = D('Common', 'test')->c($data);
+		$this->ajaxReturn($ret);
 	}
 	
 	// 设置（基本信息）

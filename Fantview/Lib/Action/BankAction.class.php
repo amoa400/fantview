@@ -1,13 +1,18 @@
 <?php
 
+// 已加权限
+
 class BankAction extends Action {
 
 	// 列表
 	public function index() {
+		// 检查权限
+		A('Privilege')->isLogin();
+
 		// 获取当前测试有哪些题目
 		$filter = array(
 			'page' => 'all',
-			'test_id' => $_GET['test_id'],
+			'test_id' => (int)$_GET['test_id'],
 		);
 		$const = array(
 			'order' => array(
@@ -21,7 +26,7 @@ class BankAction extends Action {
 		$type_id = $_GET['type_id'];
 		if (empty($type_id)) $type_id = 4;
 		$user_id = $_SESSION['id'];
-		if (!empty($_GET['fantview'])) $user_id = 2;
+		if (!empty($_GET['fantview'])) $user_id = 1;
 		$filter = array(
 			'page' => $_GET['page'],
 			'user_id' => $user_id,
@@ -70,17 +75,50 @@ class BankAction extends Action {
 	
 	// 添加到测试中
 	public function addToTest() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+		
+		$ques = D('Common', 'question')->r($_GET['question_id']);
+		if ($ques['user_id'] != 1)
+			A('Privilege')->haveQues($_GET['question_id']);
+		
 		A('Question')->createDo($_GET['test_id'], $_GET['question_id']);
 	}
 	
 	// 从测试中删除
 	public function deleteFromTest() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_GET['test_id']);
+	
 		A('Question')->deleteDo($_GET['test_id'], $_GET['question_id']);
 	}
 
 	// 删除题目
 	public function delete() {
-		A('Question')->deleteDo($_GET['test_id'], $_GET['question_id']);
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_GET['question_id']);
+
+		// 从各个测试里删除题目
+		$quesList = D('Common', 'test_question')->rList(
+			array(
+				'question_id' => $_GET['question_id'],
+				'page' => 'all'
+			),
+			array(
+				'order' => array(
+					'field' => 'test_id',
+					'type' => 'ASC'
+				)
+			)
+		);
+		$quesList = $quesList['data'];
+		foreach($quesList as $ques) {
+			A('Question')->deleteDo($ques['test_id'], $ques['question_id']);
+		}
+		
 		D('Common', 'question')->d($_GET['question_id']);
 		$this->ajaxReturn(array('backward' => '1'));
 	}

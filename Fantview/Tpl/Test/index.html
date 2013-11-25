@@ -1,4 +1,38 @@
 <div class="test_list">
+
+	<!-- 新建测评 -->
+	<div class="item">
+		<div class="info">
+			<div class="cont">
+				<div class="tt"><input placeholder="一场新的测评"/></div>
+				<div class="ct">
+					<i class="fa fa-exclamation-circle"></i> 请输入您要新建的测评名称
+				</div>
+			</div>
+			<div class="it" onclick="closeCreateTest()" style="color:#c40707;">
+				<div class="icon"><i class="fa fa-times fa-lg"></i></div>
+				<div class="desc">取消</div>
+			</div>
+			<div class="it" onclick="submitCreateTest()" style="color:#1e92cd;">
+				<div class="icon"><i class="fa fa-check fa-lg"></i></div>
+				<div class="desc">确定</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="report">
+			<div class="left">
+				<i class="fa fa-bar-chart-o fa-lg"></i>
+				<span>报告</span>
+			</div>
+			<div class="right">
+				<div class="it"><span>0</span> - 已邀请</div>
+				<div class="it"><span>0</span> - 已完成</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
 	<?php foreach($testList as $test) { ?>
 	<div class="item">
 		<div class="info">
