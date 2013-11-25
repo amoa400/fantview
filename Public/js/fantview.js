@@ -187,7 +187,7 @@ function FTV_Page() {
 					if (action == 'user') {
 						$('.header .test .name').hide();
 						$('.header .test .down').hide();
-						$('.header .new_test').show();
+						$('.header .new_test').hide();
 						$('.header .new_candidate').hide();
 					}
 				}
