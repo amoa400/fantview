@@ -2,7 +2,7 @@
 
 	<!-- 新建测评 -->
 	<div class="item">
-		<div class="info">
+		<div class="info shadow1w">
 			<div class="cont">
 				<div class="tt"><input placeholder="一场新的测评"/></div>
 				<div class="ct">
@@ -19,7 +19,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		<div class="report">
+		<div class="report shadow1w">
 			<div class="left">
 				<i class="fa fa-bar-chart-o fa-lg"></i>
 				<span>报告</span>
@@ -35,7 +35,7 @@
 
 	<?php foreach($testList as $test) { ?>
 	<div class="item">
-		<div class="info">
+		<div class="info shadow1w">
 			<div class="cont">
 				<div class="tt ftv_link" md_url="/question/index/test_id/<{$test.id}>"><{$test.name}></div>
 				<div class="ct">
@@ -53,7 +53,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		<div class="report">
+		<div class="report shadow1w">
 			<div class="left ftv_link" md_url="/report/invited/test_id/<{$test.id}>">
 				<i class="fa fa-bar-chart-o fa-lg"></i>
 				<span>报告</span>

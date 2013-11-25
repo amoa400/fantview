@@ -14,6 +14,7 @@ form {background:#ffffff;}
 .corner5 {-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
 .transparent60 {filter:alpha(opacity=60);-moz-opacity:0.6;-khtml-opacity:0.6;opacity:0.6;}
 .transparent80 {filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity:0.8;opacity:0.8;}
+.shadow1w {-moz-box-shadow:rgba(0,0,0,0.15) 0 1px 1px;-webkit-box-shadow:rgba(0,0,0,0.15) 0 1px 1px;box-shadow:rgba(0,0,0,0.15) 0 1px 1px;}
 .shadow3w {-moz-box-shadow:0 0 3px #d1d1d1;-webkit-box-shadow:0 0 3px #d1d1d1;box-shadow:0 0 3px #d1d1d1;}
 .shadow5w {-moz-box-shadow:0 0 5px #d1d1d1;-webkit-box-shadow:0 0 5px #d1d1d1;box-shadow:0 0 5px #d1d1d1;}
 .shadow5b {-moz-box-shadow:0 0 5px #2f4d52;-webkit-box-shadow:0 0 5px #2f4d52;box-shadow:0 0 5px #2f4d52;}

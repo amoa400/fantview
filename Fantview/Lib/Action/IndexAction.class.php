@@ -14,7 +14,7 @@ class IndexAction extends Action {
 	// 登录
 	public function loginDo() {
 		$user = D('Common', 'user')->getByField('email', $_POST['email']);
-		if (encrypt($_POST['password']) == $user['password']) {
+		if (encrypt($_POST['password']) == $user['password'] && $user['type_id'] != 100) {
 			$this->loginSucceed($user['id']);
 			$ret['status'] = 'success';
 			$ret['jumpUrl'] = '/home';
@@ -40,9 +40,11 @@ class IndexAction extends Action {
 			// 建立用户文件夹
 			mkdir('./user/' . $res['id']);
 			// 复制头像
-			$photoId = (rand() % 50) + 1;
-			copy('./image/photo/' . $photoId . '.jpg', './user/' . $res['id'] . '/photo.jpg');
-			
+			copy('./image/photo.jpg', './user/' . $res['id'] . '/photo.jpg');
+			// 建立上传文件夹
+			mkdir('../Upload/' . $res['id']);
+			mkdir('../Upload/' . $res['id'] . '/candidate');
+
 			// 登录
 			$this->loginSucceed($res['id']);
 			$mailCont = A('Common')->getMail('激活 - 加入fantview', $_POST['name'], '欢迎注册fantview，请点击下面的链接完成验证，立即开始面试！', C('ROOT_URL') . '/index/active/p/'. encrypt1('activePass', $_POST['email']));
