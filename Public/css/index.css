@@ -46,29 +46,10 @@
 .index .function .item  .content .tt i {color:#1e92cd;}
 .index .function .item  .content .cont {font-size:16px;margin-top:15px;}
 .index .function .item  .pic {float:left;width:500px;-moz-box-shadow:0 0px 10px #d1d1d1;-webkit-box-shadow:0 0 10px #d1d1d1;box-shadow:0px 0px 10px #d1d1d1;}
-.index .function .item  .pic img {width:500px;border:1px solid #d1d1d1;}
+.index .function .item  .pic img {border:1px solid #d1d1d1;}
 .index .function .left_right .left {margin-left:55px;margin-right:115px;}
 .index .function .right_left .left {margin-left:30px;margin-right:90px;}
 .index .function .index_split {margin-top:50px;}
-
-.index .function .navi {margin-top:30px;overflow:hidden;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-moz-box-shadow:0 1px 2px #dbdbdb;-webkit-box-shadow:0 1px 2px #dbdbdb;box-shadow:0 1px 2px #dbdbdb;border:1px solid #d8d8d8;}
-.index .function .navi .item {float:left;width:326px;height:45px;line-height:47px;text-align:center;background:#ffffff;font-size:18px;cursor:pointer;letter-spacing:2px;border-left:1px solid #ededed;}
-.index .function .navi .item:hover {background:#eeeeee;}
-.index .function .navi .item:first-child {border-left:none;}
-.index .function .navi .active {color:#1d8bc3;background:#f6f6f6;}
-.index .function .navi .active:hover {color:#1d8bc3;background:#f6f6f6;}
-.index .function .list {margin-top:35px;white-space:nowrap;overflow:hidden;}
-.index .function .list .list_container {width:100%;}
-.index .function .list .content {width:100%;height:350px;display:inline-block;}
-.index .function .list .info {float:left;width:320px;}
-.index .function .list .info .tt {}
-.index .function .list .info .tt td {padding-top:20px;font-size:16px;letter-spacing:2px;color:#1d8bc3;}
-.index .function .list .info .tt td:first-child {width:30px;}
-.index .function .list .info .tt:first-child td {padding-top:0;}
-.index .function .list .info .cont {white-space:normal;word-break:break-all;}
-.index .function .list .info .cont td {padding-top:10px;color:#656565;}
-.index .function .list .pic {float:right;width:600px;height:350px;}
-.index .function .list .pic img {width:600px;height:350px;}
 
 /* register */
 .register {margin-top:30px;}
