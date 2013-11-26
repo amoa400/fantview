@@ -48,10 +48,7 @@ html {overflow-y:scroll;}
 /* about */
 .about {}
 
-.about .banner {background:url('../image/index/banner_bg.jpg') center;padding-top:20px;padding-bottom:15px;text-align:center;}
-.about .banner img {height:200px}
-
-.about .info {background:url('../image/index/banner_bg.jpg') center;text-align:center;padding-top:40px;padding-bottom:40px;color:#ffffff;text-shadow:0px 1px 3px #4e4e4e;}
+.about .info {background:url('../image/index/banner_bg.jpg') center;text-align:center;color:#ffffff;text-shadow:0px 1px 3px #4e4e4e;height:255px;padding-top:40px;}
 .about .info .title {font-size:28px;letter-spacing:3px;}
 .about .info .desc {margin-top:10px;font-size:16px;color:#e3e3e3;}
 .about .info .list {margin-top:45px;font-size:18px;}
@@ -79,6 +76,33 @@ html {overflow-y:scroll;}
 .about .team .item:nth-child(13) {border-top:3px solid #ff79eb;}
 .about .team .item:nth-child(14) {border-top:3px solid #0015b2;margin-left:40px;}
 .about .team .text {line-height:220px;text-align:center;font-size:18px;}
+
+/* join */
+.join {}
+
+.join .info {background:url('../image/index/banner_bg.jpg') center;text-align:center;height:255px;padding-top:62px;color:#ffffff;text-shadow:0px 1px 3px #4e4e4e;}
+.join .info .title {font-size:28px;letter-spacing:3px;}
+.join .info .desc {margin-top:10px;font-size:16px;color:#e3e3e3;}
+.join .info .count {font-size:18px;margin-top:30px;}
+.join .info .want {font-size:24px;margin-top:20px;}
+
+.join .job {background:url('../image/index/job_grid.png') no-repeat center;height:358px;margin-top:40px;padding-top:59px;padding-left:137px;}
+.join .job .item {width:283px;height:240px;float:left;cursor:pointer;}
+.join .job .web {background:url('../image/index/job_web.png');}
+.join .job .web:hover {background:url('../image/index/job_web_hover.png');}
+.join .job .web_hover {background:url('../image/index/job_web_hover.png');display:none;}
+.join .job .ps {background:url('../image/index/job_ps.png');margin-left:2px;}
+.join .job .ps:hover {background:url('../image/index/job_ps_hover.png');}
+.join .job .ps_hover {background:url('../image/index/job_ps_hover.png');display:none;}
+.join .job .op {background:url('../image/index/job_op.png');margin-left:2px;}
+.join .job .op:hover {background:url('../image/index/job_op_hover.png');}
+.join .job .op_hover {background:url('../image/index/job_op_hover.png');display:none;}
+
+.join .email {margin-top:40px;margin-bottom:50px;text-align:center;}
+.join .email .title {font-size:20px;}
+.join .email .title i {vertical-align:-1px;}
+.join .email .desc {margin-top:10px;font-size:16px;}
+.join .email .desc span {color:#1e92cd;}
 
 /* register */
 .register {margin-top:30px;}

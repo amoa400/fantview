@@ -11,6 +11,16 @@ class IndexAction extends Action {
 		$this->display();
 	}
 	
+	public function join() {
+		$this->assign('pageTitle', '加入我们');
+		$this->display();
+	}
+	
+	public function help() {
+		$this->assign('pageTitle', '帮助中心');
+		$this->display();
+	}
+	
 	// 登录
 	public function login() {
 		$this->display();
