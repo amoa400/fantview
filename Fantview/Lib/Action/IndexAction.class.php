@@ -6,6 +6,11 @@ class IndexAction extends Action {
 		$this->display();
     }
 	
+	public function about() {
+		$this->assign('pageTitle', '关于我们');
+		$this->display();
+	}
+	
 	// 登录
 	public function login() {
 		$this->display();
