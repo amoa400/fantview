@@ -10,6 +10,14 @@ class AttendAction extends Action {
 		$this->display();
     }
 	
+	// 公开登录
+	public function publicLogin() {
+		$test = D('Common', 'test')->r($_GET['id']);
+		$test = A('Test')->format($test);
+		$this->assign('test', $test);
+		$this->display();
+	}
+	
 	// 登录
     public function loginDo() {
 		// 查看邮箱和密码是否正确
@@ -61,6 +69,56 @@ class AttendAction extends Action {
 		$this->ajaxReturn($ret);
 	}
 	
+	// 登录
+    public function publicLoginDo() {
+		// 查看邮箱和密码是否正确
+		$ret = array();
+		if (empty($_POST['email']))
+			$ret['error']['email'] = '不能为空';
+		else
+		if (strlen($_POST['email']) > 40)
+			$ret['error']['email'] = '长度不能大于40位';
+		else
+		if (!validEmail($_POST['email']))
+			$ret['error']['email'] = '格式不正确';
+		if (empty($_POST['password']))
+			$ret['error']['password'] = '不能为空';
+		else
+		if (strlen($_POST['password']) > 10)
+			$ret['error']['password'] = '长度不能大于10位';
+		
+		// 从数据库获取
+		if (empty($ret)) {
+			$cd = D('Common', 'candidate')->rBySql(array('test_id' => $_POST['test_id'], 'email' => $_POST['email']));
+			$test = D('Common', 'test')->r($_POST['test_id']);
+			if (empty($cd)) {
+				$ret['error']['email'] = '您尚未被邀请参与此次测评';
+			}
+			else if ($cd['password'] != $_POST['password']) {
+				$ret['error']['password'] = '您的密码不正确';
+			}
+			else if ($cd['status_id'] >= 3) {
+				$ret['error']['email'] = '您已提交过此次测评，请耐心等待邮件通知';
+			}
+			else if ($test['start_datetime_int'] != 0 && time() < $test['start_datetime_int']) {
+				$ret['error']['email'] = '测评尚未开始，开始时间：'.date("Y-m-d H:i:s", $test['start_datetime_int']);
+			}
+			else if ($test['end_datetime_int'] != 0 && time() > $test['end_datetime_int']) {
+				$ret['error']['email'] = '测评已经结束';
+			}
+
+		}
+		
+		// 返回结果
+		if (!empty($ret))
+			$ret['status'] = 'fail';
+		else {
+			$ret['status'] = 'success';
+			$ret['jumpUrl'] = '/attend/fill/id/' . $_POST['test_id'];
+			$this->loginSucceed($cd['id']);
+		}
+		$this->ajaxReturn($ret);
+	}
 	// 成功登陆
 	public function loginSucceed($cd_id) {
 		$_SESSION['cd_login'] = 1;

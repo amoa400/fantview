@@ -1,0 +1,48 @@
+<include file="header"/>
+<div class="main_content">	
+<div class="login corner5">
+	<div class="intro"><{$test.desc_str}></div>
+	<div class="form_div">
+		<div class="content" style="margin:0;">
+		<form name="register" action="/attend/publicLoginDo" method="post" class="myform">
+			<div class="item email">
+				<div class="tt">邮箱<span class="tip"></span></div>
+				<div class="ct">
+					<input name="email" type="text" class="form-control" value="<{$question.score}>">
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="item pwd" style="display: none">
+				<div class="tt">密码<span class="tip"></span></div>
+				<div class="ct">
+					<input name="password" type="password" class="form-control" value="<{$program.name}>">
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="item submit">
+				<div class="ct"><span class="btn btn-primary btn-block">登录</span></div>
+			</div>
+			<input name="test_id" class="hidden" value="<{$_GET.id}>">
+			<span class="submitTip hidden">登录</span>
+			<span class="submittingTip hidden">正在登录</span>
+			<span class="successTip hidden">登录成功</span>
+			<span class="failTip hidden">登录失败</span>
+		</form>
+		</div>
+	</div>
+</div>
+
+<script>
+$().ready(function() {
+	var pageHeight = parseInt($('body').css('height'));
+	var contenteight = parseInt($('.main_content').css('height'));
+	if ((pageHeight - 45) - (contenteight - 70) > 70) {
+		$('.main_content').css('padding-top', ((pageHeight - 45) - (contenteight - 70)) * 0.3 + 40);
+	}
+	$('.submit').click(function() {
+		$('.pwd').show('fast');
+	});
+});
+</script>
+
+<include file="footer"/>
