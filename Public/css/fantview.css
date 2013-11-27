@@ -6,7 +6,7 @@
 .form_div .content .item:first-child {margin-top:0;}
 .form_div .content .item .tt {}
 .form_div .content .item .ct {width:100%;margin-top:8px;}
-.form_div .content .item .tip {float:right;color:#d9534f;}
+.form_div .content .item .tip {float:right;}
 .form_div .content .submit {margin-top:30px;}
 .form_div .content .item input[type="text"] {height:50px;font-size:16px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
 .form_div .content .item input[type="text"]:focus {-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
