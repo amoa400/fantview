@@ -16,7 +16,7 @@
 			<div class="ct"><{$question.score}></div>
 		</div>
 		<div class="it icon">
-			<div class="icon_it ques_preview" md_id="<{$question.id}>" title="预览"><i class="fa fa-search fa-lg"></i></div>
+			<div class="icon_it ques_preview_t" md_id="<{$question.id}>" title="预览"><i class="fa fa-search fa-lg"></i></div>
 			<?php if ($question['user_id'] == $_SESSION['id']) { ?>
 			<div class="icon_it ftv_link" md_url="/question/edit/question_id/<{$question.id}>" title="编辑"><i class="fa fa-edit fa-lg"></i></div>
 			<?php } else { ?>

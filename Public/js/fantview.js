@@ -972,12 +972,40 @@ function FTV_TimePicker() {
 }
 
 /* 页面弹出类 */
-function FTV_Popover(sel) {
+function FTV_Popover(sel, config) {
 	var _this = this;
+	var sel = sel;
+	var config = config;
 	
 	// 初始化函数
 	function init() {
+		// 生成遮罩
+		if (config == null || config.mask != false) {
+			var mask = $('<div></div>');
+			mask.addClass('ftv_popover_mask');
+			mask.attr('md_sel', sel);
+			mask.appendTo('body');
+			mask.animate({opacity: 0.5}, 250);
+		}
 		
+		// 生成内容
+		$(sel).removeClass('ftv_popover_content');
+		$(sel).addClass('ftv_popover_content');
+		$(sel).show();
+		$(sel).css('left', (parseInt($('body').css('width')) - parseInt($(sel).css('width'))) / 2);
+		$(sel).css('top', (parseInt($('body').css('height')) - parseInt($(sel).css('height'))) * 2 / 5);
+		$(sel).animate({opacity: 1}, 250);
+
+		// 关闭
+		$('.ftv_popover_mask').click(function() {
+			mask.animate({opacity: 0}, 80, 'swing', function() {
+				$('.ftv_popover_mask').remove()
+			});
+			var sel = $(this).attr('md_sel');
+			$(sel).animate({opacity: 0}, 80, 'swing', function() {
+				$(sel).hide();
+			});
+		});
 	}
 	
 	init();

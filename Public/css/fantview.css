@@ -73,3 +73,7 @@
 .ftv_name_picker .glyphicon {color:#a8a8a8;}
 .ftv_name_picker .active {}
 .ftv_name_picker .active .glyphicon-ok {color:#56ac56;}
+
+/* 页面弹出 */
+.ftv_popover_mask {background:#000000;opacity:0;width:100%;height:2000px;z-index:999;position:absolute;top:0;left:0;}
+.ftv_popover_content {position:fixed;top:0;left:0;z-index:1000;opacity:0;}

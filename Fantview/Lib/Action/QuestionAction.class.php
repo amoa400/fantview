@@ -152,6 +152,26 @@ class QuestionAction extends Action {
 		}
 	}
 	
+	// 获取题目详情
+	public function getDetail() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveQues($_GET['id']);
+		
+		$ques = D('Common', 'question')->r($_GET['id']);
+		$ques = $this->format($ques);
+		if ($ques['type_id'] == 1)
+			$ques['detail'] = D('Common', 'q_single')->r($_GET['id']);
+		if ($ques['type_id'] == 2)
+			$ques['detail'] = D('Common', 'q_multi')->r($_GET['id']);
+		if ($ques['type_id'] == 3)
+			$ques['detail'] = D('Common', 'q_qa')->r($_GET['id']);
+		if ($ques['type_id'] == 4)
+			$ques['detail'] = D('Common', 'q_program')->r($_GET['id']);
+		
+		$this->ajaxReturn($ques);
+	}
+	
 	// 格式化
 	public function format($question) {
 		switch ($question['type_id']) {
