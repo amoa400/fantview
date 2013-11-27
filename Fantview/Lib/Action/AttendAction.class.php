@@ -10,6 +10,14 @@ class AttendAction extends Action {
 		$this->display();
     }
 	
+	// 公开登录
+	public function publicLogin() {
+		$test = D('Common', 'test')->r($_GET['id']);
+		$test = A('Test')->format($test);
+		$this->assign('test', $test);
+		$this->display();
+	}
+	
 	// 登录
     public function loginDo() {
 		// 查看邮箱和密码是否正确
@@ -61,6 +69,39 @@ class AttendAction extends Action {
 		$this->ajaxReturn($ret);
 	}
 	
+	// 登录
+    public function publicLoginDo() {
+		// 查看邮箱和密码是否正确
+		$ret = array();
+		if (empty($_POST['email']))
+			$ret['error']['email'] = '不能为空';
+		else
+		if (strlen($_POST['email']) > 40)
+			$ret['error']['email'] = '长度不能大于40位';
+		else
+		if (!validEmail($_POST['email']))
+			$ret['error']['email'] = '格式不正确';
+		$test_id = $_POST['test_id'];
+		$test = D('Common', 'test')->r($test_id);
+		if (!$test || $test['allow_public'] != 2) {
+			$ret['status'] = 'error';
+			$ret['error'] = '该评测非公开，即将跳转登陆页...';
+			$ret['jumpUrl'] = '/attend/login/id/' . $test_id;
+			$this->ajaxReturn($ret);
+		}
+		
+		// 从数据库获取
+		if (empty($ret)) {
+			A('Report')->invite($_POST['test_id'], array($_POST['email']));
+			$ret['tip']['email'] = '邀请邮件已发送至您的邮箱，请查看邮件获取密码';
+			$ret['status'] = 'success';
+		}
+		else {
+			$ret['status'] = 'fail';
+		}
+		
+		$this->ajaxReturn($ret);
+	}
 	// 成功登陆
 	public function loginSucceed($cd_id) {
 		$_SESSION['cd_login'] = 1;
