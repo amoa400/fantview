@@ -393,7 +393,20 @@ function FTV_Form() {
 					} else submitBtn.val('提交成功');
 					submitBtn.addClass('btn-success');
 				}
-				
+				// 显示成功信息
+				for(var name in res.tip) {
+					var deep = 0;
+					var tipObj = $(thisObj).find("[name='" + name + "']").parent();
+					while (tipObj != null && (tipObj.attr('class') == null || tipObj.attr('class').indexOf('item') == -1)) {
+						deep++;
+						if (deep > 100) break;
+						tipObj = tipObj.parent();
+					}
+					tipObj = tipObj.find('.tip');
+					tipObj.addClass('tip_success');
+					tipObj.removeClass('tip_error');
+					tipObj.html('<span class="fa fa-check"></span> ' + res.tip[name]);
+				}
 			} else {
 				// 失败
 				if ($(thisObj).find('.failTip').length != 0) {
@@ -954,6 +967,18 @@ function FTV_TimePicker() {
 		});
 	}
 	_this.createIcon = createIcon;
+	
+	init();
+}
+
+/* 页面弹出类 */
+function FTV_Popover(sel) {
+	var _this = this;
+	
+	// 初始化函数
+	function init() {
+		
+	}
 	
 	init();
 }
