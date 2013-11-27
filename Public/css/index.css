@@ -83,8 +83,7 @@ html {overflow-y:scroll;}
 .join .info {background:url('../image/index/banner_bg.jpg') center;text-align:center;height:255px;padding-top:62px;color:#ffffff;text-shadow:0px 1px 3px #4e4e4e;}
 .join .info .title {font-size:28px;letter-spacing:3px;}
 .join .info .desc {margin-top:10px;font-size:16px;color:#e3e3e3;}
-.join .info .count {font-size:18px;margin-top:30px;}
-.join .info .want {font-size:24px;margin-top:20px;}
+.join .info .want {font-size:24px;margin-top:30px;}
 
 .join .job {background:url('../image/index/job_grid.png') no-repeat center;height:358px;margin-top:40px;padding-top:59px;padding-left:137px;}
 .join .job .item {width:283px;height:240px;float:left;cursor:pointer;}
