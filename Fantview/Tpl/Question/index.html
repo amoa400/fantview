@@ -16,12 +16,13 @@
 			<div class="ct"><{$question.score}></div>
 		</div>
 		<div class="it icon">
+			<div class="icon_it ques_preview" md_id="<{$question.id}>" title="预览"><i class="fa fa-search fa-lg"></i></div>
 			<?php if ($question['user_id'] == $_SESSION['id']) { ?>
-			<div class="icon_it ftv_link" md_url="/question/edit/question_id/<{$question.id}>"><i class="fa fa-edit fa-lg"></i></div>
+			<div class="icon_it ftv_link" md_url="/question/edit/question_id/<{$question.id}>" title="编辑"><i class="fa fa-edit fa-lg"></i></div>
 			<?php } else { ?>
-			<div class="icon_it disabled"><i class="fa fa-edit fa-lg"></i></div>
+			<div class="icon_it disabled" title="不可编辑"><i class="fa fa-edit fa-lg"></i></div>
 			<?php } ?>
-			<div class="icon_it question_delete"><i class="fa fa-trash-o fa-lg"></i></div>
+			<div class="icon_it question_delete" title="删除"><i class="fa fa-trash-o fa-lg"></i></div>
 			<div class="icon_it question_delete_btn ftv_link" md_url='/question/delete/question_id/<{$question.id}>' style="color:red;display:none;">确定</div>
 			<div class="icon_it question_delete question_delete_btn" style="color:black;display:none;">取消</div>
 			<div class="clear"></div>

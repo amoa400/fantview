@@ -103,6 +103,22 @@ html {overflow-y:scroll;}
 .join .email .desc {margin-top:10px;font-size:16px;}
 .join .email .desc span {color:#1e92cd;}
 
+
+/* help */
+.help {margin-top:30px;margin-bottom:40px;}
+.help .list {float:left;width:700px;}
+.help .list .title {font-size:24px;color:#1e8ec7;}
+.help .list .desc {color:#aaaaaa;margin-top:5px;}
+.help .list .item {margin-top:30px;}
+.help .list .item .tt {font-size:16px;font-weight:bold;color:#000000;}
+.help .list .item .ct {margin-top:10px;font-size:15px;color:#777777;line-height:23px;}
+.help .contact {float:right;}
+.help .contact .item  {margin-top:10px;}
+.help .contact .title {font-size:16px;font-weight:bold;}
+.help .contact .item  img {height:16px;vertical-align:-3px;}
+.help .contact a {color:#1e8ec7;}
+.help .contact a:hover {color:#0a6fa3;}
+
 /* register */
 .register {margin-top:30px;}
 .register .left {float:left;width:500px;}
