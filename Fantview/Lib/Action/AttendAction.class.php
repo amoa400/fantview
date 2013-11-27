@@ -81,13 +81,26 @@ class AttendAction extends Action {
 		else
 		if (!validEmail($_POST['email']))
 			$ret['error']['email'] = '格式不正确';
-		if (empty($_POST['password']))
-			$ret['error']['password'] = '不能为空';
+		$test_id = $_POST['test_id'];
+		$test = D('Common', 'test')->r($test_id);
+		if (!$test || $test['allow_public'] != 2) {
+			$ret['status'] = 'error';
+			$ret['error'] = '该评测非公开，即将跳转登陆页...';
+			$ret['jumpUrl'] = '/attend/login/id/' . $test_id;
+			$this->ajaxReturn($ret);
+		}
 		
 		// 从数据库获取
 		if (empty($ret)) {
 			A('Report')->invite($_POST['test_id'], array($_POST['email']));
+			$ret['tip']['email'] = '邀请邮件已发送至您的邮箱，请查看邮件获取密码';
+			$ret['status'] = 'success';
 		}
+		else {
+			$ret['status'] = 'fail';
+		}
+		
+		$this->ajaxReturn($ret);
 	}
 	// 成功登陆
 	public function loginSucceed($cd_id) {

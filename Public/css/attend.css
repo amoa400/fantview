@@ -67,6 +67,8 @@ html {overflow-y:scroll;}
 .form_div .content .item .tt {padding-left:1px;color:#000000;}
 .form_div .content .item .ct {width:100%;margin-top:8px;}
 .form_div .content .item .tip {float:right;color:#d9534f;}
+.form_div .content .item .tip_error {color:#d9534f;}
+.form_div .content .item .tip_success {color:#47a447;}
 .form_div .content .submit {margin-top:25px;}
 .form_div .content .item input {padding-left:8px;padding-right:8px;padding-top:4px;-moz-box-shadow:0 0px 1px #dbdbdb;-webkit-box-shadow:0 0px 1px #dbdbdb;box-shadow:0px 0px 1px #dbdbdb;}
 .form_div .content .item input[type="text"] {height:35px;font-size:14px;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
@@ -118,4 +120,10 @@ html {overflow-y:scroll;}
 .desc img{
 	max-width: 670px; 
 	height: auto !important;
+}
+
+img.loading2{
+	width: 16px;
+	height: 16px;
+	margin-left: 5px;
 }

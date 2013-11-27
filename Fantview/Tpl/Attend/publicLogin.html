@@ -4,7 +4,7 @@
 	<div class="intro"><{$test.desc_str}></div>
 	<div class="form_div">
 		<div class="content" style="margin:0;">
-		<form name="register" action="/attend/publicLoginDo" method="post" class="myform">
+		<form name="register" action="/attend/loginDo" method="post" class="myform">
 			<div class="item email">
 				<div class="tt">邮箱<span class="tip"></span></div>
 				<div class="ct">
@@ -20,7 +20,7 @@
 				<div class="clear"></div>
 			</div>
 			<div class="item submit">
-				<div class="ct"><span class="btn btn-primary btn-block">登录</span></div>
+				<div class="ct"><span class="btn btn-primary btn-block">加入我们</span></div>
 			</div>
 			<input name="test_id" class="hidden" value="<{$_GET.id}>">
 			<span class="submitTip hidden">登录</span>
@@ -39,8 +39,38 @@ $().ready(function() {
 	if ((pageHeight - 45) - (contenteight - 70) > 70) {
 		$('.main_content').css('padding-top', ((pageHeight - 45) - (contenteight - 70)) * 0.3 + 40);
 	}
+	var isSent = 0;
 	$('.submit').click(function() {
-		$('.pwd').show('fast');
+		if (!isSent) {
+			$('.email .tip').attr('class', 'tip').addClass('tip_success').html('<span style="color: black">邮件发送中</span><img class="loading2" src="/image/loading2.gif">');
+			var test_id = $('input[name="test_id"]').attr('value');
+			var email = $('input[name="email"]').attr('value');
+			$.ajax({
+				url: 	'/attend/publicLoginDo',
+				data: 	{
+					test_id: 	test_id,
+					email: 		email,
+				},
+				success:
+					function(res) {
+						if (res.status == "success") {
+							$('.pwd').show('fast');
+							$('.email .tip').attr('class', 'tip').addClass('tip_success').html("<span class='fa fa-check'></span>"+res.tip.email);
+							$('.submit .ct').html('<input type="submit" value="登录" class="form-control btn btn-primary">');
+							isSent = 1;
+						}
+						else if (res.status == "fail") {
+							$('.email .tip').attr('class', 'tip').addClass('tip_error').html("<span class='fa fa-times'></span>"+res.error.email);
+						}
+						else {
+							$('.email .tip').attr('class', 'tip').addClass('tip_error').html("<span class='fa fa-times'></span>"+res.error);
+							location.href = res.jumpUrl;
+						}
+
+					},
+				type: 	'POST',
+			});
+		}
 	});
 });
 </script>
