@@ -115,3 +115,7 @@ html {overflow-y:scroll;}
 	right: 0;
 	z-index: -1;
 }
+.desc img{
+	max-width: 670px; 
+	height: auto !important;
+}

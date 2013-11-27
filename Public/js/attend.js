@@ -111,6 +111,8 @@ function FTV_Question() {
 					}
 					answer.append('<div class="button"><span class="it btn btn-primary prev" md_id="' + res.base.id + '">上一题</span><span class="it btn btn-primary next" md_id="' + res.base.id + '">下一题</span></div>');
 					answer.appendTo(div);
+					if (curRank == 1) div.find('.prev').addClass('disabled');
+					if (curRank == quesCount) div.find('.next').addClass('disabled');
 				}
 				else if (res.base.type_id == 3) {
 					div.append('<div class="name">简答题</div>');
@@ -121,7 +123,8 @@ function FTV_Question() {
 					answer.append(s);
 					answer.append('<div class="button"><span class="it btn btn-primary prev" md_id="' + res.base.id + '">上一题</span><span class="it btn btn-primary next" md_id="' + res.base.id + '">下一题</span></div>');
 					answer.appendTo(div);
-
+					if (curRank == 1) div.find('.prev').addClass('disabled');
+					if (curRank == quesCount) div.find('.next').addClass('disabled');
 				}
 				
 				// 编程作答
@@ -152,6 +155,9 @@ function FTV_Question() {
 					editor[res.base.id].setFontSize(14);
 					if (res.answer) editor[res.base.id].setValue(res.answer);
 					answerArr[res.base.id]['content'] = editor[res.base.id].getValue();
+
+					if (curRank == 1) div.find('.prev').addClass('disabled');
+					if (curRank == quesCount) div.find('.next').addClass('disabled');
 				}
 			}
 		);
@@ -243,7 +249,9 @@ function FTV_Question() {
 		var id = $(this).attr('md_id');
 		$('.question .com_run').attr('disabled', 'disabled');
 		$('.question .result[md_id="' + id + '"] textarea').val('编译运行中...');
-		$('.question .view_res[md_id="' + id + '"]').click();
+		if ($('.question .view_res[md_id="' + id + '"]').html() == '查看结果') {
+			$('.question .view_res[md_id="' + id + '"]').click();
+		}
 	
 		var lang = $('.question .lang[md_id="' + id + '"]').find('option:selected').text();
 		var code = editor[id].getValue();
