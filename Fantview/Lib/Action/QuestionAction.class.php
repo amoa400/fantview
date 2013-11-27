@@ -161,13 +161,13 @@ class QuestionAction extends Action {
 		$ques = D('Common', 'question')->r($_GET['id']);
 		$ques = $this->format($ques);
 		if ($ques['type_id'] == 1)
-			$ques['detail'] = D('Common', 'q_single')->r($_GET['id']);
+			$ques['detail'] = A('QBase')->formatSingle(D('Common', 'q_single')->r($_GET['id']));
 		if ($ques['type_id'] == 2)
-			$ques['detail'] = D('Common', 'q_multi')->r($_GET['id']);
+			$ques['detail'] = A('QBase')->formatMulti(D('Common', 'q_multi')->r($_GET['id']));
 		if ($ques['type_id'] == 3)
-			$ques['detail'] = D('Common', 'q_qa')->r($_GET['id']);
+			$ques['detail'] = A('QBase')->formatQA(D('Common', 'q_qa')->r($_GET['id']));
 		if ($ques['type_id'] == 4)
-			$ques['detail'] = D('Common', 'q_program')->r($_GET['id']);
+			$ques['detail'] = A('QProgram')->format(D('Common', 'q_program')->r($_GET['id']));
 		
 		$this->ajaxReturn($ques);
 	}

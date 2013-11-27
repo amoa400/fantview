@@ -290,9 +290,13 @@ html,body {width:100%;height:100%;background:#f0f0f0;background:#ffffff;overflow
 .detail .item  .right .program .error .contt {padding:15px;}
 
 /* 题目预览 */
-.ques_preview {padding:3%;width:80%;height:70%;background:#ffffff;}
-.ques_preview .info {float:left;}
-.ques_preview .info .tt {margin-top:20px;font-size:18px;font-weight:bold;}
-.ques_preview .info .tt:first-child {margin-top:0;}
-.ques_preview .info .ct {margin-top:5px;font-size:16px;}
-.ques_preview .content {float:left;margin-left:8%;width:75%;}
+.ques_preview {width:100%;height:100%;background:url('../image/mask.png');}
+.ques_preview .contain {position:relative;width:80%;height:70%;background:#ffffff;margin:0 auto;overflow:hidden;}
+.ques_preview .close {position:absolute;right:35px;top:24px;font-size:28px}
+.ques_preview .info {float:left;padding:40px;background:#26a4e4;height:100%;color:#ffffff;}
+.ques_preview .content {float:left;font-size:16px;overflow-y:scroll;height:100%;border-left:1px solid #eeeeee;padding:40px;}
+.ques_preview .tt {margin-top:30px;font-size:18px;font-weight:bold;}
+.ques_preview .tt:first-child {margin-top:0;}
+.ques_preview .ct {margin-top:12px;font-size:16px;}
+.ques_preview .ct .correct {display:inline-block;width:24px;height:24px;vertical-align:-6px;margin-right:15px;}
+.ques_preview .ct .correct_bg {background:url('../image/icon/correct.png');}

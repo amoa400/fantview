@@ -317,6 +317,10 @@ class ReportAction extends Action {
 		
 	// 邀请面试处理
 	public function inviteDo() {
+		// 检查权限
+		A('Privilege')->isLogin();
+		A('Privilege')->haveTest($_POST['test_id']);
+
 		$user = D('Common', 'user')->r($_SESSION['id']);
 		$test = D('Common', 'test')->r($_POST['test_id']);
 		$test = A('Test')->format($test);

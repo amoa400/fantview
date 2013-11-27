@@ -985,26 +985,32 @@ function FTV_Popover(sel, config) {
 			mask.addClass('ftv_popover_mask');
 			mask.attr('md_sel', sel);
 			mask.appendTo('body');
-			mask.animate({opacity: 0.5}, 250);
+			mask.animate({opacity: 0.75}, 100, 'swing');
+
+			// 关闭
+			$('.ftv_popover_mask').click(_this.close);
 		}
 		
 		// 生成内容
 		$(sel).removeClass('ftv_popover_content');
 		$(sel).addClass('ftv_popover_content');
+		$(sel).css('opacity', 0);
 		$(sel).show();
 		$(sel).css('left', (parseInt($('body').css('width')) - parseInt($(sel).css('width'))) / 2);
 		$(sel).css('top', (parseInt($('body').css('height')) - parseInt($(sel).css('height'))) * 2 / 5);
-		$(sel).animate({opacity: 1}, 250);
+		$(sel).animate({opacity: 1}, 300);
 
-		// 关闭
-		$('.ftv_popover_mask').click(function() {
-			mask.animate({opacity: 0}, 80, 'swing', function() {
-				$('.ftv_popover_mask').remove()
-			});
-			var sel = $(this).attr('md_sel');
-			$(sel).animate({opacity: 0}, 80, 'swing', function() {
-				$(sel).hide();
-			});
+	}
+	
+	// 关闭弹出页面
+	_this.close = function() {
+		var cntSel = $('.ftv_popover_mask').attr('md_sel');
+		if (cntSel == null) cntSel = sel;
+		$(cntSel).animate({opacity: 0}, 150, 'swing', function() {
+			$(cntSel).hide();
+		});
+		$('.ftv_popover_mask').animate({opacity: 0}, 150, 'swing', function() {
+			$('.ftv_popover_mask').remove();
 		});
 	}
 	
