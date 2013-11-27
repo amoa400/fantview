@@ -249,7 +249,9 @@ function FTV_Question() {
 		var id = $(this).attr('md_id');
 		$('.question .com_run').attr('disabled', 'disabled');
 		$('.question .result[md_id="' + id + '"] textarea').val('编译运行中...');
-		$('.question .view_res[md_id="' + id + '"]').click();
+		if ($('.question .view_res[md_id="' + id + '"]').html() == '查看结果') {
+			$('.question .view_res[md_id="' + id + '"]').click();
+		}
 	
 		var lang = $('.question .lang[md_id="' + id + '"]').find('option:selected').text();
 		var code = editor[id].getValue();

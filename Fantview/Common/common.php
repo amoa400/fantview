@@ -297,7 +297,7 @@ function ImageToJPG($srcFile,$dstFile,$towidth,$toheight)
 }
 
 // 发送socket
-function sendSocket($msg, $needRecv = false, $ip = '192.168.222.131', $port = 4001) {
+function sendSocket($msg, $needRecv = false, $ip = '192.168.0.100', $port = 4002) {
 	$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 	if ($socket == false) {
 		echo '无法创建socket';

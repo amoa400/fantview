@@ -44,7 +44,7 @@ class AttendAction extends Action {
 			else if ($test['start_datetime_int'] != 0 && time() < $test['start_datetime_int']) {
 				$ret['error']['email'] = '测评尚未开始，开始时间：'.date("Y-m-d H:i:s", $test['start_datetime_int']);
 			}
-			else if ($test['start_datetime_int'] != 0 && time() > $test['end_datetime_int']) {
+			else if ($test['end_datetime_int'] != 0 && time() > $test['end_datetime_int']) {
 				$ret['error']['email'] = '测评已经结束';
 			}
 
@@ -167,6 +167,7 @@ class AttendAction extends Action {
 		$data2['count_invited'] = $test2['count_invited']-1;
 		$data2['count_running'] = $test2['count_running']+1;
 		D('Common', 'test')->u($data2);
+
 		// 跳转
 		$ret['status'] = 'success';
 		$ret['jumpUrl'] = '/attend/start/id/' . $_POST['test_id'];
@@ -183,6 +184,14 @@ class AttendAction extends Action {
 		$idList = array();
 		foreach($tmpList['data'] as $item) {
 			$idList[] = $item['question_id'];
+			// 插入数据库（基本信息）
+			$data['candidate_id'] = $_SESSION['cd_id'];
+			$data['question_id'] = $item['question_id'];
+			$data['answer'] = "";
+			$data['tot_time_int'] = 0;
+			$data['score'] = 0;
+			$data['status_id'] = 1;
+			$ret = D('Common', 'answer')->c($data);
 		}
 		$tmpList = D('Common', 'question')->rList(array('id' => $idList, 'page' => 'all'));
 		$quesCount = $tmpList['count'];
