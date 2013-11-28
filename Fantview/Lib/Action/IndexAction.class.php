@@ -2,7 +2,7 @@
 
 class IndexAction extends Action {
 
-    public function index(){
+    public function index() {
 		$this->display();
     }
 	
