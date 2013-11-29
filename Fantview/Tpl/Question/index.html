@@ -16,7 +16,7 @@
 			<div class="ct"><{$question.score}></div>
 		</div>
 		<div class="it icon">
-			<div class="icon_it ques_preview_t" md_id="<{$question.id}>" title="预览"><i class="fa fa-search fa-lg"></i></div>
+			<div class="icon_it ques_preview_t" md_id="<{$question.id}>" md_rank="<{$cnt}>" title="预览"><i class="fa fa-file-text-o fa-lg"></i></div>
 			<?php if ($question['user_id'] == $_SESSION['id']) { ?>
 			<div class="icon_it ftv_link" md_url="/question/edit/question_id/<{$question.id}>" title="编辑"><i class="fa fa-edit fa-lg"></i></div>
 			<?php } else { ?>
@@ -32,6 +32,8 @@
 	<?php } ?>	
 
 </div>
+
+<span class="question_count hidden"><?php echo count($questionList); ?></span>
 
 <script>
 	$('.question_delete').click(function() {
@@ -81,7 +83,8 @@
 		$.get('/question/reSetId', {test_id : <{$_GET.test_id}>, st : st, ed : ed}, function() {
 			for (var i = 1; i <= list.length; i++) {
 				$('.question .item:nth-child(' + (i) +  ') .id').html('<i class="fa fa-th"></i>&nbsp;&nbsp;&nbsp;&nbsp;Q' + i);
-				$('.question .item:nth-child(' + (i) +  ')').attr('id', i)
+				$('.question .item:nth-child(' + (i) +  ')').attr('id', i);
+				$('.question .item:nth-child(' + (i) +  ') .ques_preview_t').attr('md_rank', i);
 			}
 		});
 		

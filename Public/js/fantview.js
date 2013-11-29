@@ -985,7 +985,7 @@ function FTV_Popover(sel, config) {
 			mask.addClass('ftv_popover_mask');
 			mask.attr('md_sel', sel);
 			mask.appendTo('body');
-			mask.animate({opacity: 0.75}, 100, 'swing');
+			mask.animate({opacity: 0.75}, 280, 'swing');
 
 			// 关闭
 			$('.ftv_popover_mask').click(_this.close);
@@ -994,22 +994,24 @@ function FTV_Popover(sel, config) {
 		// 生成内容
 		$(sel).removeClass('ftv_popover_content');
 		$(sel).addClass('ftv_popover_content');
+		$(sel).css('position', 'fixed');
 		$(sel).css('opacity', 0);
 		$(sel).show();
 		$(sel).css('left', (parseInt($('body').css('width')) - parseInt($(sel).css('width'))) / 2);
 		$(sel).css('top', (parseInt($('body').css('height')) - parseInt($(sel).css('height'))) * 2 / 5);
-		$(sel).animate({opacity: 1}, 300);
-
+		$(sel).animate({opacity: 1}, 280);
 	}
 	
 	// 关闭弹出页面
-	_this.close = function() {
+	_this.close = function(callback) {
 		var cntSel = $('.ftv_popover_mask').attr('md_sel');
 		if (cntSel == null) cntSel = sel;
-		$(cntSel).animate({opacity: 0}, 150, 'swing', function() {
+		$(cntSel).animate({opacity: 0}, 120, 'swing', function() {
 			$(cntSel).hide();
+			if(typeof callback == 'function')
+				callback();
 		});
-		$('.ftv_popover_mask').animate({opacity: 0}, 150, 'swing', function() {
+		$('.ftv_popover_mask').animate({opacity: 0}, 120, 'swing', function() {
 			$('.ftv_popover_mask').remove();
 		});
 	}

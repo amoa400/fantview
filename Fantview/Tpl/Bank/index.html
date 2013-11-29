@@ -30,6 +30,7 @@
 		</div>
 		<div class="it icon">
 			<div class="icon_it add <?php if ($question['added'] == 1) echo 'added'; ?>" md_id="<{$question.id}>"><i class="fa fa-plus fa-lg"></i></div>
+			<div class="icon_it ques_preview_t" md_id="<{$question.id}>" md_rank="<{$cnt}>" title="预览"><i class="fa fa-file-text-o fa-lg"></i></div>
 			<?php if (empty($_GET['fantview'])) { ?>
 			<div class="icon_it ftv_link" md_url="/question/edit/question_id/<{$question.id}>"><i class="fa fa-edit fa-lg"></i></div>
 			<div class="icon_it question_delete"><i class="fa fa-trash-o fa-lg"></i></div>

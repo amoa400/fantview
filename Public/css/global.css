@@ -9,6 +9,7 @@ a:hover{color:#1d8bc3;text-decoration:none;}
 form {background:#ffffff;}
 
 .main_container{margin:0 auto;width:1000px;}
+.corner1 {-webkit-border-radius:1px;-moz-border-radius:1px;border-radius:1px;}
 .corner2 {-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;}
 .corner3 {-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
 .corner5 {-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
