@@ -59,6 +59,7 @@ function FTV_Question() {
 		
 		$.post('/attend/getQues/', {test_id : testId, question_id : id},
 			function(res) {
+				if (res.jumpUrl != null) location.href = res.jumpUrl;
 				hasLoad[res.base.id] = 1;
 				$('.question .load').hide();
 				answerArr[res.base.id] = new Array();
@@ -200,8 +201,9 @@ function FTV_Question() {
 			$(this).addClass('btn-success');
 		}
 		var thisObj = $(this);
-		$.post('/attend/saveAns/', {tot_time : parseInt(answerArr[id]['tot_time']/1000), question_id : id, type : que_type, answer : curAns, lang : codeLang}, 
+		$.post('/attend/saveAns/', {test_id: testId, tot_time : parseInt(answerArr[id]['tot_time']/1000), question_id : id, type : que_type, answer : curAns, lang : codeLang}, 
 			function(res) {
+				if (res.jumpUrl != null) location.href = res.jumpUrl;
 				time = res;
 				if (force) {
 					thisObj.html('保存成功');
