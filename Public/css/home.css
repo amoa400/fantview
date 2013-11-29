@@ -292,7 +292,8 @@ html,body {width:100%;height:100%;background:#f0f0f0;background:#ffffff;overflow
 
 /* 题目预览 */
 .ques_preview_container {width:100%;height:100%;background:url('../image/mask.png');}
-.ques_preview_container .progress_bar {position:absolute;display:none;background:#0e5271;height:1px;z-index:1111;}
+.ques_preview_container .progress_bar {position:absolute;display:none;background:#0b374b;height:1px;z-index:1111;}
+.ques_preview_container .load {position:absolute;padding:12px 20px;background:url('../image/mask.png');width:130px;}
 .ques_preview {position:absolute;width:50%;height:80%;background:#ffffff;overflow:hidden;}
 .ques_preview .close {position:absolute;right:25px;top:25px;font-size:20px}
 .ques_preview .info {padding:25px;color:#ffffff;background:#65bde6;background:-webkit-gradient(linear, 0 0, 0 100%, from(#6cc0e7), to(#56b7e3));background:-moz-linear-gradient(top, #6cc0e7, #56b7e3);background:-ms-linear-gradient(top, #6cc0e7, #56b7e3);}
@@ -301,6 +302,8 @@ html,body {width:100%;height:100%;background:#f0f0f0;background:#ffffff;overflow
 .ques_preview .info .item {float:left;font-size:18px;margin-top:10px;}
 .ques_preview .info .right {float:right;cursor:pointer;font-size:14px;}
 .ques_preview .info .right i {vertical-align:-1px;}
+.ques_preview .info .right:hover {color:#e8e8e8;}
+.ques_preview .info .right:active {color:#e0e0e0;}
 .ques_preview .content {font-size:16px;overflow-y:scroll;padding:25px;}
 .ques_preview .content .tt {margin-top:30px;font-size:18px;color:#43a5d1;}
 .ques_preview .content .tt:first-child {margin-top:0;}

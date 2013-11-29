@@ -156,7 +156,10 @@ class QuestionAction extends Action {
 	public function getDetail() {
 		// 检查权限
 		A('Privilege')->isLogin();
-		A('Privilege')->haveQues($_GET['id']);
+		
+		$ques = D('Common', 'question')->r($_GET['id']);
+		if ($ques['user_id'] != 1)
+			A('Privilege')->haveQues($_GET['id']);
 		
 		$ques = D('Common', 'question')->r($_GET['id']);
 		$ques = $this->format($ques);

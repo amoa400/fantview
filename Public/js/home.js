@@ -97,8 +97,8 @@ function QuesPreview() {
 			s += '</div>';
 			s += '<div class="item">题目类型：' + res.type + '</div>';
 			s += '<div class="item" style="margin-left:25px;">题目分值：' + res.score + '</div>';
-			s += '<div class="item right next">下一题&nbsp;<i class="fa fa-chevron-right"></i></div>';
-			s += '<div class="item right prev" style="margin-right:20px;"><i class="fa fa-chevron-left"></i>&nbsp;上一题</div>';
+			s += '<div class="item right next" onselectstart="return false">下一题&nbsp;<i class="fa fa-chevron-right"></i></div>';
+			s += '<div class="item right prev" onselectstart="return false" style="margin-right:20px;"><i class="fa fa-chevron-left"></i>&nbsp;上一题</div>';
 			s += '<div class="clear"></div>';
 			info.html(s);
 			info.find('.right').click(changeQues);
@@ -126,23 +126,23 @@ function QuesPreview() {
 				s += '<div class="ct">' + res.detail.name + '</div>';
 				s += '<div class="tt">题目描述</div>';
 				s += '<div class="ct">' + res.detail.desc + '</div>';
-				if (res.detail.input != null) {
+				if (res.detail.input != null && res.detail.input != '') {
 					s += '<div class="tt">输入数据</div>';
 					s += '<div class="ct">' + res.detail.input + '</div>';
 				}
-				if (res.detail.output != null) {
+				if (res.detail.output != null && res.detail.output != '') {
 					s += '<div class="tt">输出数据</div>';
 					s += '<div class="ct">' + res.detail.output + '</div>';
 				}
-				if (res.detail.s_input != null) {
+				if (res.detail.s_input != null && res.detail.s_input != '') {
 					s += '<div class="tt">样例输入</div>';
 					s += '<div class="ct">' + res.detail.s_input + '</div>';
 				}
-				if (res.detail.s_output != null) {
+				if (res.detail.s_output != null && res.detail.s_output != '') {
 					s += '<div class="tt">样例输出</div>';
 					s += '<div class="ct">' + res.detail.s_output + '</div>';
 				}
-				if (res.detail.hint != null) {
+				if (res.detail.hint != null && res.detail.hint != '') {
 					s += '<div class="tt">提示</div>';
 					s += '<div class="ct">' + res.detail.hint + '</div>';
 				}
@@ -193,29 +193,16 @@ function QuesPreview() {
 		if ($('.ques_preview_t[md_rank="' + cntRank + '"]').length == 0) return;
 		
 		// 进度条
-		container.append('<div class="progress_bar"></div>');
-		var progress = container.find('.progress_bar');
-		progress.css('top', parseInt(ques.css('top')) + parseInt(ques.find('.info').css('height')) - 1);
-		progress.css('width', 1);
-		progress.show();
-		
-		if ($(this).attr('class').indexOf('next') >= 0) {
-			progress.css('left', ques.css('left'));
-			progress.animate({width:parseInt(ques.css('width'))}, 500, 'swing', function() {
-				progress.remove();
-			});
-		}
-		else {
-			progress.css('left', parseInt(ques.css('left')) + parseInt(ques.css('width')) - 1);
-			progress.animate({left:parseInt(ques.css('left')), width:parseInt(ques.css('width'))}, 500, 'swing', function() {
-				progress.remove();
-			});
-		}
+		container.append('<div class="load corner5"><img src="/image/loading3.gif"></div>');
+		var load = container.find('.load');
+		load.css('top', parseInt((parseInt(ques.css('top')) + parseInt(ques.css('height'))) / 2));
+		load.css('left', parseInt((parseInt(container.css('width')) - parseInt(load.css('width'))) / 2));
 		
 		var oldQues = ques;
 		id = $('.ques_preview_t[md_rank="' + cntRank + '"]').attr('md_id');
 		rank = cntRank;
 		generateQues(function() {
+			load.remove();
 			ques.show();
 			ques.attr('md_show', 1);
 			oldQues.hide();
