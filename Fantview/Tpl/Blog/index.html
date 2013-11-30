@@ -1,5 +1,9 @@
 <include file="header"/>
 
+<style>
+	.footer {display:none;}
+</style>
+
 <div class="blog">
 <div class="main_container">
 
@@ -11,7 +15,7 @@
 				<div class="tt"><a href="/blog/article/id/<{$blog.id}>"><span><{$blog.title}></span></a></div>
 				<div class="ct"><{$blog.desc}></div>				
 			</div>
-			<div class="time"><{$blog.create_time}></div>
+			<div class="time"><!--<{$blog.create_time}>-->2013-11-30</div>
 		</div>
 		<?php }?>
 	</div>
