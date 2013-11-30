@@ -18,7 +18,7 @@ class AttendAction extends Action {
 		$test = D('Common', 'test')->r($_GET['id']);
 		$test = A('Test')->format($test);
 		$this->assign('test', $test);
-		$this->display();
+		$this->display('publicLogin');
 	}
 	
 	// 登录
