@@ -59,6 +59,7 @@ function FTV_Question() {
 		
 		$.post('/attend/getQues/', {test_id : testId, question_id : id},
 			function(res) {
+				res = eval('('+res+')');
 				if (res.jumpUrl != null) location.href = res.jumpUrl;
 				hasLoad[res.base.id] = 1;
 				$('.question .load').hide();
@@ -203,6 +204,7 @@ function FTV_Question() {
 		var thisObj = $(this);
 		$.post('/attend/saveAns/', {test_id: testId, tot_time : parseInt(answerArr[id]['tot_time']/1000), question_id : id, type : que_type, answer : curAns, lang : codeLang}, 
 			function(res) {
+				res = eval('('+res+')');
 				if (res.jumpUrl != null) location.href = res.jumpUrl;
 				time = res;
 				if (force) {
@@ -259,6 +261,7 @@ function FTV_Question() {
 		var code = editor[id].getValue();
 		$.post('/attend/comRun', {test_id : testId, question_id : id, lang : lang, code : code},
 			function(res) {
+				res = eval('('+res+')');
 				var resStr = '';
 				// 处理结果			
 				if (res.charAt(0) == 'C' && res.charAt(1) == 'E') {
