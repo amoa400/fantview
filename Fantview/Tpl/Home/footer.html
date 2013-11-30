@@ -54,14 +54,22 @@ function windowResize() {
 	var pageHeadHeight = parseInt($('.page_head').css('height'));
 	if (pageHeadHeight < 10) pageHeadHeight = 0;
 	$('.page_content').css('height', bodyHeight - headerHeight - pageHeadHeight);
+	var pageContentHeight = parseInt($('.page_content').css('height'));
 	//=====================================================================
+	
+	/* 测评列表 */
+	if (ftvPage.getAction() == 'test' && ftvPage.getFunc() == 'index') {
+		$('.test_list .no_result').css('padding-top', parseInt(pageContentHeight - parseInt($('.test_list .no_result').css('height'))) * 0.3);
+	}
 	
 	/* 题目列表 */
 	if (ftvPage.getAction() == 'question' && ftvPage.getFunc() == 'index') {
 		$('.question .name').css('width', parseInt($('.question').css('width')) - parseInt($('.question .id').css('width')) - parseInt($('.question .type').css('width')) - parseInt($('.question .score').css('width')) - parseInt($('.question .icon').css('width')) - 2);
+		$('.question .no_result').css('padding-top', parseInt(pageContentHeight - parseInt($('.question .no_result').css('height'))) * 0.25);
 	}
 	if (ftvPage.getAction() == 'bank' && ftvPage.getFunc() == 'index') {
 		$('.question .name').css('width', parseInt($('.question').css('width')) - parseInt($('.question .bank_id').css('width')) - parseInt($('.question .type').css('width')) - parseInt($('.question .score').css('width')) - parseInt($('.question .icon').css('width')) - 2);
+		$('.question .no_result').css('padding-top', parseInt(pageContentHeight - parseInt($('.question .no_result').css('height'))) * 0.25);
 	}
 	
 	/* 编辑编程题 */
@@ -123,6 +131,13 @@ function createTest() {
 		$('.test_list .item:first-child input').focus();
 		$('.test_list .item:first-child').css('overflow', 'visible');
 	});
+	$('.test_list .no_result').css('opacity', 1);
+	$('.test_list .no_result').animate({opacity:0}, 300, 'swing', function() {
+		$(this).hide();
+	});
+	$('.test_list .item:first-child input').keydown(function(e) {
+		if (e.keyCode == 13) submitCreateTest();
+	});
 }
 
 // 关闭新建测评
@@ -132,6 +147,9 @@ function closeCreateTest() {
 	$('.test_list .item:first-child').animate({height:1, marginBottom:0}, 400, 'swing', function() {
 		$('.test_list .item:first-child').css('visibility', 'hidden');
 	});
+	$('.test_list .no_result').show();
+	$('.test_list .no_result').animate({opacity:1}, 300);
+	$('.test_list .item:first-child input').unbind('keydown');
 }
 
 // 提交新建测评

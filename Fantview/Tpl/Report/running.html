@@ -28,6 +28,11 @@
 				<td><?php echo max(0, min((int)(($test['duration'] * 60 - (getTime() - $cd['start_time_int'])) / 60), (int)(($cd['end_time_int'] - getTime()) / 60))) ?>分钟</</td>
 			</tr>
 			<?php } ?>
+			<?php if (empty($cdList)) { ?>
+			<tr>
+				<td colspan="5"  style="padding-top:40px;padding-bottom:40px;"><img src="/image/home/default/no_running.png"></td>
+			</tr>
+			<?php } ?>
 		</table>
 	</div>
 	

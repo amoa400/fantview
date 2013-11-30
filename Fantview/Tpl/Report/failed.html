@@ -37,6 +37,12 @@
 				<td><span class="btn btn-default ftv_link" md_url="/report/summary/cd_id/<{$cd.id}>">查看</span></</td>
 			</tr>
 			<?php } ?>
+			
+			<?php if (empty($cdList)) { ?>
+			<tr>
+				<td colspan="7" style="padding-top:40px;padding-bottom:40px;"><img src="/image/home/default/no_failed.png"></td>
+			</tr>
+			<?php } ?>
 		</table>
 	</div>
 	

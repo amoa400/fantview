@@ -183,7 +183,7 @@ class ReportAction extends Action {
 
 		$this->assign('reportCount', $this->getCount($_GET['test_id']));
 	
-		$page['pageTitle'] = '已邀请';
+		$page['pageTitle'] = '邀请中';
 		$page['item1'] = 'report';
 		$page['item2'] = 'invited';
 		$page['content'] = $this->fetch();
@@ -316,19 +316,34 @@ class ReportAction extends Action {
 	}
 		
 	// 邀请面试处理
-	public function inviteDo() {
-		// 检查权限
-		A('Privilege')->isLogin();
-		A('Privilege')->haveTest($_POST['test_id']);
+	public function inviteDo($testId = '', $emailStr = '', $retType = 'ajax') {
+		$public = false;
+		if (!empty($testId) && !empty($emailStr)) {
+			$test = D('Common', 'test')->r($testId);
+			if (empty($test) || $test['allow_public'] == 1) return array('status' => 'fail');
+			$cd = D('Common', 'candidate')->rBySql(array('test_id' => $testId, 'email' => $emailStr));
+			if (!empty($cd)) return array('status' => 'fail', 'error' => array('email' => '该候选人已被邀请'));
+			
+			$title = $test['name'];
+			$public = true;
+		} else {
+			$testId = $_POST['test_id'];
+			$emailStr = $_POST['email'];
+			$title = $_POST['title'];
+			
+			// 检查权限
+			A('Privilege')->isLogin();
+			A('Privilege')->haveTest($testId);
+		}
 
 		$user = D('Common', 'user')->r($_SESSION['id']);
-		$test = D('Common', 'test')->r($_POST['test_id']);
+		$test = D('Common', 'test')->r($testId);
 		$test = A('Test')->format($test);
 		
 		$error = A('Common')->isCorrect(
 			array(
-				'email' => $_POST['email'], 
-				'title' => $_POST['title'],
+				'email' => $emailStr, 
+				'title' => $title,
 			), 
 			array(
 				array('email', 'empty'),
@@ -341,7 +356,11 @@ class ReportAction extends Action {
 		if (!empty($error)) {
 			$ret['status'] = 'fail';
 			$ret['error'] = $error;
-			$this->ajaxReturn($ret);
+			
+			if ($retType == 'ajax')
+				$this->ajaxReturn($ret);
+			else
+				return $ret;
 		}
 		
 		if (!empty($_POST['content']))
@@ -355,7 +374,7 @@ class ReportAction extends Action {
 		if (!empty($test['start_datetime_int']) && !empty($test['end_datetime_int']))
 			$this->assign('timeMode', 3);
 		
-		$email = $_POST['email'];
+		$email = $emailStr;
 		$email = str_replace("\r", '', $email);
 		$email = split("\n", $email);
 		
@@ -365,7 +384,7 @@ class ReportAction extends Action {
 		foreach($cdList['data'] as $cd) {
 			$idList[] = $cd['id'];
 		}
-		$this->delete($test['id'], $idList, true);
+		if (!$public) $this->delete($test['id'], $idList, true);
 		
 		// 插入新用户
 		$data = array();
@@ -400,7 +419,7 @@ class ReportAction extends Action {
 		set_time_limit(3600);
 		foreach($data as $item) {
 			$mailCont = $this->fetch('Report:inviteMail');
-			$mailCont = str_replace('<{title}>', $_POST['title'], $mailCont);
+			$mailCont = str_replace('<{title}>', $title, $mailCont);
 			$mailCont = str_replace('<{content}>', nl2br($_POST['content']), $mailCont);
 			$mailCont = str_replace('<{startTime}>', $test['start_date'] . ' ' . $test['start_time'], $mailCont);
 			$mailCont = str_replace('<{endTime}>', $test['end_date'] . ' ' . $test['end_time'], $mailCont);
@@ -409,7 +428,7 @@ class ReportAction extends Action {
 			$mailCont = str_replace('<{email}>', $item['email'], $mailCont);
 			$mailCont = str_replace('<{password}>', $item['password'], $mailCont);
 			$mailCont = str_replace('<{companyName}>', $user['company_name'], $mailCont);
-			sendEmail($item['email'], '[测评邀请] ' . $_POST['title'], $mailCont);
+			sendEmail($item['email'], '[测评邀请] ' . $title, $mailCont);
 		}
 		
 		if (empty($data))
@@ -418,7 +437,11 @@ class ReportAction extends Action {
 			$ret['status'] = 'success';
 			$ret['linkUrl'] = '/report/invited';
 		}
-		$this->ajaxReturn($ret);
+		
+		if ($retType == 'ajax')
+			$this->ajaxReturn($ret);
+		else
+			return $ret;
 	}
 
 	// 通过

@@ -29,7 +29,13 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-	<?php } ?>	
+	<?php } ?>
+
+	<?php if (empty($questionList)) { ?>
+	<div class="no_result" style="margin:0 auto;width:487px;height:371px;">
+		<img src="/image/home/default/no_question.png">
+	</div>
+	<?php } ?>
 
 </div>
 

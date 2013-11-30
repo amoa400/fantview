@@ -51,6 +51,7 @@ function FTV_Page() {
 	var cntUrl;
 	var lastUrl;
 	var firstLoad;
+	var testId;
 
 	// 初始化函数
 	var init = function() {
@@ -62,6 +63,7 @@ function FTV_Page() {
 		cntUrl = '';
 		lastUrl = '';
 		firstLoad = true;
+		testId = '';
 		if (typeof windowResize != 'undefined')
 			_this.success(windowResize);
 		$('.ftv_link').live('click', linkClick);
@@ -95,7 +97,6 @@ function FTV_Page() {
 		}
 		else {
 			// 完整路径
-			var testId = paraArr['test_id'];
 			paraArr = new Object();
 			var paras = url.split('/');
 			action = paras[1];
@@ -107,8 +108,14 @@ function FTV_Page() {
 			for (var i = 3; i < paras.length; i += 2) {
 				paraArr[paras[i]] = paras[i+1];
 			}
-			if (paraArr['test_id'] == null)
+		}
+		if (paraArr['test_id'] != null && paraArr['test_id'] != '')
+			testId = paraArr['test_id'];
+		else {
+			if (testId != null || testId != '') {
 				paraArr['test_id'] = testId;
+				notChangeHash = false;
+			}
 		}
 		// 改变hash
 		var newUrl = '/' + action + '/' + func;

@@ -94,9 +94,13 @@ class AttendAction extends Action {
 		
 		// 从数据库获取
 		if (empty($ret)) {
-			A('Report')->invite($_POST['test_id'], array($_POST['email']));
-			$ret['tip']['email'] = '邀请邮件已发送至您的邮箱，请查看邮件获取密码';
-			$ret['status'] = 'success';
+			$res = A('Report')->inviteDo($_POST['test_id'], $_POST['email'], 'return');
+			if ($res['status'] != 'success') {
+				$ret = $res;
+			} else {
+				$ret['tip']['email'] = '邀请邮件已发送至您的邮箱，请查看邮件获取密码';
+				$ret['status'] = 'success';
+			}
 		}
 		else {
 			$ret['status'] = 'fail';

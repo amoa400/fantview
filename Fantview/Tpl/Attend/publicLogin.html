@@ -53,6 +53,7 @@ $().ready(function() {
 				},
 				success:
 					function(res) {
+						res = eval('(' + res + ')');
 						if (res.status == "success") {
 							$('.pwd').show('fast');
 							$('.email .tip').attr('class', 'tip').addClass('tip_success').html("<span class='fa fa-check'></span>"+res.tip.email);

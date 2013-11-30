@@ -31,6 +31,11 @@
 				<td><{$cd.password}></td>
 			</tr>
 			<?php } ?>
+			<?php if (empty($cdList)) { ?>
+			<tr>
+				<td colspan="4" style="padding-top:40px;padding-bottom:40px;"><img src="/image/home/default/no_invited.png"></td>
+			</tr>
+			<?php } ?>
 		</table>
 	</div>
 	

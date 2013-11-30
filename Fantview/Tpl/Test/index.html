@@ -59,7 +59,7 @@
 				<span>报告</span>
 			</div>
 			<div class="right">
-				<div class="it ftv_link" md_url="/report/invited/test_id/<{$test.id}>"><span><{$test.count_invited}></span> - 已邀请</div>
+				<div class="it ftv_link" md_url="/report/invited/test_id/<{$test.id}>"><span><{$test.count_invited}></span> - 邀请中</div>
 				<div class="it ftv_link" md_url="/report/completed/test_id/<{$test.id}>"><span><{$test.count_completed}></span> - 已完成</div>
 			</div>
 			<div class="clear"></div>
@@ -97,6 +97,12 @@
 		<?php } else { ?>
 		<li><a>&raquo;</a></li>
 		<?php } ?>
+	</div>
+	<?php } ?>
+
+	<?php if (empty($testList)) { ?>
+	<div class="no_result" style="margin:0 auto;width:442px;height:397px;">
+		<img src="/image/home/default/no_test.png">
 	</div>
 	<?php } ?>
 </div>
