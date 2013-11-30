@@ -141,4 +141,14 @@ class PrivilegeAction extends Action {
 		else
 			return $this->retRes('return', true);
 	}
+
+	// 答题页：候选人是否已登录该测评
+	public function attend_isLogin($testId, $retType = 'jump') {
+		// 检测权限
+		if (empty($_SESSION['attend'][$testId]))
+			return $this->retRes($retType, false, '/attend/login/id/'.$testId);
+		else
+			return $this->retRes('return', $_SESSION['attend'][$testId]);
+	}
+
 }
