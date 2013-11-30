@@ -125,6 +125,7 @@ function FTV_Page() {
 	var fetch = function() {
 		$.get('/' + action + '/' + func, paraArr,
 			function(ret) {
+				ret = eval('(' + ret + ')');
 				// 跳转
 				if (ret.jumpUrl != null) {
 					location.href = ret.jumpUrl;
@@ -147,6 +148,7 @@ function FTV_Page() {
 					if (name == '') {
 						$.get('/test/getName', {test_id : paraArr['test_id']},
 							function(ret) {
+								ret = eval('(' + ret + ')');
 								name = ret.name;
 								$('.header .test .name').html(name);
 								$('.header .test .name').show();
@@ -364,7 +366,7 @@ function FTV_Form() {
 		formObj.submit();
 		
 		$('.iframe_' + $(thisObj).attr('name')).load(function() {
-			var resStr = $('.iframe_' + $(thisObj).attr('name'))[0].contentWindow.document.body.innerText;
+			var resStr = getInnerText($('.iframe_' + $(thisObj).attr('name'))[0].contentWindow.document.body);
 			var res = eval('(' + resStr + ')');
 			$(thisObj).find('.tip').html('');
 			if(res.status == 'success') {
@@ -471,7 +473,9 @@ function FTV_Form() {
 			$(this).val($(this).attr('md_default_value'));
 		});
 
+		$('.iframe_' + name)[0].contentWindow.document.open();
 		$('.iframe_' + name)[0].contentWindow.document.write(html);
+		$('.iframe_' + name)[0].contentWindow.document.close();
 	}
 	
 	// 更改
@@ -508,6 +512,7 @@ function FTV_NamePicker() {
 		if (data[url] == null) {
 			$.get(url, {},
 				function(ret) {
+					ret = eval('(' + ret + ')');
 					data[url] = ret;
 					thisObj.click();
 				}

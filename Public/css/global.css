@@ -1,6 +1,6 @@
 /* global */
 html,body,h1,h2,h3,h4,h5,h6,p,form,ul,ol,li,dt,dl,dd,th,td,label,bottom,input,textarea {margin:0;padding:0;}
-html,body {background:url('../image/body_bg.png');}
+html,body {}
 body {font-size:14px;font-family:"Microsoft Yahei","微软雅黑","华文细黑","宋体",Arial;color:#4f4f4f;}
 ul {margin:0;padding:0;list-style:none;}
 li {float:left;list-style:none;list-style-type:none;}

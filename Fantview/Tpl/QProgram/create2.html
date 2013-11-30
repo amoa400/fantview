@@ -257,6 +257,7 @@
 		var obj = $(this).parent().parent();
 		$.post('/q_program/getT', {question_id:<{$question.id}>, testcase_id:$(this).parent().parent().find('.testcase_id').html()},
 			function(ret) {
+				ret = eval('(' + ret + ')');
 				$('.edit_testcase input[name="testcase_id"]').val(obj.find('.testcase_id').html());
 				$('.edit_testcase input[name="score"]').val(obj.find('.score').html());
 				$('.edit_testcase textarea[name="input"]').val(ret.input);

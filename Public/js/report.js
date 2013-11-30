@@ -1,4 +1,4 @@
-// È«Ñ¡
+// å…¨é€‰
 var totChecked = 0;
 $('input[type="checkbox"]').click(function() {
 	if ($(this).attr('class') == 'select_all') {
@@ -22,9 +22,9 @@ $('input[type="checkbox"]').click(function() {
 	}
 });
 
-// »ñÈ¡Ñ¡ÖĞµÄ±àºÅÁĞ±í
+// è·å–é€‰ä¸­çš„ç¼–å·åˆ—è¡¨
 function getIdList() {
-	idList = '';
+	var idList = '';
 	var tot = $('tr').length - 1;
 	for (var i = 2; i < tot + 2; i++) {
 		var obj = $('tr:nth-child('+i+')');
@@ -34,7 +34,7 @@ function getIdList() {
 	return idList;
 }
 
-// Á´½Óµã»÷
+// é“¾æ¥ç‚¹å‡»
 $('.report_link').click(function() {
 	if (getIdList() == '') 
 		$(this).attr('md_url', 'stop');

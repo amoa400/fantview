@@ -14,6 +14,7 @@ function object_count(o){
 	return false;
 }
 
+// 显示内容
 function dump(obj) {
 	var div = $('<div></div>');
 	div.css('position', 'fixed');
@@ -39,8 +40,25 @@ function dump(obj) {
 	div.appendTo('body');
 }
 
+// 是否为邮箱
 function isEmail(s) {
 	var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
 	if (!reg.test(s)) return false;
 	else return true;
 }
+
+// 获取innerText
+function getInnerText(obj) {
+	if(obj.innerText)
+		return obj.innerText;
+	
+	var t = ""; 
+	obj = obj.childNodes || obj; 
+	for(var i = 0; i < obj.length; i++) {
+		if(obj[i].nodeType == 3)
+			t += obj[i].nodeValue;
+		else
+			t += getInnerText(obj[i].childNodes);
+	}
+	return t;
+} 

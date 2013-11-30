@@ -77,6 +77,7 @@ function QuesPreview() {
 	// 获取题目
 	var fetchQues = function(callback) {
 		$.get('/question/getDetail', {id:id}, function(res) {
+			res = eval('(' + res + ')');
 			// 生成DIV
 			ques = $('<div></div>');
 			ques.addClass('ques_preview');
