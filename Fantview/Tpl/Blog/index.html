@@ -1,0 +1,24 @@
+<include file="header"/>
+
+<div class="blog">
+<div class="main_container">
+
+	<div class="list">
+		<?php foreach ($blogList['data'] as $blog) {?>
+		<div class="item">
+			<a href="/blog/article/id/<{$blog.id}>"><div class="pic" style="background-image: url(<{$blog.title_image_url}>)"></div></a>
+			<div class="text">
+				<div class="tt"><a href="/blog/article/id/<{$blog.id}>"><span><{$blog.title}></span></a></div>
+				<div class="ct"><{$blog.desc}></div>				
+			</div>
+			<div class="time"><{$blog.create_time}></div>
+		</div>
+		<?php }?>
+	</div>
+	
+	<include file="_right"/>
+	
+	<div class="clear"></div>
+</div>
+</div>
+<include file="footer"/>
