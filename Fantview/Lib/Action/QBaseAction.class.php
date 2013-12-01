@@ -32,7 +32,7 @@ class QBaseAction extends Action {
 	}
 	
 	// 新建单项选择题（处理）
-	public function createSingleDo() {
+	public function createSingleDo() {				
 		// 检查权限
 		A('Privilege')->isLogin();
 		A('Privilege')->haveTest($_POST['test_id']);
@@ -72,6 +72,7 @@ class QBaseAction extends Action {
 				D('Common', 'q_single')->c($data2);
 				A('Question')->createDo($_POST['test_id'], $res);
 			} else {
+				A('Question')->changeScore($_POST['question_id'], $data['score']);
 				$data['id'] = $_POST['question_id'];
 				D('Common', 'question')->u($data);
 				$data2['id'] = $_POST['question_id'];
@@ -93,7 +94,7 @@ class QBaseAction extends Action {
 		$multi = D('Common', 'q_multi')->r($_GET['question_id']);
 		$multi = $this->formatMulti($multi);
 		if (empty($question)) {
-			$question['score'] = 10;
+			$question['score'] = 15;
 			$page['item2'] = 'create';
 		}
 		else {
@@ -151,6 +152,7 @@ class QBaseAction extends Action {
 				D('Common', 'q_multi')->c($data2);
 				A('Question')->createDo($_POST['test_id'], $res);
 			} else {
+				A('Question')->changeScore($_POST['question_id'], $data['score']);
 				$data['id'] = $_POST['question_id'];
 				D('Common', 'question')->u($data);
 				$data2['id'] = $_POST['question_id'];
@@ -172,7 +174,7 @@ class QBaseAction extends Action {
 		$qa = D('Common', 'q_qa')->r($_GET['question_id']);
 		$qa = $this->formatQA($qa);
 		if (empty($question)) {
-			$question['score'] = 10;
+			$question['score'] = 20;
 			$page['item2'] = 'create';
 		}
 		else {
@@ -220,6 +222,7 @@ class QBaseAction extends Action {
 				D('Common', 'q_qa')->c($data2);
 				A('Question')->createDo($_POST['test_id'], $res);
 			} else {
+				A('Question')->changeScore($_POST['question_id'], $data['score']);
 				$data['id'] = $_POST['question_id'];
 				D('Common', 'question')->u($data);
 				$data2['id'] = $_POST['question_id'];

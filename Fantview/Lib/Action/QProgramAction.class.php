@@ -15,7 +15,7 @@ class QProgramAction extends Action {
 		$program = D('Common', 'q_program')->r($_GET['question_id']);
 		$program = $this->format($program);
 		if (empty($question)) {
-			$question['score'] = 20;
+			$question['score'] = 50;
 			$program['time_limit'] = 1000;
 			$program['memory_limit'] = 32767;
 			$page['item2'] = 'create';
@@ -89,6 +89,7 @@ class QProgramAction extends Action {
 				D('Common', 'q_program')->c($data2);
 				A('Question')->createDo($_POST['test_id'], $res);
 			} else {
+				A('Question')->changeScore($_POST['question_id'], $data['score']);
 				$data['id'] = $_POST['question_id'];
 				D('Common', 'question')->u($data);
 				$data2['id'] = $_POST['question_id'];

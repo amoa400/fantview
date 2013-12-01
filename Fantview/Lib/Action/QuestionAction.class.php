@@ -132,6 +132,22 @@ class QuestionAction extends Action {
 		D('Common', 'test')->decField('id', $test_id, 'tot_score', $ques['score']);
 	}
 
+	// 修改题目分数
+	public function changeScore($quesId, $cntScore) {
+		$ques = D('Common', 'question')->r($quesId);
+		if (empty($ques)) return;
+		
+		$testList = D('Common', 'test_question')->rList(array('question_id' => $quesId), array('order' => array('field' => 'test_id', 'type' => 'ASC')));
+		$testIdList = array();
+		foreach($testList['data'] as $test) {
+			$testIdList[] = $test['test_id'];
+		}
+		
+		$data['tot_score'] = array('exp', '`tot_score` + (' . ($cntScore - $ques['score']) .')');
+		$sql['id'] = array('IN', $testIdList);
+		D('Common', 'test')->uBySql($data, $sql);
+	}
+	
 	// 重新排序
 	public function reSetId() {
 		// 检查权限

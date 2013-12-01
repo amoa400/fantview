@@ -148,9 +148,9 @@ function QuesPreview() {
 					s += '<div class="ct">' + res.detail.hint + '</div>';
 				}
 				s += '<div class="tt">时间限制</div>';
-				s += '<div class="ct">' + res.detail.time_limit + ' KB</div>';
+				s += '<div class="ct">' + res.detail.time_limit + ' MS</div>';
 				s += '<div class="tt">空间限制</div>';
-				s += '<div class="ct">' + res.detail.memory_limit + ' MS</div>';
+				s += '<div class="ct">' + res.detail.memory_limit + ' KB</div>';
 			}
 			content.html(s);
 			
