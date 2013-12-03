@@ -324,6 +324,8 @@ class AttendAction extends Action {
 					1			=>		'C'	,
 					2			=>		'C++',
 					3			=>		'Pascal',
+					4			=>		'Java',
+					5			=>		'PHP',
 				);
 				$ret['lang'] = $langArr[$res['lang']];
 			}
@@ -379,6 +381,8 @@ class AttendAction extends Action {
 				'C'				=>		1,
 				'C++'			=>		2,
 				'Pascal'		=>		3,
+				'Java'			=>		4,
+				'PHP'			=>		5,
 			);
 			$data2['lang'] = $langArr[$_POST['lang']];
 			$data2['status_id'] = 1;
@@ -443,6 +447,8 @@ class AttendAction extends Action {
 			'C'				=>		1,
 			'C++'			=>		2,
 			'Pascal'		=>		3,
+			'Java'			=>		4,
+			'PHP'			=>		5,
 		);
 		$data2['lang'] = $langArr[$_POST['lang']];
 		$data2['status_id'] = 2;
