@@ -2,6 +2,11 @@
 
 class IndexAction extends Action {
 
+	// 电子商务课程设计展示
+	public function ec() {
+		$this->display();
+	}
+
     public function index() {
 		$this->display();
     }
